@@ -18,6 +18,11 @@ public class PlayerFlashingHit : MonoBehaviour
         PlayerCollisionHandler.OnEnemyCollided += StartFlashing;
     }
 
+    private void OnDisable()
+    {
+        PlayerCollisionHandler.OnEnemyCollided -= StartFlashing;
+    }
+
 
     // Start is called before the first frame update
     void Start()
