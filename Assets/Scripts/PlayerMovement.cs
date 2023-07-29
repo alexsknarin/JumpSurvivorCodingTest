@@ -106,12 +106,5 @@ public class PlayerMovement : MonoBehaviour
         //Jump();
         ApplyBound();
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            Debug.Log("Hit");
-        }
-    }
+    
 }
