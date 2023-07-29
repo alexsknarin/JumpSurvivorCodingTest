@@ -106,5 +106,4 @@ public class PlayerMovement : MonoBehaviour
         //Jump();
         ApplyBound();
     }
-    
 }
