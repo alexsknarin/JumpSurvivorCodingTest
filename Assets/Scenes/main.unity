@@ -393,6 +393,7 @@ GameObject:
   - component: {fileID: 642352641}
   - component: {fileID: 642352640}
   - component: {fileID: 642352642}
+  - component: {fileID: 642352643}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -577,7 +578,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _flashColor: {r: 1, g: 0.17610055, b: 0.17610055, a: 0}
-  _flashFreq: 15
+  _flashFreq: 35
+  _flashDuration: 0.9
+--- !u!114 &642352643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642352635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 089d82e44b4c74d47a1d67617abf8e53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
