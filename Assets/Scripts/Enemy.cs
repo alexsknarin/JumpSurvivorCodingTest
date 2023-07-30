@@ -27,6 +27,7 @@ public class Enemy : MonoBehaviour
         _spawnPos.y = 0.5f;
         transform.position = _spawnPos;
         _direction = dir;
+        this.gameObject.SetActive(true);
     }
 
     private void Move()
