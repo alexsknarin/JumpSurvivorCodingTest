@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,5 +33,16 @@ public class Enemy : MonoBehaviour
     {
         transform.Translate(Vector3.right * Time.deltaTime *_speed * _direction);
     }
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("rightBound") && _direction > 0)
+        {
+            this.gameObject.SetActive(false);
+        }
+        else if (other.gameObject.CompareTag("leftBound") && _direction < 0)
+        {
+            this.gameObject.SetActive(false);
+        }
+    }
 }
