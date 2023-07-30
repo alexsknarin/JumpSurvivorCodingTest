@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1456410530913626441}
   - component: {fileID: 4826111162480964207}
   - component: {fileID: 2641995813006282330}
-  - component: {fileID: 680603228079286657}
+  - component: {fileID: 4745222957582305963}
   m_Layer: 0
   m_Name: EnemyDog
   m_TagString: Enemy
@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4103338655185094410
 MeshFilter:
@@ -134,7 +134,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &680603228079286657
+--- !u!114 &4745222957582305963
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 489905115007979656}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf2291a8f2628294a85611d29c0eb464, type: 3}
+  m_Script: {fileID: 11500000, guid: c347b9553e3dc2143b22e9ace7bcfb99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 8
