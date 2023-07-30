@@ -10,8 +10,7 @@ public class Enemy : MonoBehaviour
    
     void Start()
     {
-        _spawnPos.x = 20f;
-        SpawnSetup(1);
+        
     }
 
     // Update is called once per frame
@@ -22,6 +21,7 @@ public class Enemy : MonoBehaviour
 
     public void SpawnSetup(float dir)
     {
+        _spawnPos.x = 20f;
         _spawnPos.x *= -dir;
         _spawnPos.y = 0.5f;
         transform.position = _spawnPos;
