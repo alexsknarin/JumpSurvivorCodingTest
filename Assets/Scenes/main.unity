@@ -453,8 +453,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.5861802, y: 18.036163, z: 1}
-  m_Center: {x: -1.2930903, y: 3.5073566, z: 0}
+  m_Size: {x: 8.437588, y: 25.097748, z: 7.358657}
+  m_Center: {x: -3.7187939, y: 3.1656685, z: 0.0611434}
 --- !u!4 &410424391
 Transform:
   m_ObjectHideFlags: 0
@@ -884,6 +884,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyDog: {fileID: 489905115007979656, guid: 39f92c0ae1410cc4394b730e1368bb68,
     type: 3}
+  _dogSwawnRate: 2
+  _enemyKangaroo: {fileID: 7299383561004090509, guid: d9cb612faf1d7144cb03adccba21397d,
+    type: 3}
+  _kangarooSwawnRate: 4
 --- !u!1 &1403011339
 GameObject:
   m_ObjectHideFlags: 0
@@ -920,8 +924,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.5861802, y: 18.036163, z: 1}
-  m_Center: {x: -1.2930903, y: 3.5073566, z: 0}
+  m_Size: {x: 7.2942743, y: 22.85875, z: 8.773125}
+  m_Center: {x: 0.5609565, y: 3.0933018, z: 0.85907435}
 --- !u!4 &1403011341
 Transform:
   m_ObjectHideFlags: 0

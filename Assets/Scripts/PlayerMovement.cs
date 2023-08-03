@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum PlayerStates
+enum PlayerMovementStates
 {
     Move,
     Jump
@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private float _prevTime;
     private Vector3 _boundedPos;
 
-    private PlayerStates _playerStates;
+    private PlayerMovementStates _playerMovementStates;
     
     
     private void StartMove()
@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            _playerStates = PlayerStates.Move;
+            _playerMovementStates = PlayerMovementStates.Move;
             StartMove();
         }
     }
@@ -76,29 +76,29 @@ public class PlayerMovement : MonoBehaviour
     {
         _prevTime = Time.time;
         _jumpDirection = Input.GetAxis("Horizontal");
-        _playerStates = PlayerStates.Jump;
+        _playerMovementStates = PlayerMovementStates.Jump;
     }
     
     // Start is called before the first frame update
     void Start()
     {
-        _playerStates = PlayerStates.Move;
+        _playerMovementStates = PlayerMovementStates.Move;
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch (_playerStates)
+        switch (_playerMovementStates)
         {
-            case PlayerStates.Move:
+            case PlayerMovementStates.Move:
                 Move(1f);
                 break;
-            case PlayerStates.Jump:
+            case PlayerMovementStates.Jump:
                 Jump();
                 break;
         }
 
-        if ((_playerStates == PlayerStates.Move) && Input.GetKeyDown(KeyCode.Space))
+        if ((_playerMovementStates == PlayerMovementStates.Move) && Input.GetKeyDown(KeyCode.Space))
         {
             StartJump();
         }

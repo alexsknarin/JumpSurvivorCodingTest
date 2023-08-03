@@ -9,11 +9,6 @@ public abstract class Enemy : MonoBehaviour
     protected Vector3 _spawnPos = Vector3.zero;
     protected float _direction;
    
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
