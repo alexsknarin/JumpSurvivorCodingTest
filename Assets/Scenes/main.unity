@@ -887,7 +887,10 @@ MonoBehaviour:
   _dogSwawnRate: 2
   _enemyKangaroo: {fileID: 7299383561004090509, guid: d9cb612faf1d7144cb03adccba21397d,
     type: 3}
-  _kangarooSwawnRate: 4
+  _kangarooSwawnRate: 5
+  _enemyBird: {fileID: 684631733816399340, guid: dca8e78ee0ed5ac41b6531fd11928339,
+    type: 3}
+  _birdSwawnRate: 10
 --- !u!1 &1403011339
 GameObject:
   m_ObjectHideFlags: 0
