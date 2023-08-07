@@ -840,9 +840,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerHealth: {fileID: 11400000, guid: 33d15af05a7bf924c9770f27d29f4fe2, type: 2}
+  _gameTime: {fileID: 11400000, guid: 4772841074a0cf94f82fb051dc659af6, type: 2}
   _spawnManager: {fileID: 1321681998}
   _inGameUI: {fileID: 109764220}
   _gameOverUI: {fileID: 1349344314}
+  _gameOverStats: {fileID: 1113940214}
+  _currentUserName: {fileID: 11400000, guid: de08ab263f70b9b45a546049cd36245d, type: 2}
 --- !u!4 &648352127
 Transform:
   m_ObjectHideFlags: 0
@@ -1556,7 +1559,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1349344315
 RectTransform:
   m_ObjectHideFlags: 0
