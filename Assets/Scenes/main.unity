@@ -805,6 +805,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lives: 30
   _livesText: {fileID: 1463284747}
+  _playerHealth: {fileID: 11400000, guid: 6303477ae73a5294981a84e0ff2e8c2d, type: 2}
 --- !u!1 &648352125
 GameObject:
   m_ObjectHideFlags: 0

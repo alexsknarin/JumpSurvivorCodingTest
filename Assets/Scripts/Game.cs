@@ -10,6 +10,8 @@ public class Game : MonoBehaviour
     // UI
     [SerializeField] private GameObject _inGamaUI;
     [SerializeField] private GameObject _gameOverUI;
+    
+    [SerializeField] private IntVariable _playerHealth;
 
     private void OnEnable()
     {
@@ -28,7 +30,7 @@ public class Game : MonoBehaviour
 
     private void CheckLife()
     {
-        if (_life.Lives == 0)
+        if (_playerHealth.Value == 0)
         {
             Time.timeScale = 0;
             _gameOverUI.SetActive(true);

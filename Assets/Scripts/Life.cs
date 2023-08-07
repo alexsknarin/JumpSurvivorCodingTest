@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class Life : MonoBehaviour
 {
-    [SerializeField] private int _lives = 50;
-    [SerializeField] private TextMeshProUGUI _livesText;
-    public int Lives => _lives;
+    [SerializeField] private IntVariable _playerHealth;
+    [SerializeField] private IntVariable _maxHealth;
     
+
     private void OnEnable()
     {
         PlayerCollisionHandler.OnEnemyCollided += DecreaseLives;
@@ -20,18 +20,13 @@ public class Life : MonoBehaviour
         PlayerCollisionHandler.OnEnemyCollided -= DecreaseLives;
     }
 
-    private void UpdateUI()
-    {
-        _livesText.text = "Life: " + _lives.ToString().PadLeft(2);
-    }
     private void Start()
     {
-        UpdateUI();
+        _playerHealth.Value = _maxHealth.Value;
     }
 
     private void DecreaseLives()
     {
-        _lives -= 1;
-        UpdateUI();
+        _playerHealth.Value -= 1;
     }
 }
