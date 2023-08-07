@@ -10,6 +10,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private GameObject _enemyDog;
     [SerializeField] private float _dogSwawnRate = 2f;
     private float _prevDogTime;
+    private float _dogDelay = 0.1f;
+    private float _dogDelayTime;
     private ObjectPool _enemyDogPool;
 
     [SerializeField] private GameObject _enemyKangaroo;
@@ -42,23 +44,27 @@ public class SpawnManager : MonoBehaviour
 
     public void InitSpawn()
     {
-        _prevDogTime = _gameTime.Value;
+        _dogDelayTime = _gameTime.Value;
+        _prevDogTime = _dogDelayTime + _dogDelay;
         _enemyDogPool = new ObjectPool(5, _enemyDog);
 
         _kangarooDelayTime = _gameTime.Value;
         _prevKangarooTime = _kangarooDelayTime + _kangarooDelay;
         _enemyKangarooPool = new ObjectPool(3, _enemyKangaroo);
         
-        _birdDelayTime = Time.time;
+        _birdDelayTime = _gameTime.Value;
         _prevBirdTime = _kangarooDelayTime + _kangarooDelay;
         _enemyBirdPool = new ObjectPool(3, _enemyBird);
+        
+        Debug.Log("Spawner initialized");
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         // Dog
-        SpawnEnemy(0f, 0f, ref _prevDogTime, _dogSwawnRate, _enemyDogPool);
+        SpawnEnemy(_dogDelayTime, _dogDelay, ref _prevDogTime, _dogSwawnRate, _enemyDogPool);
 
         //Kangaroo
         SpawnEnemy(_kangarooDelayTime, _kangarooDelay, ref _prevKangarooTime, _kangarooSwawnRate, _enemyKangarooPool);
@@ -71,7 +77,6 @@ public class SpawnManager : MonoBehaviour
     {
         if (_gameTime.Value - delayTime > delay)
         {
-
             if (_gameTime.Value - prevEnemyTime > enemySpawnRate)
             {
                 GameObject currentEnemy =  enemyPool.GetPooledObject();

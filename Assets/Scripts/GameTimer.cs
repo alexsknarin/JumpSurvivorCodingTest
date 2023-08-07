@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,11 +18,14 @@ public class GameTimer : MonoBehaviour, IPausable
         _isPaused = false;
     }
     
-    // Start is called before the first frame update
     void Start()
     {
-        _gameTime.Value = 0f;
         Game.Pausables.Add(this);
+    }
+
+    private void OnDestroy()
+    {
+        _gameTime.Value = 0f;
     }
 
     // Update is called once per frame
