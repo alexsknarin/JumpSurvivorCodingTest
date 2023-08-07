@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Life : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private IntVariable _playerHealth;
     [SerializeField] private IntVariable _maxHealth;

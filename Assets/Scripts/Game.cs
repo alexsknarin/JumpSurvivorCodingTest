@@ -6,7 +6,7 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
     [SerializeField] private GameObject _player;
-    private Life _life;
+
     // UI
     [SerializeField] private GameObject _inGamaUI;
     [SerializeField] private GameObject _gameOverUI;
@@ -25,7 +25,6 @@ public class Game : MonoBehaviour
     
     private void Start()
     {
-        _life = _player.GetComponent<Life>();
     }
 
     private void CheckLife()
