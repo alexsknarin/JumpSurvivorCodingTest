@@ -18,6 +18,7 @@ public class ObjectPool
             _currentObject = GameObject.Instantiate(prefab, prefab.transform.position, prefab.transform.rotation);
             _currentObject.SetActive(false);
             _pooledObjects.Add(_currentObject);
+            Game.Pausables.Add(_currentObject.GetComponent<IPausable>());
         }
     }
 

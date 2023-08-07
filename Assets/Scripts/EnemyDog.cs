@@ -16,6 +16,9 @@ public class EnemyDog : Enemy
 
     protected override void Move()
     {
-        transform.Translate(Vector3.right * Time.deltaTime * _speed * _direction);
+        if (!_isPaused)
+        {
+            transform.Translate(Vector3.right * Time.deltaTime * _speed * _direction);    
+        }
     }
 }

@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c9b4489e48a5d41a0bee536a8e4db6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _testingMode: 0
   _speed: 4
   _jumpCurve:
     serializedVersion: 2
@@ -184,3 +185,4 @@ MonoBehaviour:
   _jumpHeight: 5
   _jumpHorizontalSpeed: 5
   _waitTime: 0.5
+  _gameTime: {fileID: 11400000, guid: 4772841074a0cf94f82fb051dc659af6, type: 2}

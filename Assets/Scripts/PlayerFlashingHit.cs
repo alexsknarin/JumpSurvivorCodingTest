@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerFlashingHit : MonoBehaviour
 {
+    [SerializeField] private FloatVariable _gameTime;
     [SerializeField] private Color _flashColor;
     [SerializeField] private float _flashFreq;
     [SerializeField] private float _flashDuration;
@@ -42,9 +43,9 @@ public class PlayerFlashingHit : MonoBehaviour
 
     private void Flashing()
     {
-        _flashValue = (Mathf.Sin(Time.time * _flashFreq) + 1f) / 2f; 
+        _flashValue = (Mathf.Sin(_gameTime.Value * _flashFreq) + 1f) / 2f; 
         _material.color = Color.Lerp(Color.white, _flashColor, _flashValue);
-        if (Time.time - _prevTime > _flashDuration)
+        if (_gameTime.Value - _prevTime > _flashDuration)
         {
             _isFlashing = false;
             _material.color = Color.white;
@@ -55,6 +56,6 @@ public class PlayerFlashingHit : MonoBehaviour
     private void StartFlashing()
     {
         _isFlashing = true;
-        _prevTime = Time.time;
+        _prevTime = _gameTime.Value;
     }
 }

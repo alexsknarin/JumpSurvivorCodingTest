@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "SO Variables/IntVariable")]
-public class IntVariable : ScriptableObject
+[CreateAssetMenu(menuName = "SO Variables/FloatVariable")]
+public class FloatVariable : ScriptableObject
 {
-    [SerializeField] private int _value;
+    [SerializeField] private float _value;
     [SerializeField] private bool _readOnly = true;
-    public int Value
+    public float Value
     {
         get { return _value; }
         set

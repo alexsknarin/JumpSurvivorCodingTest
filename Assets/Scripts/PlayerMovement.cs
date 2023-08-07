@@ -9,8 +9,10 @@ enum PlayerMovementStates
     Jump
 }
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IPausable
 {
+    [SerializeField] private FloatVariable _gameTime;
+    private bool _isPaused;
     [SerializeField] private float _speed;
     [SerializeField] private float _xBound;
     [SerializeField] private AnimationCurve _jumpCurve;
@@ -24,6 +26,15 @@ public class PlayerMovement : MonoBehaviour
 
     private PlayerMovementStates _playerMovementStates;
     
+    public void SetPaused()
+    {
+        _isPaused = true;
+    }
+
+    public void SetUnpaused()
+    {
+        _isPaused = false;
+    }
     
     private void StartMove()
     {
@@ -54,10 +65,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        if (Time.time - _prevTime < _jumpTime)
+        if (_gameTime.Value - _prevTime < _jumpTime)
         {
             Vector3 jumpPos = transform.position;
-            float jumpPhase = (Time.time - _prevTime) / _jumpTime;
+            float jumpPhase = (_gameTime.Value - _prevTime) / _jumpTime;
             jumpPos.y = _jumpCurve.Evaluate(jumpPhase) * _jumpHeight + 0.5f;
             jumpPos.x += _jumpDirection * _jumpHorizontalSpeed * Time.deltaTime; 
             transform.position = jumpPos;
@@ -74,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void StartJump()
     {
-        _prevTime = Time.time;
+        _prevTime = _gameTime.Value;
         _jumpDirection = Input.GetAxis("Horizontal");
         _playerMovementStates = PlayerMovementStates.Jump;
     }
@@ -83,27 +94,31 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         _playerMovementStates = PlayerMovementStates.Move;
+        Game.Pausables.Add(this);
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch (_playerMovementStates)
+        if (!_isPaused)
         {
-            case PlayerMovementStates.Move:
-                Move(1f);
-                break;
-            case PlayerMovementStates.Jump:
-                Jump();
-                break;
-        }
+            switch (_playerMovementStates)
+            {
+                case PlayerMovementStates.Move:
+                    Move(1f);
+                    break;
+                case PlayerMovementStates.Jump:
+                    Jump();
+                    break;
+            }
 
-        if ((_playerMovementStates == PlayerMovementStates.Move) && Input.GetKeyDown(KeyCode.Space))
-        {
-            StartJump();
-        }
+            if ((_playerMovementStates == PlayerMovementStates.Move) && Input.GetKeyDown(KeyCode.Space))
+            {
+                StartJump();
+            }
         
-        //Jump();
-        ApplyBound();
+            //Jump();
+            ApplyBound();            
+        }
     }
 }

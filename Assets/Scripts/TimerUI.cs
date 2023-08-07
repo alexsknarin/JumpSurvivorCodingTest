@@ -6,6 +6,7 @@ using UnityEngine;
 public class TimerUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _timerText;
+    [SerializeField] private FloatVariable _gameTime;
 
     void Start()
     {
@@ -14,7 +15,7 @@ public class TimerUI : MonoBehaviour
 
     void Update()
     {
-        ShowTimeText(FormatTime(Time.time));
+        ShowTimeText(FormatTime(_gameTime.Value));
     }
 
     private void ShowTimeText(string time)

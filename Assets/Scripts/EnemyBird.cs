@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class EnemyBird : Enemy
@@ -12,13 +13,9 @@ public class EnemyBird : Enemy
     private float _phase;
     private Vector3 _sinPos;
     
-   private void Start()
-    {
-        SpawnSetup(1);
-    }
-
     public override void SpawnSetup(float dir)
     {
+
         _spawnPos.x = 20f;
         _spawnPos.x *= -dir;
         _spawnPos.y = 5f;
@@ -33,13 +30,15 @@ public class EnemyBird : Enemy
 
     protected override void Move()
     {
-        _sinPos.x = transform.position.x;
-        _sinPos.x += _direction * _speed * Time.deltaTime;
-        _sinPos.y = Mathf.Sin(_phase * _frequency) * _amplitude + _midLevel;
+        if (!_isPaused)
+        {
+            _sinPos.x = transform.position.x;
+            _sinPos.x += _direction * _speed * Time.deltaTime;
+            _sinPos.y = Mathf.Sin(_phase * _frequency) * _amplitude + _midLevel;
 
-        transform.position = _sinPos;
+            transform.position = _sinPos;
 
-        _phase += Time.deltaTime;
-
+            _phase += Time.deltaTime;    
+        }
     }
 }
