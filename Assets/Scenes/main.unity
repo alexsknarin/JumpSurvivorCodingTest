@@ -808,7 +808,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerHealth: {fileID: 11400000, guid: 33d15af05a7bf924c9770f27d29f4fe2, type: 2}
-  _maxHealth: {fileID: 11400000, guid: 709d7144429d6084b8bb0dbddea642aa, type: 2}
+  _maxHealth:
+  - {fileID: 11400000, guid: fce7a443539407446831be1d5822fb45, type: 2}
+  - {fileID: 11400000, guid: d42f7e8867ea03147b560ce592d8d087, type: 2}
+  - {fileID: 11400000, guid: 709d7144429d6084b8bb0dbddea642aa, type: 2}
+  _maxHealthCurrent: {fileID: 11400000, guid: c926da7d9e572114a9d10226da25fbb5, type: 2}
+  _dificultyLevel: {fileID: 11400000, guid: eefded0214c5362409c4b415207d4223, type: 2}
 --- !u!1 &648352125
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,6 +851,7 @@ MonoBehaviour:
   _gameOverUI: {fileID: 1349344314}
   _gameOverStats: {fileID: 1113940214}
   _currentUserName: {fileID: 11400000, guid: de08ab263f70b9b45a546049cd36245d, type: 2}
+  _difficulyLevel: {fileID: 11400000, guid: eefded0214c5362409c4b415207d4223, type: 2}
 --- !u!4 &648352127
 Transform:
   m_ObjectHideFlags: 0
@@ -1240,7 +1246,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Player Name: \nTime:"
+  m_text: "Player Name: \nDifficulty Level: \nTime:"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1303,7 +1309,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: -99.461975}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1473,7 +1479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerHealth: {fileID: 11400000, guid: 33d15af05a7bf924c9770f27d29f4fe2, type: 2}
-  _maxHealth: {fileID: 11400000, guid: 709d7144429d6084b8bb0dbddea642aa, type: 2}
+  _maxHealth: {fileID: 11400000, guid: c926da7d9e572114a9d10226da25fbb5, type: 2}
   _healthText: {fileID: 1463284747}
   _lifeBarSize: {fileID: 1140934021}
 --- !u!114 &1207465502

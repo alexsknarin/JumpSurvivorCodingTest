@@ -19,6 +19,7 @@ public class Game : MonoBehaviour
     [SerializeField] private GameObject _gameOverUI;
     [SerializeField] private TextMeshProUGUI _gameOverStats;
     [SerializeField] private StringVariable _currentUserName;
+    [SerializeField] private IntVariable _difficulyLevel;
  
     // Pause Handling
     public static List<IPausable> Pausables = new List<IPausable>();
@@ -50,6 +51,23 @@ public class Game : MonoBehaviour
             p.SetUnpaused();
         }
     }
+
+    private string GetDifficultyLevelName(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                return "Easy";
+                break;
+            case 1:
+                return "Meduim";
+                break;
+            case 2:
+                return "Hard";
+                break;
+        }
+        return " ";
+    }
     
     
     private void Update()
@@ -80,7 +98,9 @@ public class Game : MonoBehaviour
         {
             _gameOverUI.SetActive(true);
             _inGameUI.SetActive(false);
-            _gameOverStats.text = "Player Name: " + _currentUserName.Value + "\n" + "Time: " + ((int)_gameTime.Value).ToString() + " seconds";
+            _gameOverStats.text = "Player Name: " + _currentUserName.Value + "\n" 
+                                  + "Difficulty Level: " + GetDifficultyLevelName(_difficulyLevel.Value) + "\n" 
+                                  + "Time: " + ((int)_gameTime.Value).ToString() + " seconds";
             PauseGame();
             _isGameOver = true;
         }
