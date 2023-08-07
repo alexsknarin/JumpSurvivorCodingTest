@@ -13,27 +13,48 @@ public class Game : MonoBehaviour
     [SerializeField] private SpawnManager _spawnManager;
     
     // Global Game UI
-    [SerializeField] private GameObject _inGamaUI;
+    [SerializeField] private GameObject _inGameUI;
     [SerializeField] private GameObject _gameOverUI;
  
     // Pause Handling
     public static List<IPausable> Pausables = new List<IPausable>();
 
+    private void OnEnable()
+    {
+        PlayerCollisionHandler.OnEnemyCollided += CheckLife;
+    }
+
+    private void OnDisable()
+    {
+        PlayerCollisionHandler.OnEnemyCollided -= CheckLife;
+    }
+    
+    private void PauseGame()
+    {
+        foreach (var p in Pausables)
+        {
+            p.SetPaused();
+        }
+    }
+    
+    private void UnPauseGame()
+    {
+        foreach (var p in Pausables)
+        {
+            p.SetUnpaused();
+        }
+    }
+    
+    
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            foreach (var p in Pausables)
-            {
-                p.SetPaused();
-            }
+            PauseGame();
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            foreach (var p in Pausables)
-            {
-                p.SetUnpaused();
-            }
+            UnPauseGame();
         }
     }
 
@@ -47,6 +68,7 @@ public class Game : MonoBehaviour
         if (_playerHealth.Value == 0)
         {
             _gameOverUI.SetActive(true);
+            PauseGame();
         }
     }
 }

@@ -337,6 +337,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _gameTime: {fileID: 11400000, guid: 4772841074a0cf94f82fb051dc659af6, type: 2}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,7 +840,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerHealth: {fileID: 11400000, guid: 33d15af05a7bf924c9770f27d29f4fe2, type: 2}
   _spawnManager: {fileID: 1321681998}
-  _inGamaUI: {fileID: 109764220}
+  _inGameUI: {fileID: 0}
   _gameOverUI: {fileID: 1349344314}
 --- !u!4 &648352127
 Transform:
