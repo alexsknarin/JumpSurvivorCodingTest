@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEngine.Events;
 
 public class SaveScores : MonoBehaviour
 {
@@ -14,7 +17,15 @@ public class SaveScores : MonoBehaviour
     private SaveContainer _saveContainer = new SaveContainer();
     private SaveData _saveData = new SaveData();
 
-    
+    private void OnEnable()
+    {
+        Game.OnGameOver += SaveSoreData;
+    }
+
+    private void OnDisable()
+    {
+        Game.OnGameOver -= SaveSoreData;
+    }
 
     private void SaveSoreData()
     {
@@ -25,8 +36,6 @@ public class SaveScores : MonoBehaviour
             Directory.CreateDirectory(fullSaveFolderPath); 
         }
         string fullSaveFilePath = fullSaveFolderPath + Game.GetDifficultyLevelName(_difficultyLevel.Value) + "_" + _baseFileName;
-        Debug.Log(fullSaveFilePath);
-        
 
         _saveContainer.Entries.Clear();
         string json;

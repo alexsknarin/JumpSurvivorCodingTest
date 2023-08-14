@@ -20,6 +20,7 @@ public class MainMenuUI : MonoBehaviour
     {
         _startGameButton.onClick.AddListener(StartGame);
         _exitGameButton.onClick.AddListener(ExitGame);
+        _hightScoreButton.onClick.AddListener(ShowHighScores);
     }
 
     private void StartGame()
@@ -31,13 +32,23 @@ public class MainMenuUI : MonoBehaviour
         }
         _userNameVariable.Value = userName;
         _difficultyLevelVariable.Value = _difficutlyLevelDropdown.value;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     private void ExitGame()
     {
-        Application.Quit();
+        
         _difficultyLevelVariable.Value = 0;
         _userNameVariable.Value = "noname";
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
+    private void ShowHighScores()
+    {
+        SceneManager.LoadScene(2);
     }
 }

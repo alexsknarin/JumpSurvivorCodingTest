@@ -23,6 +23,11 @@ public class Game : MonoBehaviour
  
     // Pause Handling
     public static List<IPausable> Pausables = new List<IPausable>();
+    
+    // Game Over event
+    public delegate void OnGameOverAction();
+    public static event OnGameOverAction OnGameOver;
+    
 
     private bool _isGameOver = false;
 
@@ -94,6 +99,7 @@ public class Game : MonoBehaviour
     
     private void CheckLife()
     {
+        // Game Over
         if (_playerHealth.Value == 0)
         {
             _gameOverUI.SetActive(true);
@@ -103,6 +109,11 @@ public class Game : MonoBehaviour
                                   + "Time: " + ((int)_gameTime.Value).ToString() + " seconds";
             PauseGame();
             _isGameOver = true;
+            
+            if (OnGameOver != null)
+            {
+                OnGameOver();    
+            }
         }
     }
 }
