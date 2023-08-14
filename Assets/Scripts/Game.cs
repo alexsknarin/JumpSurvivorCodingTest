@@ -52,7 +52,7 @@ public class Game : MonoBehaviour
         }
     }
 
-    private string GetDifficultyLevelName(int index)
+    public static string GetDifficultyLevelName(int index)
     {
         switch (index)
         {
