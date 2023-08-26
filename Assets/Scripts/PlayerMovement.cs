@@ -1,30 +1,11 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-enum PlayerMovementStates
-{
-    Move,
-    Jump
-}
 
 public class PlayerMovement : MonoBehaviour, IPausable
 {
-    [SerializeField] private FloatVariable _gameTime;
     private bool _isPaused;
-    [SerializeField] private float _speed;
     [SerializeField] private float _xBound;
-    [SerializeField] private AnimationCurve _jumpCurve;
-    [SerializeField] private float _jumpHeight;
-    [SerializeField] private float _jumpTime;
-    [SerializeField] private float _jumpHorizontalSpeed;
-    private float _jumpDirection;
-    [SerializeField] private float _jumpControl;
-    private float _prevTime;
     private Vector3 _boundedPos;
-    
-    //---
+
     private StateMachine _moveStateMachine = new StateMachine();
     public PlayerMovementBaseState _playerMoveState;
     public PlayerMovementBaseState _playerJumpState;
