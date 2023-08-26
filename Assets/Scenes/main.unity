@@ -862,6 +862,8 @@ MonoBehaviour:
   _jumpTime: 0.8
   _jumpHorizontalSpeed: 13
   _jumpControl: 0.5
+  _playerMoveState: {fileID: 11400000, guid: d65a1e3ae6578d54badb04653fd2f122, type: 2}
+  _playerJumpState: {fileID: 11400000, guid: aee0114be8484d74388134c813caee33, type: 2}
 --- !u!54 &642352641
 Rigidbody:
   m_ObjectHideFlags: 0
