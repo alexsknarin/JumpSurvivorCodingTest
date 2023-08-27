@@ -7,16 +7,16 @@ public class PlayerMovement : MonoBehaviour, IPausable
     private Vector3 _boundedPos;
 
     private StateMachine _moveStateMachine = new StateMachine();
-    public PlayerMovementBaseState _playerMoveState;
-    public PlayerMovementBaseState _playerJumpState;
+    public PlayerMovementBaseState PlayerMoveState;
+    public PlayerMovementBaseState PlayerJumpState;
     
     // Start is called before the first frame update
     void Start()
     {
         Game.Pausables.Add(this);
-        _playerMoveState.Init(this, _moveStateMachine);
-        _playerJumpState.Init(this, _moveStateMachine);
-        _moveStateMachine.SetState(_playerMoveState);
+        PlayerMoveState.Init(this, _moveStateMachine);
+        PlayerJumpState.Init(this, _moveStateMachine);
+        _moveStateMachine.SetState(PlayerMoveState);
     }
 
     // Update is called once per frame

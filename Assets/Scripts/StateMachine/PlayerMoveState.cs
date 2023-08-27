@@ -21,7 +21,7 @@ public class PlayerMoveState : PlayerMovementBaseState
         
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _stateMachine.SetState(_owner._playerJumpState);
+            _stateMachine.SetState(_owner.PlayerJumpState);
         }
     }
 }

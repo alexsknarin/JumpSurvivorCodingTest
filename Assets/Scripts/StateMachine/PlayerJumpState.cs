@@ -37,7 +37,7 @@ public class PlayerJumpState : PlayerMovementBaseState
         }
         else
         {
-            _stateMachine.SetState(_owner._playerMoveState);
+            _stateMachine.SetState(_owner.PlayerMoveState);
         }
     }
 }
