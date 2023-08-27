@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "PlayerMovement/playerMoveState", fileName = "playerMoveState")]
-public class PlayerMoveState : PlayerMovementBaseState
+public class PlayerMoveState : MovementBaseState
 {
     [SerializeField] private float _horizontalSpeed;
     
     public override void EnterState()
     {
-        Vector3 pos = _playerTransform.position;
+        Vector3 pos = _transform.position;
         pos.y = 0.5f;
-        _playerTransform.position = pos;
+        _transform.position = pos;
     }
 
     public override void ExecuteState()
     {
-        _playerTransform.Translate(Vector3.right * Input.GetAxis("Horizontal") * _horizontalSpeed * Time.deltaTime);
-        _owner.ApplyBound(_playerTransform);
+        _transform.Translate(Vector3.right * Input.GetAxis("Horizontal") * _horizontalSpeed * Time.deltaTime);
+        _owner.ApplyBound(_transform);
         
         if (Input.GetKeyDown(KeyCode.Space))
         {

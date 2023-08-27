@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "PlayerMovement/playerJumpState", fileName = "playerJumpState")]
-public class PlayerJumpState : PlayerMovementBaseState
+public class PlayerJumpState : MovementBaseState
 {
     [SerializeField] private float _horizontalSpeed;
     [SerializeField] private FloatVariable _gameTime;
@@ -25,15 +25,15 @@ public class PlayerJumpState : PlayerMovementBaseState
     {
         if (_gameTime.Value - _prevTime < _jumpTime)
         {
-            Vector3 jumpPos = _playerTransform.position;
+            Vector3 jumpPos = _transform.position;
             float jumpPhase = (_gameTime.Value - _prevTime) / _jumpTime;
             jumpPos.y = _jumpCurve.Evaluate(jumpPhase) * _jumpHeight + 0.5f;
             jumpPos.x += _jumpDirection * _jumpHorizontalSpeed * Time.deltaTime; 
-            _playerTransform.position = jumpPos;
+            _transform.position = jumpPos;
             // Air Movement
-            _playerTransform.Translate(Vector3.right * Input.GetAxis("Horizontal") * _horizontalSpeed * _airControl * Time.deltaTime);
+            _transform.Translate(Vector3.right * Input.GetAxis("Horizontal") * _horizontalSpeed * _airControl * Time.deltaTime);
                         
-            _owner.ApplyBound(_playerTransform);
+            _owner.ApplyBound(_transform);
         }
         else
         {

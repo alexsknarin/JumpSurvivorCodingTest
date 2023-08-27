@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovementBaseState : ScriptableObject, IState
+public class MovementBaseState : ScriptableObject, IState
 {
     protected PlayerMovement _owner;
     protected StateMachine _stateMachine;
-    protected Transform _playerTransform;
+    protected Transform _transform;
     
     public void Init(PlayerMovement owner, StateMachine stateMachine)
     {
         _owner = owner;
         _stateMachine = stateMachine;
-        _playerTransform = owner.gameObject.transform;
+        _transform = owner.gameObject.transform;
     }
 
     public virtual void EnterState()

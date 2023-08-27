@@ -7,8 +7,8 @@ public class PlayerMovement : MonoBehaviour, IPausable
     private Vector3 _boundedPos;
 
     private StateMachine _moveStateMachine = new StateMachine();
-    public PlayerMovementBaseState _playerMoveState;
-    public PlayerMovementBaseState _playerJumpState;
+    public MovementBaseState _playerMoveState;
+    public MovementBaseState _playerJumpState;
     
     // Start is called before the first frame update
     void Start()
