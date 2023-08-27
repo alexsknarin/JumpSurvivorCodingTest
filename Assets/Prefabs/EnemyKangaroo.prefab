@@ -186,3 +186,5 @@ MonoBehaviour:
   _jumpHorizontalSpeed: 5
   _waitTime: 0.5
   _gameTime: {fileID: 11400000, guid: 4772841074a0cf94f82fb051dc659af6, type: 2}
+  _kangarooWaitState: {fileID: 11400000, guid: 1cf7a9cbd760db14e9ce40ba26addaa5, type: 2}
+  _kangarooJumpState: {fileID: 11400000, guid: 3ab20ccc8d080464d8cc15b25f63e5cd, type: 2}

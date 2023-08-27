@@ -1,19 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "EnemyMovement/KangarooWaitState", fileName = "kangarooWaitState")]
-public class KangarooWaitState : PlayerMovementBaseState
+public class KangarooWaitState : KangarooMovementBaseState
 {
     [SerializeField] private FloatVariable _gameTime;
     [SerializeField] private float _waitTime;
     private float _prevTime;
-    private float _direction;
-
-    public void SetDirection(float direction)
-    {
-        _direction = direction;
-    }
 
     public override void EnterState()
     {
@@ -28,7 +20,7 @@ public class KangarooWaitState : PlayerMovementBaseState
         float deltaTime = _gameTime.Value - _prevTime;
         if (deltaTime > _waitTime)
         {
-            //
+            _stateMachine.SetState(_owner.KangarooJumpStateInstance);
         }
     }
 }

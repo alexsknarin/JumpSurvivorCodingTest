@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class KangarooJumpState : PlayerMovementBaseState
+[CreateAssetMenu(menuName = "EnemyMovement/KangarooJumpState", fileName = "kangarooJumpState")]
+public class KangarooJumpState : KangarooMovementBaseState
 {
     [SerializeField] private AnimationCurve _jumpCurve;
     [SerializeField] private float _jumpTime;
@@ -10,13 +9,7 @@ public class KangarooJumpState : PlayerMovementBaseState
     [SerializeField] private float _jumpHorizontalSpeed;
     [SerializeField] private FloatVariable _gameTime;
     private float _prevTime;
-    private float _direction;
-    
-    public void SetDirection(float direction)
-    {
-        _direction = direction;
-    }
-    
+
     public override void EnterState()
     {
         _prevTime = _gameTime.Value;
@@ -35,7 +28,7 @@ public class KangarooJumpState : PlayerMovementBaseState
         }
         else
         {
-            //StartWait();
+            _stateMachine.SetState(_owner.KangarooWaitStateInstance);
         } 
     }
 }
