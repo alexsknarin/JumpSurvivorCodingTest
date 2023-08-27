@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "PlayerMovement/playerMoveState", fileName = "playerMoveState")]
-public class PlayerMoveState : MovementBaseState
+public class PlayerMoveState : PlayerMovementBaseState
 {
     [SerializeField] private float _horizontalSpeed;
     

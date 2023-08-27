@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "PlayerMovement/playerJumpState", fileName = "playerJumpState")]
-public class PlayerJumpState : MovementBaseState
+public class PlayerJumpState : PlayerMovementBaseState
 {
     [SerializeField] private float _horizontalSpeed;
     [SerializeField] private FloatVariable _gameTime;

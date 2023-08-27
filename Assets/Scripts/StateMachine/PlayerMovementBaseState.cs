@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MovementBaseState : ScriptableObject, IState
+public class PlayerMovementBaseState : ScriptableObject, IState
 {
     protected PlayerMovement _owner;
     protected StateMachine _stateMachine;

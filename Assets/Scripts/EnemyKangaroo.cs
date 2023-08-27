@@ -18,6 +18,12 @@ public class EnemyKangaroo : Enemy
     private KangarooMovementStates _movementState;
     [SerializeField] private FloatVariable _gameTime;
     
+    //----------------------------------------
+    private StateMachine _moveStateMachine = new StateMachine();
+    public PlayerMovementBaseState _kangarooWaitState;
+    public PlayerMovementBaseState _kangarooJumpState;
+    
+    
     public override void SpawnSetup(float dir)
     {
         _spawnPos.x = 20f;
@@ -25,6 +31,9 @@ public class EnemyKangaroo : Enemy
         _spawnPos.y = 1f;
         transform.position = _spawnPos;
         _direction = dir;
+        
+        _kangarooJumpState.Init(this, _moveStateMachine);
+        
         this.gameObject.SetActive(true);
         StartJump();
     }
