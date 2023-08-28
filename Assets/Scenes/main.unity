@@ -249,7 +249,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.2, y: 3.27, z: -10}
+  m_LocalPosition: {x: 0, y: 3.27, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -822,46 +822,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05408b6c7d87720429640590546f0be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameTime: {fileID: 11400000, guid: 4772841074a0cf94f82fb051dc659af6, type: 2}
-  _speed: 14
   _xBound: 15.5
-  _jumpCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2.78901
-      outSlope: 2.78901
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.051318586
-    - serializedVersion: 3
-      time: 0.5
-      value: 1
-      inSlope: 0.015583095
-      outSlope: 0.015583095
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.18246567
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -4.534526
-      outSlope: -4.534526
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.043478966
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _jumpHeight: 4
-  _jumpTime: 0.8
-  _jumpHorizontalSpeed: 13
-  _jumpControl: 0.5
+  PlayerMoveState: {fileID: 11400000, guid: d65a1e3ae6578d54badb04653fd2f122, type: 2}
+  PlayerJumpState: {fileID: 11400000, guid: aee0114be8484d74388134c813caee33, type: 2}
 --- !u!54 &642352641
 Rigidbody:
   m_ObjectHideFlags: 0
