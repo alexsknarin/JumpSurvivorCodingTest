@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
@@ -24,6 +25,21 @@ public class SpawnManager : MonoBehaviour
     private ObjectPool _enemyBirdPool;
     
     [SerializeField] private FloatVariable _gameTime;
+
+    private object _spawnIncreaseDelay = new WaitForSeconds(30f);
+    private float _spawnRateIcreaseFactor = 0.9f;
+    private bool _spawnRateCoroutineStarted = false;
+    IEnumerator IncreaseSpawnSpeed()
+    {
+        while (true)
+        {
+            Debug.Log("Spawn Speed increased");
+            _dogSwawnRate *= _spawnRateIcreaseFactor;
+            _kangarooSwawnRate *= _spawnRateIcreaseFactor;
+            _birdSwawnRate *= _spawnRateIcreaseFactor;
+            yield return _spawnIncreaseDelay;
+        }
+    }
     
     private float GetRandomDirection()
     {
@@ -66,6 +82,13 @@ public class SpawnManager : MonoBehaviour
         
         // Bird
         SpawnEnemy(_birdDelayTime, _birdDelay, ref _prevBirdTime, _birdSwawnRate, _enemyBirdPool);
+        
+        // Run increase speed coroutine
+        if (!_spawnRateCoroutineStarted && (_gameTime.Value > 25f))
+        {
+            StartCoroutine(IncreaseSpawnSpeed());
+            _spawnRateCoroutineStarted = true;
+        }
     }
 
     private void SpawnEnemy(float delayTime, float delay, ref float prevEnemyTime, float enemySpawnRate, ObjectPool enemyPool)
