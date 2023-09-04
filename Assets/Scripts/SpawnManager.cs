@@ -33,7 +33,6 @@ public class SpawnManager : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("Spawn Speed increased");
             _dogSwawnRate *= _spawnRateIcreaseFactor;
             _kangarooSwawnRate *= _spawnRateIcreaseFactor;
             _birdSwawnRate *= _spawnRateIcreaseFactor;
