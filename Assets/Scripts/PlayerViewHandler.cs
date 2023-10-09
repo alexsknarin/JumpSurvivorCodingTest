@@ -11,7 +11,7 @@ public class PlayerViewHandler : MonoBehaviour
     [SerializeField] private GameObject _playerViewBase;
     private Vector3 _xFlip = Vector3.one;
     [SerializeField] private Animator _catBodyAnimator;
-    [FormerlySerializedAs("_payerMovement")] [SerializeField] private PlayerMovement _playerMovement; 
+    [SerializeField] private PlayerMovement _playerMovement; 
     
     private void Update()
     {

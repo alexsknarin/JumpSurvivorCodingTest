@@ -18,9 +18,15 @@ public class KangarooWaitState : KangarooMovementBaseState
     public override void ExecuteState()
     {
         float deltaTime = _gameTime.Value - _prevTime;
+        
+        _owner.Speed = _direction;
+        _owner.JumpPhase = 0f;
+        
         if (deltaTime > _waitTime)
         {
             _stateMachine.SetState(_owner.KangarooJumpStateInstance);
         }
+
+
     }
 }
