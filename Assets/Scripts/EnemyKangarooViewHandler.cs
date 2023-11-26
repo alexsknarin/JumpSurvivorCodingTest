@@ -25,7 +25,7 @@ public class EnemyKangarooViewHandler : MonoBehaviour
         _kangarooVeiewBase.transform.localScale = _xFlip;
         
         // Anim control
-        _kangarooAnimator.SetFloat("speed", Mathf.Abs(_enemyKangaroo.Speed));
+        //_kangarooAnimator.SetFloat("speed", Mathf.Abs(_enemyKangaroo.Speed));
         _kangarooAnimator.SetFloat("jumpPhase", _enemyKangaroo.JumpPhase);
     }
 }
