@@ -9,10 +9,12 @@ public class PlayerFlashingHit : MonoBehaviour
     [SerializeField] private Color _flashColor;
     [SerializeField] private float _flashFreq;
     [SerializeField] private float _flashDuration;
+    [SerializeField] private SpriteRenderer _catSpriteRenderer;
     private float _flashValue;
     private Material _material;
     private bool _isFlashing;
     private float _prevTime;
+    
 
     private void OnEnable()
     {
@@ -22,13 +24,16 @@ public class PlayerFlashingHit : MonoBehaviour
     private void OnDisable()
     {
         PlayerCollisionHandler.OnEnemyCollided -= StartFlashing;
+        _material.SetColor("_Color", Color.white);
+        _material.SetFloat("_HitMix", 0);
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
-        _material = GetComponent<MeshRenderer>().material;
+        //_material = GetComponent<MeshRenderer>().material;
+        _material = _catSpriteRenderer.sharedMaterial;
         _isFlashing = false;
     }
 
@@ -44,11 +49,15 @@ public class PlayerFlashingHit : MonoBehaviour
     private void Flashing()
     {
         _flashValue = (Mathf.Sin(_gameTime.Value * _flashFreq) + 1f) / 2f; 
-        _material.color = Color.Lerp(Color.white, _flashColor, _flashValue);
+        //_material.color = Color.Lerp(Color.white, _flashColor, _flashValue);
+        _material.SetColor("_Color", _flashColor);
+        _material.SetFloat("_HitMix", _flashValue);
         if (_gameTime.Value - _prevTime > _flashDuration)
         {
             _isFlashing = false;
-            _material.color = Color.white;
+            //_material.color = Color.white;
+            _material.SetColor("_Color", Color.white);
+            _material.SetFloat("_HitMix", 0f);
         }
         
     }

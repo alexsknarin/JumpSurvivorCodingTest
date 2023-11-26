@@ -16,9 +16,12 @@ public class PlayerMoveState : PlayerMovementBaseState
 
     public override void ExecuteState()
     {
-        _transform.Translate(Vector3.right * Input.GetAxis("Horizontal") * _horizontalSpeed * Time.deltaTime);
+        float moveTranslate = Input.GetAxis("Horizontal") * _horizontalSpeed * Time.deltaTime;
+        _transform.Translate(Vector3.right * moveTranslate);
         _owner.ApplyBound(_transform);
-        
+        _owner.Speed = moveTranslate/0.15f;
+        _owner.JumpPhase = 0f;
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             _stateMachine.SetState(_owner.PlayerJumpState);

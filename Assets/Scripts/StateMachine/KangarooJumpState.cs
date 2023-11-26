@@ -25,6 +25,9 @@ public class KangarooJumpState : KangarooMovementBaseState
             jumpPos.y = _jumpCurve.Evaluate(jumpPhase) * _jumpHeight + 1f;
             jumpPos.x += _direction * _jumpHorizontalSpeed * Time.deltaTime; 
             _transform.position = jumpPos;
+
+            _owner.Speed = _direction;
+            _owner.JumpPhase = jumpPhase;
         }
         else
         {

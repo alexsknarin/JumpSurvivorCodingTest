@@ -7,9 +7,14 @@ public class PlayerMovement : MonoBehaviour, IPausable
     private Vector3 _boundedPos;
 
     private StateMachine _moveStateMachine = new StateMachine();
+    // Those fields are public to be accessible from the state machine
     public PlayerMovementBaseState PlayerMoveState;
     public PlayerMovementBaseState PlayerJumpState;
     
+    // Animator Hooks
+    public float Speed { get; set; }
+    public float JumpPhase { get; set; }
+
     // Start is called before the first frame update
     void Start()
     {

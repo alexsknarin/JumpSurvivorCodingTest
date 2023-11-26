@@ -31,9 +31,12 @@ public class PlayerJumpState : PlayerMovementBaseState
             jumpPos.x += _jumpDirection * _jumpHorizontalSpeed * Time.deltaTime; 
             _transform.position = jumpPos;
             // Air Movement
-            _transform.Translate(Vector3.right * Input.GetAxis("Horizontal") * _horizontalSpeed * _airControl * Time.deltaTime);
-                        
+            float moveTranslate = Input.GetAxis("Horizontal") * _horizontalSpeed * _airControl * Time.deltaTime;
+            _transform.Translate(Vector3.right * moveTranslate);
+
             _owner.ApplyBound(_transform);
+            _owner.Speed = moveTranslate/0.15f;
+            _owner.JumpPhase = jumpPhase;
         }
         else
         {
