@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerInputHandler))]
 public class PlayerMovement : MonoBehaviour, IPausable
 {
     private bool _isPaused;
