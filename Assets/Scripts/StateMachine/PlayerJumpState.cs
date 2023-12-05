@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using CandyCoded.HapticFeedback;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "PlayerMovement/playerJumpState", fileName = "playerJumpState")]
@@ -18,7 +17,7 @@ public class PlayerJumpState : PlayerMovementBaseState
     public override void EnterState()
     {
         _prevTime = _gameTime.Value;
-        _jumpDirection = Input.GetAxis("Horizontal");
+        _jumpDirection = _playerInputHandler.HorizontalAxis;
     }
 
     public override void ExecuteState()
@@ -31,12 +30,17 @@ public class PlayerJumpState : PlayerMovementBaseState
             jumpPos.x += _jumpDirection * _jumpHorizontalSpeed * Time.deltaTime; 
             _transform.position = jumpPos;
             // Air Movement
-            float moveTranslate = Input.GetAxis("Horizontal") * _horizontalSpeed * _airControl * Time.deltaTime;
+            float horizontalAxis = _playerInputHandler.HorizontalAxis; 
+            float moveTranslate = horizontalAxis * _horizontalSpeed * _airControl * Time.deltaTime;
             _transform.Translate(Vector3.right * moveTranslate);
 
             _owner.ApplyBound(_transform);
             _owner.Speed = moveTranslate/0.15f;
             _owner.JumpPhase = jumpPhase;
+            
+            // Gamepad Haptics
+            float stickHapticInput = Mathf.Abs(horizontalAxis);
+            MobileMoveStickHapticPerform(stickHapticInput);
         }
         else
         {
