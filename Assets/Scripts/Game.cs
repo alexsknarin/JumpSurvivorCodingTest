@@ -17,6 +17,7 @@ public class Game : MonoBehaviour
     // Global Game UI
     [SerializeField] private GameObject _inGameUI;
     [SerializeField] private GameObject _gameOverUI;
+    [SerializeField] private TextMeshProUGUI _userNameStats;
     [SerializeField] private TextMeshProUGUI _gameOverStats;
     [SerializeField] private StringVariable _currentUserName;
     [SerializeField] private IntVariable _difficulyLevel;
@@ -104,9 +105,8 @@ public class Game : MonoBehaviour
         {
             _gameOverUI.SetActive(true);
             _inGameUI.SetActive(false);
-            _gameOverStats.text = "Player Name: " + _currentUserName.Value + "\n" 
-                                  + "Difficulty Level: " + GetDifficultyLevelName(_difficulyLevel.Value) + "\n" 
-                                  + "Time: " + ((int)_gameTime.Value).ToString() + " seconds";
+            _gameOverStats.text = ((int)_gameTime.Value).ToString() + " Seconds!!!";
+            _userNameStats.text = _currentUserName.Value;
             PauseGame();
             _isGameOver = true;
             
