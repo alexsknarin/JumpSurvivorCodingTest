@@ -251,6 +251,8 @@ GameObject:
   m_Component:
   - component: {fileID: 141157413}
   - component: {fileID: 141157414}
+  - component: {fileID: 141157415}
+  - component: {fileID: 141157416}
   m_Layer: 0
   m_Name: DeathScreenUiTimeine
   m_TagString: Untagged
@@ -304,6 +306,50 @@ PlayableDirector:
     value: {fileID: 782395125}
   m_ExposedReferences:
     m_References: []
+--- !u!114 &141157415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141157412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f6343da09e51d4790ba79d022906af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bgDirector: {fileID: 141157414}
+  _loopFrameStart: 106
+--- !u!114 &141157416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141157412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 7875f4a4b5745544f8500c1f46c91d87, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 141157415}
+          m_TargetAssemblyTypeName: DeathScreenUiTimeineControl, Assembly-CSharp
+          m_MethodName: MainMenuLoopContinue
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &142983494
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,7 +531,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 142983496}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2074017997}
+        m_TargetAssemblyTypeName: DeathScreenButtonsUIControl, Assembly-CSharp
+        m_MethodName: SetRestartScoresMenuMode
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &142983499
 Animator:
   serializedVersion: 5
@@ -1448,6 +1506,8 @@ MonoBehaviour:
   _gameOverUI: {fileID: 1291350859}
   _userNameStats: {fileID: 387334971}
   _gameOverStats: {fileID: 782395123}
+  _deathScreenUiTimeineControl: {fileID: 141157415}
+  _deathScreenButtonsUIControl: {fileID: 2074017997}
   _currentUserName: {fileID: 11400000, guid: de08ab263f70b9b45a546049cd36245d, type: 2}
   _difficulyLevel: {fileID: 11400000, guid: eefded0214c5362409c4b415207d4223, type: 2}
 --- !u!4 &648352127
@@ -2162,7 +2222,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 819570470}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2074017997}
+        m_TargetAssemblyTypeName: DeathScreenButtonsUIControl, Assembly-CSharp
+        m_MethodName: SetRestartScoresMenuMode
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &819570473
 Animator:
   serializedVersion: 5
@@ -2671,7 +2743,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1207465496}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bef0667edb36d9c479e0b04eb0b9989b, type: 3}
   m_Name: 
@@ -2733,7 +2805,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1291350860
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3207,7 +3279,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1464100960}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2074017997}
+        m_TargetAssemblyTypeName: DeathScreenButtonsUIControl, Assembly-CSharp
+        m_MethodName: SetRestartScoresMenuMode
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &1464100963
 Animator:
   serializedVersion: 5
@@ -4001,6 +4085,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2074017995}
   - component: {fileID: 2074017996}
+  - component: {fileID: 2074017997}
+  - component: {fileID: 2074017998}
   m_Layer: 0
   m_Name: DeathSceneButtonsTimeline
   m_TagString: Untagged
@@ -4046,6 +4132,65 @@ PlayableDirector:
     value: {fileID: 142983499}
   m_ExposedReferences:
     m_References: []
+--- !u!114 &2074017997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074017994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e45d364930c9e4e4abdd88b063029ec9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buttonsDirector: {fileID: 2074017996}
+  _StartDelay: 130
+--- !u!114 &2074017998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074017994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 7cda73c190eea084ca1062db6c71e27e, type: 2}
+    - {fileID: 11400000, guid: 4a529e5ddebe1054e8325167b6b7f3df, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2074017997}
+          m_TargetAssemblyTypeName: DeathScreenButtonsUIControl, Assembly-CSharp
+          m_MethodName: PauseTimeline
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2074017997}
+          m_TargetAssemblyTypeName: DeathScreenButtonsUIControl, Assembly-CSharp
+          m_MethodName: RestartScoresMenuExecute
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &7663887110590192060
 PrefabInstance:
   m_ObjectHideFlags: 0
