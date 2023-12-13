@@ -10,6 +10,9 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private IntVariable[] _maxHealth;
     [SerializeField] private IntVariable _maxHealthCurrent;
     [SerializeField] private IntVariable _dificultyLevel;
+    public delegate void OnPlayerRecieveDamageAction();
+    public static event OnPlayerRecieveDamageAction OnPlayerDamaged;
+
     
 
     private void OnEnable()
@@ -31,5 +34,6 @@ public class PlayerHealth : MonoBehaviour
     private void DecreaseLives()
     {
         _playerHealth.Value -= 1;
+        OnPlayerDamaged?.Invoke();
     }
 }

@@ -22,7 +22,6 @@ public class Game : MonoBehaviour
     [SerializeField] private DeathScreenUiTimeineControl _deathScreenUiTimeineControl;
     [SerializeField] private DeathScreenButtonsUIControl _deathScreenButtonsUIControl;
     [SerializeField] private StringVariable _currentUserName;
-    [SerializeField] private IntVariable _difficulyLevel;
  
     // Pause Handling
     public static List<IPausable> Pausables = new List<IPausable>();
