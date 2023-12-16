@@ -12,6 +12,7 @@ public class CameraShake : MonoBehaviour, IPausable
     private float _prevTime;
     private bool _isShaking;
     private bool _isPaused;
+    private bool _isDamageable = true;
     
     public void SetPaused()
     {
@@ -25,11 +26,13 @@ public class CameraShake : MonoBehaviour, IPausable
     private void OnEnable()
     {
         PlayerCollisionHandler.OnEnemyCollided += StartShake;
+        PlayerHealth.OnPlayerInvincibilityFinished += StopInvincibility;
     }
 
     private void OnDisable()
     {
         PlayerCollisionHandler.OnEnemyCollided -= StartShake;
+        PlayerHealth.OnPlayerInvincibilityFinished -= StopInvincibility;
     }
     
     void Start()
@@ -66,8 +69,16 @@ public class CameraShake : MonoBehaviour, IPausable
 
     private void StartShake()
     {
-        _prevTime = _gameTime.Value;
-        _isShaking = true;
+        if (_isDamageable)
+        {
+            _prevTime = _gameTime.Value;
+            _isShaking = true;
+            _isDamageable = false;
+        }
     }
-    
+
+    private void StopInvincibility()
+    {
+        _isDamageable = true;
+    }
 }
