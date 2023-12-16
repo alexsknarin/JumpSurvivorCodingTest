@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TimerUI : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class TimerUI : MonoBehaviour
     private Vector3 _localRotation;
     private float _animCurrentTime = 0;
     private bool _isCheckpointAnimation = false;
+
+    [SerializeField] private UnityEvent CheckpointReached;
 
     void Start()
     {
@@ -57,6 +60,7 @@ public class TimerUI : MonoBehaviour
                 && (int)_gameTime.Value % _checkpointInterval < 1)
             {
                 StartCheckPointAnimation();
+                CheckpointReached?.Invoke();
             }
         }
     }
