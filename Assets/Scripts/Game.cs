@@ -11,6 +11,7 @@ public class Game : MonoBehaviour
     // Player
     [SerializeField] private IntVariable _playerHealth;
     [SerializeField] private FloatVariable _gameTime;
+    [SerializeField] private StringVariable _currentUserName;
     // Enemies
     [SerializeField] private SpawnManager _spawnManager;
     
@@ -18,10 +19,15 @@ public class Game : MonoBehaviour
     [SerializeField] private GameObject _inGameUI;
     [SerializeField] private GameObject _gameOverUI;
     [SerializeField] private TextMeshProUGUI _userNameStats;
+    
+    // Game Over Setup
+    [Header("-------------------------")]
+    [Header("Game Over")]
     [SerializeField] private TextMeshProUGUI _gameOverStats;
     [SerializeField] private DeathScreenUiTimeineControl _deathScreenUiTimeineControl;
     [SerializeField] private DeathScreenButtonsUIControl _deathScreenButtonsUIControl;
-    [SerializeField] private StringVariable _currentUserName;
+    [SerializeField] private float _gameOverUIdelay;
+    private WaitForSeconds _gameOverUIdelayWait;
  
     // Pause Handling
     public static List<IPausable> Pausables = new List<IPausable>();
@@ -97,6 +103,7 @@ public class Game : MonoBehaviour
     private void Start()
     {
         _spawnManager.InitSpawn();
+        _gameOverUIdelayWait = new WaitForSeconds(_gameOverUIdelay);
     }
     
     private void CheckLife()
@@ -104,19 +111,25 @@ public class Game : MonoBehaviour
         // Game Over
         if (_playerHealth.Value == 0)
         {
-            _gameOverUI.SetActive(true);
-            _inGameUI.SetActive(false);
-            _gameOverStats.text = ((int)_gameTime.Value).ToString() + " Seconds!!!";
-            _userNameStats.text = _currentUserName.Value;
-            _deathScreenUiTimeineControl.TimelinePlay();
-            _deathScreenButtonsUIControl.TimelinePlay();
             PauseGame();
             _isGameOver = true;
-            
-            if (OnGameOver != null)
-            {
-                OnGameOver();    
-            }
+            StartCoroutine(GameOverScreenDelay());
+            OnGameOver?.Invoke();
         }
+    }
+
+    private IEnumerator GameOverScreenDelay()
+    {
+        yield return _gameOverUIdelayWait;
+        ShowGameOverUI();
+    }
+    private void ShowGameOverUI()
+    {
+        _gameOverUI.SetActive(true);
+        _inGameUI.SetActive(false);
+        _gameOverStats.text = ((int)_gameTime.Value).ToString() + " Seconds!!!";
+        _userNameStats.text = _currentUserName.Value;
+        _deathScreenUiTimeineControl.TimelinePlay();
+        _deathScreenButtonsUIControl.TimelinePlay();
     }
 }
