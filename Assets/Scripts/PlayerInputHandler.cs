@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
@@ -19,14 +20,11 @@ public class PlayerInputHandler : MonoBehaviour
     private InputDevice _currentInputDevice = new Keyboard();
     
     // events for extreme stick positions
-    public delegate void OnStickLeftPositionEnter();
-    public static event OnStickLeftPositionEnter OnStickLeftPositionEnterEvent;
+    public static event Action OnStickLeftPositionEnterEvent;
    
-    public delegate void OnStickRightPositionEnter();
-    public static event OnStickRightPositionEnter OnStickRightPositionEnterEvent;
+    public static event Action OnStickRightPositionEnterEvent;
     
-    public delegate void OnStickNeutralPositionEnter();
-    public static event OnStickNeutralPositionEnter OnStickNeutralPositionEnterEvent;
+    public static event Action OnStickNeutralPositionEnterEvent;
 
     public float HorizontalAxis 
     {

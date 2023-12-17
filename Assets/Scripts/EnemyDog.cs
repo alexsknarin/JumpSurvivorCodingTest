@@ -21,7 +21,7 @@ public class EnemyDog : Enemy
     {
         if (!_isPaused)
         {
-            transform.Translate(Vector3.right * Time.deltaTime * _speed * _direction);
+            transform.Translate(Vector3.right * (Time.deltaTime * _speed * _direction));
             _dogScale.x = _direction;
             _dogView.transform.localScale = _dogScale;
         }

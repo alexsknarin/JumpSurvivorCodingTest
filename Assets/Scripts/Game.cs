@@ -33,8 +33,7 @@ public class Game : MonoBehaviour
     public static List<IPausable> Pausables = new List<IPausable>();
     
     // Game Over event
-    public delegate void OnGameOverAction();
-    public static event OnGameOverAction OnGameOver;
+    public static event Action OnGameOver;
     
 
     private bool _isGameOver = false;
