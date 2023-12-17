@@ -13,10 +13,8 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float _invincibilityDuration;
     private bool _isInvincible = false;
     private WaitForSeconds _waitForInvincibility;
-    public delegate void PlayerDamaged();
-    public static event PlayerDamaged OnPlayerDamaged;
-    public delegate void PlayerInvincibilityFinished();
-    public static event PlayerInvincibilityFinished OnPlayerInvincibilityFinished;
+    public static event Action OnPlayerDamaged;
+    public static event Action OnPlayerInvincibilityFinished;
     
 
     private void OnEnable()
