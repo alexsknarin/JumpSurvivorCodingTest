@@ -5,10 +5,9 @@ using UnityEngine;
 
 public class PlayerCollisionHandler : MonoBehaviour
 {
-    public delegate void OnEnemyCollideAction();
-    public static event OnEnemyCollideAction OnEnemyCollided;
+    public static event Action OnEnemyCollided;
     
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {

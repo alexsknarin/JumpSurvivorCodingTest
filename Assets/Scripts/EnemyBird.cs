@@ -1,4 +1,4 @@
-using System;
+    using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -12,6 +12,8 @@ public class EnemyBird : Enemy
     [SerializeField] private float _frequency = 0.5f;
     private float _phase;
     private Vector3 _sinPos;
+    [SerializeField] private GameObject _birdView; 
+    private Vector3 _birdScale = Vector3.one;
     
     public override void SpawnSetup(float dir)
     {
@@ -37,6 +39,9 @@ public class EnemyBird : Enemy
             _sinPos.y = Mathf.Sin(_phase * _frequency) * _amplitude + _midLevel;
 
             transform.position = _sinPos;
+            
+            _birdScale.x = _direction;
+            _birdView.transform.localScale = _birdScale;
 
             _phase += Time.deltaTime;    
         }

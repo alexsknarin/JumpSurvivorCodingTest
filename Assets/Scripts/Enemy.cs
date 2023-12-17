@@ -39,7 +39,7 @@ public abstract class Enemy : MonoBehaviour, IPausable
 
     protected abstract void Move();
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("rightBound") && _direction > 0)
         {
