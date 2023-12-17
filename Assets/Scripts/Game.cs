@@ -40,12 +40,12 @@ public class Game : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerCollisionHandler.OnEnemyCollided += CheckLife;
+        PlayerHealth.OnPlayerDamaged += CheckLife;
     }
 
     private void OnDisable()
     {
-        PlayerCollisionHandler.OnEnemyCollided -= CheckLife;
+        PlayerHealth.OnPlayerDamaged -= CheckLife;
     }
     
     private void PauseGame()
