@@ -942,6 +942,7 @@ GameObject:
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
   - component: {fileID: 330585548}
+  - component: {fileID: 330585549}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -992,7 +993,7 @@ Camera:
   far clip plane: 1000
   field of view: 76.1
   orthographic: 1
-  orthographic size: 6.41
+  orthographic size: 7.61
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1003,7 +1004,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
+  m_AllowDynamicResolution: 1
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -1108,6 +1109,21 @@ MonoBehaviour:
   _gameTime: {fileID: 11400000, guid: 4772841074a0cf94f82fb051dc659af6, type: 2}
   _gameoverMultiplier: 1.62
   _afterGameoverShakeDuration: 3
+--- !u!114 &330585549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d80b7999e1ed4a48b2e8611a2f80f27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 330585545}
+  _referenceResolution: {x: 1920, y: 1080}
+  _referenceCameraSize: 7.61
 --- !u!1 &387334969
 GameObject:
   m_ObjectHideFlags: 0
