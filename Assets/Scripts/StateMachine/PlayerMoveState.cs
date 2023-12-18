@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "PlayerMovement/playerMoveState", fileName = "playerMoveState")]
@@ -21,17 +20,5 @@ public class PlayerMoveState : PlayerMovementBaseState
         _owner.ApplyBound(_transform);
         _owner.Speed = moveTranslate/0.15f;
         _owner.JumpPhase = 0f;
-
-        // Gamepad Haptics
-        float stickHapticInput = Mathf.Abs(horizontalAxis);
-        MobileMoveStickHapticPerform(stickHapticInput);
-        
-        
-        // Jump button Haptics       
-        if (_playerInputHandler.JumpAction)
-        {
-            _stateMachine.SetState(_owner.PlayerJumpState);
-            MobileJumpButtonHapticPerform();
-        }
     }
 }
