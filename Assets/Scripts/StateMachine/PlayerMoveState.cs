@@ -20,5 +20,10 @@ public class PlayerMoveState : PlayerMovementBaseState
         _owner.ApplyBound(_transform);
         _owner.Speed = moveTranslate/0.15f;
         _owner.JumpPhase = 0f;
+        
+        if (_playerInputHandler.JumpAction)
+        {
+            _stateMachine.SetState(_owner.PlayerJumpState);
+        }
     }
 }
