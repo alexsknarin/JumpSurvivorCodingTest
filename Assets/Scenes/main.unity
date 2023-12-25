@@ -366,7 +366,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 119229314}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 091675a9e9bd6434ab7f2a28100e2c01, type: 3}
   m_Name: 
@@ -748,6 +748,7 @@ GameObject:
   - component: {fileID: 302301587}
   - component: {fileID: 302301586}
   - component: {fileID: 302301590}
+  - component: {fileID: 302301591}
   - component: {fileID: 302301589}
   m_Layer: 5
   m_Name: OnscreenSouthButton
@@ -856,6 +857,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 302301591}
+          m_TargetAssemblyTypeName: OnscreenJumpButtonMobileHaptic, Assembly-CSharp
+          m_MethodName: ButtonVibrate
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 3
     callback:
       m_PersistentCalls:
@@ -885,6 +898,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _jumpButtonImage: {fileID: 302301587}
+--- !u!114 &302301591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302301584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62b1b701fc7edb3479bc0ca3b239fbe4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &317146421
 GameObject:
   m_ObjectHideFlags: 0
@@ -1018,7 +1043,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
-  m_AllowDynamicResolution: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -1550,6 +1575,7 @@ GameObject:
   - component: {fileID: 611136774}
   - component: {fileID: 611136773}
   - component: {fileID: 611136776}
+  - component: {fileID: 611136778}
   - component: {fileID: 611136777}
   m_Layer: 5
   m_Name: OnscreenLeftStick
@@ -1714,6 +1740,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &611136778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611136771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2bd25fdbd313404a96d411fc446c618, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &648352125
 GameObject:
   m_ObjectHideFlags: 0
@@ -4716,12 +4754,12 @@ PrefabInstance:
     - target: {fileID: 1139145145745341125, guid: d224a49caff226e4f9e95d8d4976f97b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 161.2
+      value: 161.2002
       objectReference: {fileID: 0}
     - target: {fileID: 1139145145745341125, guid: d224a49caff226e4f9e95d8d4976f97b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -92.7
+      value: -92.69995
       objectReference: {fileID: 0}
     - target: {fileID: 1139145145745341125, guid: d224a49caff226e4f9e95d8d4976f97b,
         type: 3}

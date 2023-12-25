@@ -1,4 +1,3 @@
-using CandyCoded.HapticFeedback;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "PlayerMovement/playerJumpState", fileName = "playerJumpState")]
@@ -37,10 +36,6 @@ public class PlayerJumpState : PlayerMovementBaseState
             _owner.ApplyBound(_transform);
             _owner.Speed = moveTranslate/0.15f;
             _owner.JumpPhase = jumpPhase;
-            
-            // Gamepad Haptics
-            float stickHapticInput = Mathf.Abs(horizontalAxis);
-            MobileMoveStickHapticPerform(stickHapticInput);
         }
         else
         {
