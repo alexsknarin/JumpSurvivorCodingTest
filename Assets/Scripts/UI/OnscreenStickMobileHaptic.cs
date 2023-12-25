@@ -34,7 +34,6 @@ public class OnscreenStickMobileHaptic : MonoBehaviour
         if (_hapticAllowed)
         {
             _hapticAllowed = false;
-            Debug.Log("-------------------------- HAPTIC BLOCKED");
             StartCoroutine(WaitForHapticUnblock());            
         }
     }
@@ -47,7 +46,6 @@ public class OnscreenStickMobileHaptic : MonoBehaviour
 
     private void AllowHaptic()
     {
-        Debug.Log("-------------------------- HAPTIC UN BLOCKED");
         _hapticAllowed = true;
     }
 
@@ -60,7 +58,6 @@ public class OnscreenStickMobileHaptic : MonoBehaviour
             if (_stickHapticMin && (_inputXAbsValue > 0.65f))
             {
                 HapticFeedback.LightFeedback();
-                Debug.Log("Light Haptic");
                 _stickHapticMin = false;
             }
         
@@ -73,7 +70,6 @@ public class OnscreenStickMobileHaptic : MonoBehaviour
             if (_stickHapticMax && (_inputXAbsValue > 0.95f))
             {
                 HapticFeedback.HeavyFeedback();
-                Debug.Log("Heavy Haptic");
                 _stickHapticMax = false;
             }
         
