@@ -1,5 +1,5 @@
+using CandyCoded.HapticFeedback;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class OnscreenJumpButtonMobileHaptic : MonoBehaviour
@@ -10,5 +10,38 @@ public class OnscreenJumpButtonMobileHaptic : MonoBehaviour
     private void Start()
     {
         _waitForHapticBlocked = new WaitForSeconds(0.8f);
+    }
+    
+    private void OnEnable()
+    {
+        PlayerCollisionHandler.OnEnemyCollided += BlockHaptic;
+    }
+
+    private void OnDisable()
+    {
+        PlayerCollisionHandler.OnEnemyCollided -= BlockHaptic;
+    }
+    
+    private void BlockHaptic()
+    {
+        if (_hapticAllowed)
+        {
+            _hapticAllowed = false;
+            StartCoroutine(WaitForHapticUnblock());            
+        }
+    }
+    
+    private IEnumerator WaitForHapticUnblock()
+    {
+        yield return _waitForHapticBlocked;
+        _hapticAllowed = true;
+    }
+
+    public void ButtonVibrate()
+    {
+        if (_hapticAllowed)
+        {
+            HapticFeedback.HeavyFeedback();
+        }
     }
 }

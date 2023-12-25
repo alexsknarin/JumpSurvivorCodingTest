@@ -748,6 +748,7 @@ GameObject:
   - component: {fileID: 302301587}
   - component: {fileID: 302301586}
   - component: {fileID: 302301590}
+  - component: {fileID: 302301591}
   - component: {fileID: 302301589}
   m_Layer: 5
   m_Name: OnscreenSouthButton
@@ -856,6 +857,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 302301591}
+          m_TargetAssemblyTypeName: OnscreenJumpButtonMobileHaptic, Assembly-CSharp
+          m_MethodName: ButtonVibrate
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 3
     callback:
       m_PersistentCalls:
@@ -885,6 +898,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _jumpButtonImage: {fileID: 302301587}
+--- !u!114 &302301591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302301584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62b1b701fc7edb3479bc0ca3b239fbe4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &317146421
 GameObject:
   m_ObjectHideFlags: 0
