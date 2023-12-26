@@ -1,18 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnStateCollection : MonoBehaviour
+[CreateAssetMenu(menuName = "Spawn/SpawnStateCollection", fileName = "SpawnStateCollection")]
+public class SpawnStateCollection : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public List<SpawnState> SpawnStates;
 }

@@ -3283,10 +3283,7 @@ MonoBehaviour:
   _enemyBird: {fileID: 684631733816399340, guid: dca8e78ee0ed5ac41b6531fd11928339,
     type: 3}
   _maximumBirds: 3
-  _spawnStates:
-  - {fileID: 11400000, guid: 972a8cbd372348843814141a1cf0142c, type: 2}
-  - {fileID: 11400000, guid: 265027d685032bb49af00033c9975656, type: 2}
-  - {fileID: 11400000, guid: 0e55e11599fdf8443bbf9592c543f1c1, type: 2}
+  _spawnCollection: {fileID: 11400000, guid: e8a74f91d1f5e274d80d95018c7ba916, type: 2}
 --- !u!1001 &1375139194
 PrefabInstance:
   m_ObjectHideFlags: 0

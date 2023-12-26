@@ -13,7 +13,7 @@ public class SpawnController : MonoBehaviour
     [SerializeField] private int _maximumBirds;
 
     [Header("Spawn States")] 
-    [SerializeField] private List<SpawnState> _spawnStates;
+    [SerializeField] private SpawnStateCollection _spawnCollection;
     private SpawnState _currentSpawnState;
     private int _currentSpawnStateIndex = 0;
 
@@ -56,7 +56,7 @@ public class SpawnController : MonoBehaviour
         {
             Debug.Break();
         }
-        _currentSpawnState = _spawnStates[_currentSpawnStateIndex];
+        _currentSpawnState = _spawnCollection.SpawnStates[_currentSpawnStateIndex];
         _delayMode = _currentSpawnState.UseStateDelay;
     }
     
@@ -108,7 +108,7 @@ public class SpawnController : MonoBehaviour
         }
         else
         {
-            if (_currentSpawnStateIndex < _spawnStates.Count-1)
+            if (_currentSpawnStateIndex < _spawnCollection.SpawnStates.Count-1)
             {
                 _currentSpawnStateIndex++;
                 ChangeSpawnState();
