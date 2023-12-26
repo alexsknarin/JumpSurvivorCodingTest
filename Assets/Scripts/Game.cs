@@ -101,7 +101,7 @@ public class Game : MonoBehaviour
 
     private void Start()
     {
-        _spawnManager.InitSpawn();
+        //_spawnManager.InitSpawn();
         _gameOverUIdelayWait = new WaitForSeconds(_gameOverUIdelay);
     }
     
