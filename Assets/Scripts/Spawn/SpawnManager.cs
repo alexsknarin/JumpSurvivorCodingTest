@@ -14,6 +14,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private SpawnStateCollection _spawnCollection;
     private SpawnState _currentSpawnState;
     private int _currentSpawnStateIndex = 0;
+    private bool _isLearningPhase = true;
 
 
     private ObjectPool _enemyDogPool;
@@ -25,7 +26,12 @@ public class SpawnManager : MonoBehaviour
     private float _kangarooSpawnPrevTime;
     private float _birdSpawnPrevTime;
     
+    
     private bool _delayMode = false;
+    
+    // State Debug UI
+    public delegate void SpawnStateChanged(string StateName);
+    public static event SpawnStateChanged OnSpawnStateChanged;
     
     private float GetRandomDirection()
     {
@@ -50,11 +56,16 @@ public class SpawnManager : MonoBehaviour
     private void ChangeSpawnState()
     {
         _globalSpawnPrevTime = Time.time;
-        if (_currentSpawnStateIndex == 3)
+        if (_isLearningPhase)
         {
-            Debug.Break();
+            _currentSpawnState = _spawnCollection.SpawnStatesLearn[_currentSpawnStateIndex];    
         }
-        _currentSpawnState = _spawnCollection.SpawnStates[_currentSpawnStateIndex];
+        else
+        {
+            _currentSpawnStateIndex = (int)Random.Range(0, _spawnCollection.SpawnStatesMainLoop.Count);
+            _currentSpawnState = _spawnCollection.SpawnStatesMainLoop[_currentSpawnStateIndex];
+        }
+        OnSpawnStateChanged(_currentSpawnState.name);
         _delayMode = _currentSpawnState.UseStateDelay;
     }
     
@@ -76,23 +87,18 @@ public class SpawnManager : MonoBehaviour
                 return;
             }
         }
-        
+
         // Spawn Enemies
         if (Time.time - _globalSpawnPrevTime < _currentSpawnState.StateDuration)
         {
-           // Spawn Dogs
            if (_currentSpawnState.DogsEnabled)
            {
                SpawnEnemy(_enemyDogPool, ref _dogSpawnPrevTime, _currentSpawnState.DogSpawnRate);
            }
-           
-           // Spawn Kangaroos
            if (_currentSpawnState.KangaroosEnabled)
            {
                SpawnEnemy(_enemyKangarooPool, ref _kangarooSpawnPrevTime, _currentSpawnState.KangarooSpawnRate);
            }
-           
-           // Spawn Birds
            if (_currentSpawnState.BirdsEnabled)
            {
                SpawnEnemy(_enemyBirdPool, ref _birdSpawnPrevTime, _currentSpawnState.BirdSpawnRate);
@@ -101,9 +107,15 @@ public class SpawnManager : MonoBehaviour
         }
         else
         {
-            if (_currentSpawnStateIndex < _spawnCollection.SpawnStates.Count-1)
+            // Switch SpawnState
+            if (_currentSpawnStateIndex < _spawnCollection.SpawnStatesLearn.Count-1)
             {
                 _currentSpawnStateIndex++;
+                ChangeSpawnState();
+            }
+            else
+            {
+                _isLearningPhase = false;
                 ChangeSpawnState();
             }
         }

@@ -30,5 +30,4 @@ public class SpawnState : ScriptableObject
     [SerializeField] private float _birdSpawnRate;
     public float BirdSpawnRate => _birdSpawnRate;
     
-    
 }
