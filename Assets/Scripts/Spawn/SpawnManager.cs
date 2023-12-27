@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnController : MonoBehaviour
+public class SpawnManager : MonoBehaviour
 {
-    [Header("Enemies:")]
+   [Header("Enemies:")]
     [SerializeField] private GameObject _enemyDog;
     [SerializeField] private int _maximumDogs;
     [SerializeField] private GameObject _enemyKangaroo;
@@ -60,11 +58,6 @@ public class SpawnController : MonoBehaviour
         _delayMode = _currentSpawnState.UseStateDelay;
     }
     
-    private void Start()
-    {
-        InitSpawn();
-    }
-
     private void Update()
     {
         // State Delay

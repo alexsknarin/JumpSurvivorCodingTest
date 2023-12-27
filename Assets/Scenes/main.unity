@@ -1786,7 +1786,7 @@ MonoBehaviour:
   _playerHealth: {fileID: 11400000, guid: 33d15af05a7bf924c9770f27d29f4fe2, type: 2}
   _gameTime: {fileID: 11400000, guid: 4772841074a0cf94f82fb051dc659af6, type: 2}
   _currentUserName: {fileID: 11400000, guid: de08ab263f70b9b45a546049cd36245d, type: 2}
-  _spawnManager: {fileID: 0}
+  _spawnManager: {fileID: 1321681998}
   _inGameUI: {fileID: 109764220}
   _gameOverUI: {fileID: 1291350859}
   _userNameStats: {fileID: 387334971}
@@ -3239,7 +3239,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1321681997}
-  - component: {fileID: 1321681999}
+  - component: {fileID: 1321681998}
   m_Layer: 0
   m_Name: SpawnManager
   m_TagString: Untagged
@@ -3262,7 +3262,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1321681999
+--- !u!114 &1321681998
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3271,7 +3271,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1321681996}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22a1e1547de83014a906637c84f07e7a, type: 3}
+  m_Script: {fileID: 11500000, guid: 56a9b4bbddfa2ee42997802b9977aeea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyDog: {fileID: 489905115007979656, guid: 39f92c0ae1410cc4394b730e1368bb68,
@@ -3279,10 +3279,10 @@ MonoBehaviour:
   _maximumDogs: 5
   _enemyKangaroo: {fileID: 7299383561004090509, guid: d9cb612faf1d7144cb03adccba21397d,
     type: 3}
-  _maximumKangaroos: 3
+  _maximumKangaroos: 5
   _enemyBird: {fileID: 684631733816399340, guid: dca8e78ee0ed5ac41b6531fd11928339,
     type: 3}
-  _maximumBirds: 3
+  _maximumBirds: 5
   _spawnCollection: {fileID: 11400000, guid: e8a74f91d1f5e274d80d95018c7ba916, type: 2}
 --- !u!1001 &1375139194
 PrefabInstance:
