@@ -15,5 +15,4 @@ MonoBehaviour:
   SpawnStatesLearn:
   - {fileID: 11400000, guid: d879a649f977c104d93006cc9f1cc98b, type: 2}
   SpawnStatesMainLoop:
-  - {fileID: 11400000, guid: 3364bd980e126bd499efd4194cf58e83, type: 2}
   - {fileID: 11400000, guid: 06a255ea7de31d445a3c5ec4aa769716, type: 2}

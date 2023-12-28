@@ -30,6 +30,10 @@ public class SpawnManager : MonoBehaviour
     private bool _isKangarooDelayed;
     private bool _isBirdDelayed;
     
+    private bool _isDogFirstSpawnInState;
+    private bool _isKangarooFirstSpawnInState;
+    private bool _isBirdFirstSpawnInState;
+    
     private float _globalStateDir;
     private float _dogGlobalStateDir;
     private float _kangarooGlobalStateDir;
@@ -58,7 +62,6 @@ public class SpawnManager : MonoBehaviour
         _enemyDogPool = new ObjectPool(_maximumDogs, _enemyDog);
         _enemyKangarooPool = new ObjectPool(_maximumKangaroos, _enemyKangaroo);
         _enemyBirdPool = new ObjectPool(_maximumBirds, _enemyBird);
-
         ChangeSpawnState();
     }
 
@@ -97,6 +100,10 @@ public class SpawnManager : MonoBehaviour
         {
             _isBirdDelayed = false;
         }
+        
+        _isDogFirstSpawnInState = true;
+        _isKangarooFirstSpawnInState = true;
+        _isBirdFirstSpawnInState = true;
     }
     
     private void Update()
@@ -134,7 +141,8 @@ public class SpawnManager : MonoBehaviour
                else
                {
                    SpawnEnemy(_enemyDogPool, ref _dogSpawnPrevTime, _currentSpawnState.DogSpawnRate, _dogGlobalStateDir, 
-                       _currentSpawnState.DogsRandomOncePerState, _currentSpawnState.DogsUseGlobalStateDirection);
+                       _currentSpawnState.DogsRandomOncePerState, _currentSpawnState.DogsUseGlobalStateDirection,
+                       ref _isDogFirstSpawnInState);
                }
            }
            if (_currentSpawnState.KangaroosEnabled)
@@ -150,7 +158,8 @@ public class SpawnManager : MonoBehaviour
                else
                {
                    SpawnEnemy(_enemyKangarooPool, ref _kangarooSpawnPrevTime, _currentSpawnState.KangarooSpawnRate, _kangarooGlobalStateDir, 
-                       _currentSpawnState.KangaroosRandomOncePerState, _currentSpawnState.KangaroosUseGlobalStateDirection);
+                       _currentSpawnState.KangaroosRandomOncePerState, _currentSpawnState.KangaroosUseGlobalStateDirection,
+                       ref _isKangarooFirstSpawnInState);
                }
            }
            if (_currentSpawnState.BirdsEnabled)
@@ -166,7 +175,8 @@ public class SpawnManager : MonoBehaviour
                else
                {
                    SpawnEnemy(_enemyBirdPool, ref _birdSpawnPrevTime, _currentSpawnState.BirdSpawnRate, _birdGlobalStateDir,
-                       _currentSpawnState.BirdsRandomOncePerState, _currentSpawnState.BirdsUseGlobalStateDirection);
+                       _currentSpawnState.BirdsRandomOncePerState, _currentSpawnState.BirdsUseGlobalStateDirection,
+                       ref _isBirdFirstSpawnInState);
                }
            }
            
@@ -181,17 +191,24 @@ public class SpawnManager : MonoBehaviour
             }
             else
             {
-                _isLearningPhase = false;
-                ChangeSpawnState();
+                if (_spawnCollection.SpawnStatesMainLoop.Count > 0)
+                {
+                    _isLearningPhase = false;
+                    ChangeSpawnState();                    
+                }
+                else
+                {
+                    return;
+                }
             }
         }
         
     }
 
     private void SpawnEnemy(ObjectPool enemyPool, ref float enemySpawnPrevTime, float spawnRate, 
-        float enemyGlobalDir, bool useEnemyGlobal, bool useStateGlobal)
+        float enemyGlobalDir, bool useEnemyGlobal, bool useStateGlobal, ref bool isFirstSpawnInState)
     {
-        if (Time.time - enemySpawnPrevTime > spawnRate)
+        if ((Time.time - enemySpawnPrevTime > spawnRate) || isFirstSpawnInState)
         {
             GameObject currentEnemy = enemyPool.GetPooledObject();
             if (currentEnemy != null)
@@ -209,6 +226,7 @@ public class SpawnManager : MonoBehaviour
                 currentEnemy.GetComponent<Enemy>().SpawnSetup(_currentEnemyDir);
             }
             enemySpawnPrevTime = Time.time;
+            isFirstSpawnInState = false;
         }
     }
 }
