@@ -25,7 +25,16 @@ public class SpawnManager : MonoBehaviour
     private float _dogSpawnPrevTime;
     private float _kangarooSpawnPrevTime;
     private float _birdSpawnPrevTime;
+
+    private bool _isDogDelayed;
+    private bool _isKangarooDelayed;
+    private bool _isBirdDelayed;
     
+    private float _globalStateDir;
+    private float _dogGlobalStateDir;
+    private float _kangarooGlobalStateDir;
+    private float _birdGlobalStateDir;
+    private float _currentEnemyDir;
     
     private bool _delayMode = false;
     
@@ -56,6 +65,11 @@ public class SpawnManager : MonoBehaviour
     private void ChangeSpawnState()
     {
         _globalSpawnPrevTime = Time.time;
+        _globalStateDir = GetRandomDirection();
+        _dogGlobalStateDir = GetRandomDirection();
+        _kangarooGlobalStateDir = GetRandomDirection();
+        _birdGlobalStateDir = GetRandomDirection();
+        
         if (_isLearningPhase)
         {
             _currentSpawnState = _spawnCollection.SpawnStatesLearn[_currentSpawnStateIndex];    
@@ -65,8 +79,24 @@ public class SpawnManager : MonoBehaviour
             _currentSpawnStateIndex = (int)Random.Range(0, _spawnCollection.SpawnStatesMainLoop.Count);
             _currentSpawnState = _spawnCollection.SpawnStatesMainLoop[_currentSpawnStateIndex];
         }
+        
         OnSpawnStateChanged(_currentSpawnState.name);
         _delayMode = _currentSpawnState.UseStateDelay;
+        _isDogDelayed = true;
+        if (Mathf.Approximately(_currentSpawnState.DogSpawnDelay, 0f))
+        {
+            _isDogDelayed = false;
+        }
+        _isKangarooDelayed = true;
+        if (Mathf.Approximately(_currentSpawnState.KangarooSpawnDelay, 0f))
+        {
+            _isKangarooDelayed = false;
+        }
+        _isBirdDelayed = true;
+        if (Mathf.Approximately(_currentSpawnState.BirdSpawnDelay, 0f))
+        {
+            _isBirdDelayed = false;
+        }
     }
     
     private void Update()
@@ -93,15 +123,51 @@ public class SpawnManager : MonoBehaviour
         {
            if (_currentSpawnState.DogsEnabled)
            {
-               SpawnEnemy(_enemyDogPool, ref _dogSpawnPrevTime, _currentSpawnState.DogSpawnRate);
+               if (_isDogDelayed)
+               {
+                   if (Time.time - _currentSpawnState.DogSpawnDelay > _globalSpawnPrevTime)
+                   {
+                       _isDogDelayed = false;
+                       _dogSpawnPrevTime = Time.time;
+                   }
+               }
+               else
+               {
+                   SpawnEnemy(_enemyDogPool, ref _dogSpawnPrevTime, _currentSpawnState.DogSpawnRate, _dogGlobalStateDir, 
+                       _currentSpawnState.DogsRandomOncePerState, _currentSpawnState.DogsUseGlobalStateDirection);
+               }
            }
            if (_currentSpawnState.KangaroosEnabled)
            {
-               SpawnEnemy(_enemyKangarooPool, ref _kangarooSpawnPrevTime, _currentSpawnState.KangarooSpawnRate);
+               if (_isKangarooDelayed)
+               {
+                   if (Time.time - _currentSpawnState.KangarooSpawnDelay > _globalSpawnPrevTime)
+                   {
+                       _isKangarooDelayed = false;
+                       _kangarooSpawnPrevTime = Time.time;
+                   }
+               }
+               else
+               {
+                   SpawnEnemy(_enemyKangarooPool, ref _kangarooSpawnPrevTime, _currentSpawnState.KangarooSpawnRate, _kangarooGlobalStateDir, 
+                       _currentSpawnState.KangaroosRandomOncePerState, _currentSpawnState.KangaroosUseGlobalStateDirection);
+               }
            }
            if (_currentSpawnState.BirdsEnabled)
            {
-               SpawnEnemy(_enemyBirdPool, ref _birdSpawnPrevTime, _currentSpawnState.BirdSpawnRate);
+               if (_isBirdDelayed)
+               {
+                   if (Time.time - _currentSpawnState.BirdSpawnDelay > _globalSpawnPrevTime)
+                   {
+                       _isBirdDelayed = false;
+                       _birdSpawnPrevTime = Time.time;
+                   }
+               }
+               else
+               {
+                   SpawnEnemy(_enemyBirdPool, ref _birdSpawnPrevTime, _currentSpawnState.BirdSpawnRate, _birdGlobalStateDir,
+                       _currentSpawnState.BirdsRandomOncePerState, _currentSpawnState.BirdsUseGlobalStateDirection);
+               }
            }
            
         }
@@ -122,15 +188,25 @@ public class SpawnManager : MonoBehaviour
         
     }
 
-    private void SpawnEnemy(ObjectPool enemyPool, ref float enemySpawnPrevTime, float spawnRate)
+    private void SpawnEnemy(ObjectPool enemyPool, ref float enemySpawnPrevTime, float spawnRate, 
+        float enemyGlobalDir, bool useEnemyGlobal, bool useStateGlobal)
     {
         if (Time.time - enemySpawnPrevTime > spawnRate)
         {
             GameObject currentEnemy = enemyPool.GetPooledObject();
             if (currentEnemy != null)
             {
-                float dir = GetRandomDirection();
-                currentEnemy.GetComponent<Enemy>().SpawnSetup(dir);
+                // Define a direction
+                _currentEnemyDir = GetRandomDirection();
+                if (useEnemyGlobal)
+                {
+                    _currentEnemyDir = enemyGlobalDir;
+                }
+                if (useStateGlobal)
+                {
+                    _currentEnemyDir = _globalStateDir;
+                }
+                currentEnemy.GetComponent<Enemy>().SpawnSetup(_currentEnemyDir);
             }
             enemySpawnPrevTime = Time.time;
         }

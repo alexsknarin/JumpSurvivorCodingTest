@@ -23,7 +23,7 @@ public class EnemyKangaroo : Enemy
 
     public override void SpawnSetup(float dir)
     {
-        _spawnPos.x = 20f;
+        _spawnPos.x = 15.05f;
         _spawnPos.x *= -dir;
         _spawnPos.y = 1f;
         transform.position = _spawnPos;

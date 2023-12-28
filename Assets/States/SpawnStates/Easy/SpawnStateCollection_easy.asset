@@ -14,11 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnStatesLearn:
   - {fileID: 11400000, guid: d879a649f977c104d93006cc9f1cc98b, type: 2}
-  - {fileID: 11400000, guid: 5c150aa872ad37f4ca9abd4f80fc8c15, type: 2}
-  - {fileID: 11400000, guid: 8898520b4eb20a240a287041c9d46014, type: 2}
-  - {fileID: 11400000, guid: adc2dc0f8538a764bb494ac2bf32d8c9, type: 2}
-  - {fileID: 11400000, guid: 58665fb91d2fd2c4a9ad6710a39e0f5b, type: 2}
-  - {fileID: 11400000, guid: 242dfdf196ad6a44da4c651c0f500fbc, type: 2}
   SpawnStatesMainLoop:
-  - {fileID: 11400000, guid: 5c150aa872ad37f4ca9abd4f80fc8c15, type: 2}
-  - {fileID: 11400000, guid: 8898520b4eb20a240a287041c9d46014, type: 2}
+  - {fileID: 11400000, guid: 3364bd980e126bd499efd4194cf58e83, type: 2}
+  - {fileID: 11400000, guid: 06a255ea7de31d445a3c5ec4aa769716, type: 2}
