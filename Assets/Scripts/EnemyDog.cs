@@ -9,7 +9,7 @@ public class EnemyDog : Enemy
     
     public override void SpawnSetup(float dir)
     {
-        _spawnPos.x = 20f;
+        _spawnPos.x = 15.05f;
         _spawnPos.x *= -dir;
         _spawnPos.y = 0.5f;
         transform.position = _spawnPos;
