@@ -14,5 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnStatesLearn:
   - {fileID: 11400000, guid: d879a649f977c104d93006cc9f1cc98b, type: 2}
+  - {fileID: 11400000, guid: e87907105a1426f408b7a7fa9ccd204e, type: 2}
+  - {fileID: 11400000, guid: b819cecf37d91384bbfe358e1db3e04b, type: 2}
+  - {fileID: 11400000, guid: 8b8f509229ad42f47aa53f55b648f545, type: 2}
+  - {fileID: 11400000, guid: e913193c2729ffa4083444ece51885df, type: 2}
+  - {fileID: 11400000, guid: e679d8d8a15414c4aa1835938bfbcf40, type: 2}
+  - {fileID: 11400000, guid: e4d3ef5b15f118540a3164baa5c83a04, type: 2}
+  - {fileID: 11400000, guid: 80b7dd7797ccbac44a79ac2b6c9aec1f, type: 2}
+  - {fileID: 11400000, guid: 0aaf00eb4791a0a468bfc4d4801f8220, type: 2}
+  - {fileID: 11400000, guid: c584ca1c80c608b4e9f4c0535cbfe4f9, type: 2}
+  - {fileID: 11400000, guid: 134d0c00878e71b4995375631fa0da97, type: 2}
   SpawnStatesMainLoop:
+  - {fileID: 11400000, guid: 3364bd980e126bd499efd4194cf58e83, type: 2}
   - {fileID: 11400000, guid: 06a255ea7de31d445a3c5ec4aa769716, type: 2}
+  - {fileID: 11400000, guid: f9b4041b2cbee9b40b73b432f2df873e, type: 2}
+  - {fileID: 11400000, guid: 225999480fbce4447a26abfe7e70e454, type: 2}
+  - {fileID: 11400000, guid: f6a4735dfb1b30440a50966db4db8e50, type: 2}
