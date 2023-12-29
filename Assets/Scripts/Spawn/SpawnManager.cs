@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-   [Header("Enemies:")]
+    [Header("Enemies:")]
     [SerializeField] private GameObject _enemyDog;
     [SerializeField] private int _maximumDogs;
     [SerializeField] private GameObject _enemyKangaroo;
@@ -12,6 +13,11 @@ public class SpawnManager : MonoBehaviour
 
     [Header("Spawn States")] 
     [SerializeField] private SpawnStateCollection _spawnCollection;
+
+    [Header("Difficulty Levels:")]
+    [SerializeField] private IntVariable _dificultyLevel;
+    [SerializeField] private List<SpawnStateCollection> _spawnCollectionDifficulties;
+    
     private SpawnState _currentSpawnState;
     private int _currentSpawnStateIndex = 0;
     private bool _isLearningPhase = true;
@@ -63,6 +69,9 @@ public class SpawnManager : MonoBehaviour
         _enemyKangarooPool = new ObjectPool(_maximumKangaroos, _enemyKangaroo);
         _enemyBirdPool = new ObjectPool(_maximumBirds, _enemyBird);
         ChangeSpawnState();
+        
+        // Select Difficulty Level
+        _spawnCollection = _spawnCollectionDifficulties[_dificultyLevel.Value];
     }
 
     private void ChangeSpawnState()
