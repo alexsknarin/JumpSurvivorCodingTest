@@ -3443,7 +3443,7 @@ MonoBehaviour:
   _dificultyLevel: {fileID: 11400000, guid: eefded0214c5362409c4b415207d4223, type: 2}
   _spawnCollectionDifficulties:
   - {fileID: 11400000, guid: bab9983dabc300341baab577388571c8, type: 2}
-  - {fileID: 11400000, guid: 5cd6565ad5f62fd4ba363d6afd1755e7, type: 2}
+  - {fileID: 11400000, guid: 2d5c7e9593c3b9649bd612a9a32feee8, type: 2}
   - {fileID: 11400000, guid: 44a054db303ae3c4b8cbc16c4229d0c7, type: 2}
 --- !u!1001 &1375139194
 PrefabInstance:
