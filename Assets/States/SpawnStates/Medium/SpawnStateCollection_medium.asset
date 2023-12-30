@@ -27,8 +27,9 @@ MonoBehaviour:
   SpawnStatesMainLoop:
   - {fileID: 11400000, guid: 25dcb49a147fdff4584e7d0d995c9921, type: 2}
   - {fileID: 11400000, guid: 22129b4c8e2782f4dbe2a666e17f6b44, type: 2}
-  - {fileID: 11400000, guid: fc5d40f039cf0c4439d447a6eca01d33, type: 2}
   - {fileID: 11400000, guid: 9444afe062c37cc4ba40c725958b0788, type: 2}
-  - {fileID: 11400000, guid: b8df12eb801f2f64ba28f31d0effbdd0, type: 2}
+  - {fileID: 11400000, guid: 9444afe062c37cc4ba40c725958b0788, type: 2}
+  - {fileID: 11400000, guid: fc5d40f039cf0c4439d447a6eca01d33, type: 2}
   - {fileID: 11400000, guid: 8805b738bce8c284ba2b999d6706739f, type: 2}
+  - {fileID: 11400000, guid: b8df12eb801f2f64ba28f31d0effbdd0, type: 2}
   - {fileID: 11400000, guid: 12f5596a013cada49a9fdaca7e6ecea0, type: 2}

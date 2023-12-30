@@ -19,12 +19,12 @@ MonoBehaviour:
   _dogsEnabled: 1
   _dogsRandomOncePerState: 0
   _dogsUseGlobalStateDirection: 0
-  _dogSpawnRate: 2.2
+  _dogSpawnRate: 2.3
   _dogSpawnDelay: 1
   _kangaroosEnabled: 1
   _kangaroosRandomOncePerState: 0
   _kangaroosUseGlobalStateDirection: 0
-  _kangarooSpawnRate: 6
+  _kangarooSpawnRate: 6.3
   _kangarooSpawnDelay: 5.7
   _birdsEnabled: 1
   _birdsRandomOncePerState: 0
