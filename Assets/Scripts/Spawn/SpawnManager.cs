@@ -20,8 +20,8 @@ public class SpawnManager : MonoBehaviour
     
     private SpawnState _currentSpawnState;
     private int _currentSpawnStateIndex = 0;
+    private int _prevSpawnStateIndex;
     private bool _isLearningPhase = true;
-
 
     private ObjectPool _enemyDogPool;
     private ObjectPool _enemyKangarooPool;
@@ -88,7 +88,12 @@ public class SpawnManager : MonoBehaviour
         }
         else
         {
+            _prevSpawnStateIndex = _currentSpawnStateIndex; 
             _currentSpawnStateIndex = (int)Random.Range(0, _spawnCollection.SpawnStatesMainLoop.Count);
+            if (_currentSpawnStateIndex == _prevSpawnStateIndex)
+            {
+                _currentSpawnStateIndex = (int)Random.Range(0, _spawnCollection.SpawnStatesMainLoop.Count);
+            }
             _currentSpawnState = _spawnCollection.SpawnStatesMainLoop[_currentSpawnStateIndex];
         }
         
