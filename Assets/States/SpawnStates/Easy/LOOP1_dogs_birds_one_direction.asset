@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LOOP1_dogs_birds_one_direction
   m_EditorClassIdentifier: 
   _stateId: 0
-  _stateDuration: 12
+  _stateDuration: 6
   _useStateDelay: 1
   _stateDelay: 0.2
   _dogsEnabled: 1
@@ -30,4 +30,4 @@ MonoBehaviour:
   _birdsRandomOncePerState: 1
   _birdsUseGlobalStateDirection: 1
   _birdSpawnRate: 1.5
-  _birdSpawnDelay: 0.7
+  _birdSpawnDelay: 0.78

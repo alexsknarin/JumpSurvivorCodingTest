@@ -29,5 +29,5 @@ MonoBehaviour:
   _birdsEnabled: 1
   _birdsRandomOncePerState: 0
   _birdsUseGlobalStateDirection: 0
-  _birdSpawnRate: 2
+  _birdSpawnRate: 1
   _birdSpawnDelay: 0

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SpawnStateCollection_medium
   m_EditorClassIdentifier: 
   SpawnStatesLearn:
-  - {fileID: 11400000, guid: d879a649f977c104d93006cc9f1cc98b, type: 2}
-  - {fileID: 11400000, guid: e87907105a1426f408b7a7fa9ccd204e, type: 2}
-  - {fileID: 11400000, guid: b819cecf37d91384bbfe358e1db3e04b, type: 2}
-  - {fileID: 11400000, guid: 8b8f509229ad42f47aa53f55b648f545, type: 2}
+  - {fileID: 11400000, guid: d67ae4e7eea864b4bb35b97f259ed83e, type: 2}
+  - {fileID: 11400000, guid: f015ad7dccfe0974fb8cf4fdddac8864, type: 2}
+  - {fileID: 11400000, guid: 0506e4a1ab504b7418ddf419bcaed6a5, type: 2}
+  - {fileID: 11400000, guid: 35c9d5dc3d7e1e14daf7a106942e7337, type: 2}
   - {fileID: 11400000, guid: e913193c2729ffa4083444ece51885df, type: 2}
   - {fileID: 11400000, guid: e679d8d8a15414c4aa1835938bfbcf40, type: 2}
   - {fileID: 11400000, guid: e4d3ef5b15f118540a3164baa5c83a04, type: 2}

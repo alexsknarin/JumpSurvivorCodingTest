@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LOOP3_dogs_only_one_direction_faster
   m_EditorClassIdentifier: 
   _stateId: 0
-  _stateDuration: 8
+  _stateDuration: 5
   _useStateDelay: 1
   _stateDelay: 0.2
   _dogsEnabled: 1

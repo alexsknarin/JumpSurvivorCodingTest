@@ -3440,7 +3440,6 @@ MonoBehaviour:
   _enemyBird: {fileID: 684631733816399340, guid: dca8e78ee0ed5ac41b6531fd11928339,
     type: 3}
   _maximumBirds: 5
-  _spawnCollection: {fileID: 11400000, guid: bab9983dabc300341baab577388571c8, type: 2}
   _dificultyLevel: {fileID: 11400000, guid: eefded0214c5362409c4b415207d4223, type: 2}
   _spawnCollectionDifficulties:
   - {fileID: 11400000, guid: bab9983dabc300341baab577388571c8, type: 2}

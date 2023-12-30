@@ -12,7 +12,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private int _maximumBirds;
 
     [Header("Spawn States")] 
-    [SerializeField] private SpawnStateCollection _spawnCollection;
+    private SpawnStateCollection _spawnCollection;
 
     [Header("Difficulty Levels:")]
     [SerializeField] private IntVariable _dificultyLevel;
@@ -68,10 +68,10 @@ public class SpawnManager : MonoBehaviour
         _enemyDogPool = new ObjectPool(_maximumDogs, _enemyDog);
         _enemyKangarooPool = new ObjectPool(_maximumKangaroos, _enemyKangaroo);
         _enemyBirdPool = new ObjectPool(_maximumBirds, _enemyBird);
-        ChangeSpawnState();
         
         // Select Difficulty Level
         _spawnCollection = _spawnCollectionDifficulties[_dificultyLevel.Value];
+        ChangeSpawnState();
     }
 
     private void ChangeSpawnState()

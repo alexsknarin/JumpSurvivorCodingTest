@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4f543d879a13ee4cb6ace12a20d263c, type: 3}
-  m_Name: LOOP5_kangaroos_many_single_direction
+  m_Name: LOOP5_kangaroos_birds_many_single_direction
   m_EditorClassIdentifier: 
   _stateId: 0
-  _stateDuration: 16
+  _stateDuration: 4
   _useStateDelay: 1
   _stateDelay: 2
   _dogsEnabled: 0
@@ -24,10 +24,10 @@ MonoBehaviour:
   _kangaroosEnabled: 1
   _kangaroosRandomOncePerState: 1
   _kangaroosUseGlobalStateDirection: 0
-  _kangarooSpawnRate: 4.33
+  _kangarooSpawnRate: 2
   _kangarooSpawnDelay: 0
-  _birdsEnabled: 0
+  _birdsEnabled: 1
   _birdsRandomOncePerState: 0
   _birdsUseGlobalStateDirection: 0
-  _birdSpawnRate: 8
-  _birdSpawnDelay: 6.3
+  _birdSpawnRate: 1
+  _birdSpawnDelay: 0

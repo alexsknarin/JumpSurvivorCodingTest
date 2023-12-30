@@ -13,18 +13,21 @@ MonoBehaviour:
   m_Name: LOOP2_dogs_only_random_direction
   m_EditorClassIdentifier: 
   _stateId: 0
-  _stateDuration: 12
+  _stateDuration: 8
   _useStateDelay: 1
   _stateDelay: 0.2
   _dogsEnabled: 1
   _dogsRandomOncePerState: 0
   _dogsUseGlobalStateDirection: 0
   _dogSpawnRate: 1.5
+  _dogSpawnDelay: 0
   _kangaroosEnabled: 0
   _kangaroosRandomOncePerState: 0
   _kangaroosUseGlobalStateDirection: 0
   _kangarooSpawnRate: 0
+  _kangarooSpawnDelay: 0
   _birdsEnabled: 0
   _birdsRandomOncePerState: 0
   _birdsUseGlobalStateDirection: 0
   _birdSpawnRate: 0
+  _birdSpawnDelay: 0

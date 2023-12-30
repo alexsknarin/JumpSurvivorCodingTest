@@ -51,7 +51,7 @@ MonoBehaviour:
   _speed: 9
   _midLevel: 5
   _amplitude: 2
-  _frequency: 8
+  _frequency: 6
   _birdView: {fileID: 2299507311614536744}
 --- !u!61 &7361480885943898502
 BoxCollider2D:
