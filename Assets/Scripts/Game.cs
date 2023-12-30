@@ -84,9 +84,10 @@ public class Game : MonoBehaviour
     
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.P))
         {
-            PauseGame();
+            Debug.Break();              
+            //PauseGame();
         }
         if (Input.GetKeyDown(KeyCode.F))
         {

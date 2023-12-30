@@ -1615,6 +1615,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 563929041}
+  _randomColors:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0.009771585, g: 1, b: 0, a: 1}
+  - {r: 1, g: 0.9039983, b: 0, a: 1}
+  - {r: 1, g: 0, b: 0.84976864, a: 1}
+  - {r: 0.5405445, g: 0, b: 1, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &563929041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1644,8 +1651,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278255360
+  m_fontColor: {r: 0.00087332726, g: 1, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3433,7 +3440,11 @@ MonoBehaviour:
   _enemyBird: {fileID: 684631733816399340, guid: dca8e78ee0ed5ac41b6531fd11928339,
     type: 3}
   _maximumBirds: 5
-  _spawnCollection: {fileID: 11400000, guid: bab9983dabc300341baab577388571c8, type: 2}
+  _dificultyLevel: {fileID: 11400000, guid: eefded0214c5362409c4b415207d4223, type: 2}
+  _spawnCollectionDifficulties:
+  - {fileID: 11400000, guid: bab9983dabc300341baab577388571c8, type: 2}
+  - {fileID: 11400000, guid: 5cd6565ad5f62fd4ba363d6afd1755e7, type: 2}
+  - {fileID: 11400000, guid: 44a054db303ae3c4b8cbc16c4229d0c7, type: 2}
 --- !u!1001 &1375139194
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5072,6 +5083,11 @@ PrefabInstance:
     - target: {fileID: 5506140146537298939, guid: 5a502b0aec898674988ac807612f475f,
         type: 3}
       propertyPath: _invincibilityDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8161534234164926894, guid: 5a502b0aec898674988ac807612f475f,
+        type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
