@@ -5085,6 +5085,11 @@ PrefabInstance:
       propertyPath: _invincibilityDuration
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8161534234164926894, guid: 5a502b0aec898674988ac807612f475f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

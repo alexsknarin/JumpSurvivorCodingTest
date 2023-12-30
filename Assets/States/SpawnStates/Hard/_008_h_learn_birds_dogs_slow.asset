@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4f543d879a13ee4cb6ace12a20d263c, type: 3}
-  m_Name: _007_m_learn_bird_single
+  m_Name: _008_h_learn_birds_dogs_slow
   m_EditorClassIdentifier: 
   _stateId: 0
-  _stateDuration: 2
-  _useStateDelay: 0
-  _stateDelay: 1
-  _dogsEnabled: 0
+  _stateDuration: 5
+  _useStateDelay: 1
+  _stateDelay: 0.7
+  _dogsEnabled: 1
   _dogsRandomOncePerState: 0
   _dogsUseGlobalStateDirection: 0
-  _dogSpawnRate: 2.8
+  _dogSpawnRate: 1.5
   _dogSpawnDelay: 1
   _kangaroosEnabled: 0
   _kangaroosRandomOncePerState: 0
@@ -29,5 +29,5 @@ MonoBehaviour:
   _birdsEnabled: 1
   _birdsRandomOncePerState: 0
   _birdsUseGlobalStateDirection: 0
-  _birdSpawnRate: 2
-  _birdSpawnDelay: 0
+  _birdSpawnRate: 6
+  _birdSpawnDelay: 4
