@@ -20,11 +20,9 @@ public class PlayerInputHandler : MonoBehaviour
     private InputDevice _currentInputDevice = new Keyboard();
     
     // events for extreme stick positions
-    public static event Action OnStickLeftPositionEnterEvent;
-   
-    public static event Action OnStickRightPositionEnterEvent;
+    public delegate void StickPositionChanged(float xValue);
+    public static event StickPositionChanged OnStickPositionChanged;
     
-    public static event Action OnStickNeutralPositionEnterEvent;
 
     public float HorizontalAxis 
     {
@@ -35,24 +33,9 @@ public class PlayerInputHandler : MonoBehaviour
             {
                 ApplyLegacyGravityHorizontalAxis();
             }
-            
-            // Handle Stick animation
-            if (_horizontalAxisInput < -0.8f)
-            {
-                OnStickLeftPositionEnterEvent();
-            }
-
-            if ((_horizontalAxisInput > -0.8f) && (_horizontalAxisInput < 0.8f))
-            {
-                OnStickNeutralPositionEnterEvent();
-            }
-            
-            if (_horizontalAxisInput > 0.8f)
-            {
-                OnStickRightPositionEnterEvent();
-            }
-            
-            
+            // Provide current stick state as an event with data
+            OnStickPositionChanged?.Invoke(_horizontalAxisInput);
+         
             return _horizontalAxisInput;
         }
     }

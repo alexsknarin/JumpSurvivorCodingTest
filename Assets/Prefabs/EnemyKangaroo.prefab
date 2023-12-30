@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c9b4489e48a5d41a0bee536a8e4db6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _testingMode: 1
+  _testingMode: 0
   _speed: 4
   _kangarooWaitState: {fileID: 11400000, guid: 1cf7a9cbd760db14e9ce40ba26addaa5, type: 2}
   _kangarooJumpState: {fileID: 11400000, guid: 3ab20ccc8d080464d8cc15b25f63e5cd, type: 2}

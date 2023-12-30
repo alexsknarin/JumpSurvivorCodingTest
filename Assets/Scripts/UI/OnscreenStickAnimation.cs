@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,17 +28,33 @@ public class OnscreenStickAnimation : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerInputHandler.OnStickNeutralPositionEnterEvent += SetNeutralPosition;
-        PlayerInputHandler.OnStickLeftPositionEnterEvent += SetLeftPosition;
-        PlayerInputHandler.OnStickRightPositionEnterEvent += SetRightPosition;
+        PlayerInputHandler.OnStickPositionChanged += HandleInput;
     }
 
     private void OnDisable()
     {
-        PlayerInputHandler.OnStickNeutralPositionEnterEvent -= SetNeutralPosition;
-        PlayerInputHandler.OnStickLeftPositionEnterEvent -= SetLeftPosition;
-        PlayerInputHandler.OnStickRightPositionEnterEvent -= SetRightPosition;
+        PlayerInputHandler.OnStickPositionChanged -= HandleInput;
     }
+
+    private void HandleInput(float xValue)
+    {
+        if (xValue < -0.8f)
+        {
+            SetLeftPosition();
+        }
+
+        if ((xValue > -0.8f) && (xValue < 0.8f))
+        {
+            SetNeutralPosition();
+        }
+            
+        if (xValue > 0.8f)
+        {
+            SetRightPosition();
+        }
+    }
+    
+    
 
     void SetNeutralPosition()
     {
@@ -57,6 +70,4 @@ public class OnscreenStickAnimation : MonoBehaviour
     {
         _stickImage.sprite = _rightPositionImage;
     }
-    
-
 }

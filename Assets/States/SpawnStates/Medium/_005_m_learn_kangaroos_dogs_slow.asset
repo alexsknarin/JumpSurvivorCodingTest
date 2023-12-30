@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4f543d879a13ee4cb6ace12a20d263c, type: 3}
+  m_Name: _005_m_learn_kangaroos_dogs_slow
+  m_EditorClassIdentifier: 
+  _stateId: 0
+  _stateDuration: 12
+  _useStateDelay: 1
+  _stateDelay: 2
+  _dogsEnabled: 1
+  _dogsRandomOncePerState: 0
+  _dogsUseGlobalStateDirection: 0
+  _dogSpawnRate: 2.7
+  _dogSpawnDelay: 1
+  _kangaroosEnabled: 1
+  _kangaroosRandomOncePerState: 0
+  _kangaroosUseGlobalStateDirection: 0
+  _kangarooSpawnRate: 6
+  _kangarooSpawnDelay: 0
+  _birdsEnabled: 0
+  _birdsRandomOncePerState: 0
+  _birdsUseGlobalStateDirection: 0
+  _birdSpawnRate: 0
+  _birdSpawnDelay: 0
