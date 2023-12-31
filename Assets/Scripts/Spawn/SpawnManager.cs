@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class SpawnManager : MonoBehaviour
+public class SpawnManager : MonoBehaviour, IPausable
 {
     [Header("Enemies:")]
     [SerializeField] private GameObject _enemyDog;
@@ -48,10 +50,17 @@ public class SpawnManager : MonoBehaviour
     
     private bool _delayMode = false;
     
+    private bool _isPaused = false;
+    
     // State Debug UI
     public delegate void SpawnStateChanged(string StateName);
     public static event SpawnStateChanged OnSpawnStateChanged;
-    
+
+    private void Start()
+    {
+        Game.Pausables.Add(this);
+    }
+
     private float GetRandomDirection()
     {
         if (UnityEngine.Random.Range(-1f, 1f) > 0)
@@ -122,6 +131,11 @@ public class SpawnManager : MonoBehaviour
     
     private void Update()
     {
+        if (_isPaused)
+        {
+            return;
+        }
+        
         // State Delay
         if (_delayMode)
         {
@@ -242,5 +256,15 @@ public class SpawnManager : MonoBehaviour
             enemySpawnPrevTime = Time.time;
             isFirstSpawnInState = false;
         }
+    }
+
+    public void SetPaused()
+    {
+        _isPaused = true;
+    }
+
+    public void SetUnpaused()
+    {
+        _isPaused = false;
     }
 }
