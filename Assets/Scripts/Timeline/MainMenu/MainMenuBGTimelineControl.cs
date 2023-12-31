@@ -14,4 +14,9 @@ public class MainMenuBGTimelineControl : MonoBehaviour
     {
         _bgDirector.time = _loopFrameStart / _fps;
     }
+
+    public void Play()
+    {
+        _bgDirector.Play();
+    }
 }
