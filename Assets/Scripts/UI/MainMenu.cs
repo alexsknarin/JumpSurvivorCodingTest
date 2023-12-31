@@ -11,10 +11,14 @@ public class MainMenu : MonoBehaviour
 
     private void Awake()
     {
-        // check if data exists
-        // if So skip consent
-        // else:
-        _consentScreen.SetActive(true);
+        if (PlayerPrefs.GetInt("dataConsent") == 1)
+        {
+            AgreeToDataCollection();
+        }
+        else
+        {
+            _consentScreen.SetActive(true);            
+        }
     }
 
     private void StartMainMenu()
@@ -26,29 +30,27 @@ public class MainMenu : MonoBehaviour
 
     public void AgreeToDataCollection()
     {
-        // save data collection approval to the PlayerPrefs
         _enableDataCollectionButton.SetActive(false);
         _disableDataCollectionButton.SetActive(true);
-        Debug.Log("Statistics collection Allowed - Saved");
         StartMainMenu();
+        PlayerPrefs.SetInt("dataConsent", 1);
     }
     
     public void RefuseDataCollection()
     {
-        // save data collection disapproval to the PlayerPrefs
         _enableDataCollectionButton.SetActive(true);
         _disableDataCollectionButton.SetActive(false);
-        Debug.Log("Statistics collection disallowed - Saved");
         StartMainMenu();
+        PlayerPrefs.SetInt("dataConsent", 0);
     }
 
     public void EnableDataCollectionSetting()
     {
-        Debug.Log("ENABLE DATA");
+        PlayerPrefs.SetInt("dataConsent", 1);
     }
     
     public void DisableDataCollectionSetting()
     {
-        Debug.Log("Disable DATA");
+        PlayerPrefs.SetInt("dataConsent", 0);
     }
 }
