@@ -11,7 +11,26 @@ public class PlayerViewHandler : MonoBehaviour
     [SerializeField] private GameObject _playerViewBase;
     private Vector3 _xFlip = Vector3.one;
     [SerializeField] private Animator _catBodyAnimator;
-    [SerializeField] private PlayerMovement _playerMovement; 
+    [SerializeField] private PlayerMovement _playerMovement;
+    // String Property Caching
+    private static readonly int Speed = Animator.StringToHash("speed");
+    private static readonly int JumpPhase = Animator.StringToHash("jumpPhase");
+    private static readonly int OnGround = Animator.StringToHash("onGround");
+
+    private void OnEnable()
+    {
+        PlayerCollisionHandler.OnGroundCollided += SetOnGround;
+    }
+
+    private void OnDisable()
+    {
+        PlayerCollisionHandler.OnGroundCollided -= SetOnGround;
+    }
+
+    private void SetOnGround()
+    {
+        _catBodyAnimator.SetBool(OnGround, true);
+    }
     
     private void Update()
     {
@@ -27,7 +46,12 @@ public class PlayerViewHandler : MonoBehaviour
         _playerViewBase.transform.localScale = _xFlip;
         
         // Anim control
-        _catBodyAnimator.SetFloat("speed", Mathf.Abs(_playerMovement.Speed));
-        _catBodyAnimator.SetFloat("jumpPhase", _playerMovement.JumpPhase);
+        _catBodyAnimator.SetFloat(Speed, Mathf.Abs(_playerMovement.Speed));
+        _catBodyAnimator.SetFloat(JumpPhase, _playerMovement.JumpPhase);
+
+        if (_playerMovement.JumpPhase > 0.1f)
+        {
+            _catBodyAnimator.SetBool(OnGround, false);
+        }
     }
 }
