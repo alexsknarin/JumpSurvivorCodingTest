@@ -54,6 +54,7 @@ public class PlayerHealthUIView : MonoBehaviour
             }
             _nearDeath = true;
         }
+        Debug.Log($"Player Health {_playerHealth.Value}");
         _healthHearts[_playerHealth.Value].DoDamage();
     }
 }

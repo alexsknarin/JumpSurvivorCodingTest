@@ -838,8 +838,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81bf0e30de718c847b743ca2bbbd3659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameTime: {fileID: 0}
-  _difficultyLevel: {fileID: 0}
+  _gameTime: {fileID: 11400000, guid: 4772841074a0cf94f82fb051dc659af6, type: 2}
+  _difficultyLevel: {fileID: 11400000, guid: eefded0214c5362409c4b415207d4223, type: 2}
 --- !u!4 &206134036
 Transform:
   m_ObjectHideFlags: 0

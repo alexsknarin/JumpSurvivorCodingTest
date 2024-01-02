@@ -10,6 +10,7 @@ public abstract class Enemy : MonoBehaviour, IPausable
     protected Vector3 _spawnPos = Vector3.zero;
     protected float _direction;
     protected bool _isPaused = false;
+    public abstract string EnemyName { get; }
 
     private void Start()
     {

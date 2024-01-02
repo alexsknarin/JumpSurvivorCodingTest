@@ -14,6 +14,7 @@ public class EnemyBird : Enemy
     private Vector3 _sinPos;
     [SerializeField] private GameObject _birdView; 
     private Vector3 _birdScale = Vector3.one;
+    public override string EnemyName => "Bird";
     
     public override void SpawnSetup(float dir)
     {
