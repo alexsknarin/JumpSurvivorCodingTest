@@ -12,6 +12,7 @@ public class AnalyticsCollector : MonoBehaviour
     [SerializeField] private FloatVariable _gameTime;
     [SerializeField] private IntVariable _difficultyLevel;
     private string _spawnStateName = "";
+    private int _spawnStateNum = 0;
 
     private void OnEnable()
     {
@@ -30,16 +31,17 @@ public class AnalyticsCollector : MonoBehaviour
     private void SpawnStateNameChange(string spawnStateName)
     {
         _spawnStateName = spawnStateName;
+        _spawnStateNum++;
     }
 
     async void Start()
     {
         try
         {
-            // var options = new InitializationOptions();
-            // options.SetEnvironmentName("dev");
-            // await UnityServices.InitializeAsync(options);
-            await UnityServices.InitializeAsync();
+            var options = new InitializationOptions();
+            options.SetEnvironmentName("production");
+            await UnityServices.InitializeAsync(options);
+            // await UnityServices.InitializeAsync();
             GiveConsent();
         }
         catch (ConsentCheckException e)
@@ -63,7 +65,8 @@ public class AnalyticsCollector : MonoBehaviour
         {
             {"difficultyLevel", _difficultyLevel.Value},
             {"enemyType", enemyName},
-            {"spawnState", _spawnStateName}
+            {"spawnState", _spawnStateName},
+            {"spawnStateNum", _spawnStateNum}
         };
         
         AnalyticsService.Instance.CustomData("playerDamaged", parameters);
