@@ -27,6 +27,11 @@ public class MainMenuButtonsTimelineControl : MonoBehaviour
         _bgDirector.time = _startGameStartTime / _fps;
         _bgDirector.Play();
     }
+    
+    public void Play()
+    {
+        _bgDirector.Play();
+    }
 
     public void SetExitGameMode()
     {
