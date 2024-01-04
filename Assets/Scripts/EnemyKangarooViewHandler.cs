@@ -1,8 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+/* Kangaroo has more complex view than a Dog or a Bird, that is why it has a separate component for it.
+ */
 using UnityEngine;
 
+/// <summary>
+/// Component to control a visual representation of a Kangaroo.
+/// </summary>
 [RequireComponent(typeof(EnemyKangaroo))]
 public class EnemyKangarooViewHandler : MonoBehaviour, IGroundCollidable
 {

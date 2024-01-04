@@ -1,8 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Make Player character aatar flash with a given color. Subscribed to EnemyCollision and indicated received Damage.
+/// </summary>
 public class PlayerFlashingHit : MonoBehaviour
 {
     [SerializeField] private FloatVariable _gameTime;

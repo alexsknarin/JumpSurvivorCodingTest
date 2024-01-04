@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Control movement of the Kangaroo enemy in a JUMP state.
+/// </summary>
 [CreateAssetMenu(menuName = "EnemyMovement/KangarooJumpState", fileName = "kangarooJumpState")]
 public class KangarooJumpState : KangarooMovementBaseState
 {

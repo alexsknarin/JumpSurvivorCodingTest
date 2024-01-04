@@ -1,8 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Check for Player collisions and provide events.
+/// </summary>
 public class PlayerCollisionHandler : MonoBehaviour
 {
     public static event Action OnEnemyCollided;

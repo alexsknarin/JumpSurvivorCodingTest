@@ -1,11 +1,19 @@
+/* Current responsibilities of this class:
+ * - Initialize/start a game.
+ * - Stop the game based on condition this class is watching for.
+ * - Pause/Unpause by a key press - TODO: remove it from the release version.
+ */
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Initialisation of the all game systems, control of the flow of the game.
+/// </summary>
 public class Game : MonoBehaviour
 {
     // Player

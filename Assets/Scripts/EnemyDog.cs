@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Initialization, spawn procedure and Movement algorithm of a Dog.
+/// </summary>
 public class EnemyDog : Enemy
 {
     [SerializeField] private GameObject _dogView;

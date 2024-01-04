@@ -1,9 +1,10 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Indicate a name of the current spawnState on screen. Temporary debug class.
+/// </summary>
 public class SpawnUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text _text;

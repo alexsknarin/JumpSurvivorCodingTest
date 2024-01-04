@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Control movement of the Kangaroo enemy in a WAIT state.
+/// </summary>
 [CreateAssetMenu(menuName = "EnemyMovement/KangarooWaitState", fileName = "kangarooWaitState")]
 public class KangarooWaitState : KangarooMovementBaseState
 {

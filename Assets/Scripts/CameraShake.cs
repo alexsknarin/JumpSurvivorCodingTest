@@ -1,7 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Component to perform a camera shake. Use Random.insideUnitCircle to get a random position each frame.
+/// </summary>
 public class CameraShake : MonoBehaviour, IPausable
 {
     [SerializeField] private float _shakeAmplitude;

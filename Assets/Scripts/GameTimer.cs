@@ -1,8 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Constantly update gameTime Scriptable Object Variable. This is that time that is counted for the scores and displayed on screen.
+/// </summary>
 public class GameTimer : MonoBehaviour, IPausable
 {
     [SerializeField] private FloatVariable _gameTime;

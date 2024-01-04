@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Component for enemies that need to test for collision with Ground.  
+/// </summary>
 public class EnemyGroundCollider : MonoBehaviour
 {
     [SerializeField] private GameObject _enemy;

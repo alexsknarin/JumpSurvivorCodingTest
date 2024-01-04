@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Manage player's amount of health. Provides events for heals amount changes.
+/// </summary>
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private IntVariable _playerHealth;

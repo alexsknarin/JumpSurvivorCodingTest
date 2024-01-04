@@ -1,7 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
+/* Collection of variables that shape a spawn State - a bit of the enemy spawning sequence. 
+ * Variables control things such as :
+ * - Duration of the state.
+ * - Delay before starting a current state.
+ * - What enemies will be spawned with what rate and time offsets. 
+ */
 using UnityEngine;
 
+/// <summary>
+/// Describe a single spawnState.
+/// </summary>
 [CreateAssetMenu(menuName = "Spawn/SpawnState", fileName = "SpawnState")]
 public class SpawnState : ScriptableObject
 {
