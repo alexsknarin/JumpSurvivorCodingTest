@@ -82,7 +82,7 @@ public class AnalyticsCollector : MonoBehaviour
             {"spawnState", _spawnStateName}
         };
         
-        AnalyticsService.Instance.CustomData("palyerDeath", parameters);
+        AnalyticsService.Instance.CustomData("playerDeath", parameters);
         
         AnalyticsService.Instance.Flush();
     }
