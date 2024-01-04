@@ -1,8 +1,19 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+/* To save some time Enemy class in this game is quite big with many responsibilities. 
+ * It is responsible for:
+ * - Initialization.
+ * - Movement.
+ * - Deactivation if character is outside of the screen.
+ * - Spawn related setup.
+ * - Controlling the visuals (Dog and Bird).
+ *
+ * TODO: split this functionality into a separate classes.
+ * 
+ */
 using UnityEngine;
 
+/// <summary>
+/// Base class responsible for general data structure and deactivation handling for all enemy classes.
+/// </summary>
 public abstract class Enemy : MonoBehaviour, IPausable
 {
     [SerializeField] private bool _testingMode = false;

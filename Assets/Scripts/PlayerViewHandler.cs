@@ -1,9 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
+/// <summary>
+/// Component to control a visual representation of the Player.
+/// </summary>
 [RequireComponent(typeof(PlayerMovement))]
 public class PlayerViewHandler : MonoBehaviour
 {

@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Call vibration based on events related to Player Character.
+/// </summary>
 public class PlayerVibratingHit : MonoBehaviour
 {
     private bool _isDamageable = true;

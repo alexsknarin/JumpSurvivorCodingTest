@@ -1,9 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
+/// <summary>
+/// Start Player Death Animation using VFX graph particles.
+/// </summary>
 public class PlayerDeathAnimation : MonoBehaviour
 {
     [SerializeField] private VisualEffect _deathAnimationVFX;

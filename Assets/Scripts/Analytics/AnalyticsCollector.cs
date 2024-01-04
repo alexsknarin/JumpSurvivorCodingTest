@@ -1,12 +1,20 @@
-using System;
-using System.Collections;
+/* Single point of collection of all of the statistics for the Unity Analytics.
+ * Player consent is handled separately, saved into PlayerPrefs and checked here
+ * before starting gathering and sending data.
+ * Currently there are only two custom event that are being watched:
+ *  - playerDamaged with enemy type and spawnState.
+ *  - playerDeath with spawnState.
+ * To be able to analyze how often players are being damaged on each of the states of the game.
+ */
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Services.Analytics;
 using Unity.Services.Core;
 using Unity.Services.Core.Environments;
 
-
+/// <summary>
+/// Class to collect all Analytics Data and send it to Unity Analytics service.
+/// </summary>
 public class AnalyticsCollector : MonoBehaviour
 {
     [SerializeField] private FloatVariable _gameTime;

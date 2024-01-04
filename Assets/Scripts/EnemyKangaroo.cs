@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Initialization, spawn procedure and Movement algorithm of a Kangaroo.
+/// </summary>
 public class EnemyKangaroo : Enemy
 {
     private StateMachine _moveStateMachine = new StateMachine();

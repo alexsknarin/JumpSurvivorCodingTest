@@ -2,6 +2,9 @@ using UnityEngine.Playables;
 using UnityEngine.Timeline;
 using UnityEngine;
 
+/// <summary>
+/// Control animation of Death screen art assets using Timeline.
+/// </summary>
 public class DeathScreenUiTimeineControl : MonoBehaviour
 {
     [SerializeField] private PlayableDirector _bgDirector;

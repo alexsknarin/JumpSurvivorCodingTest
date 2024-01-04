@@ -1,11 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// Component to Handle formatting and displaying high score data on a screen.
+/// </summary>
 public class DisplayHighScore : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _scoreText;

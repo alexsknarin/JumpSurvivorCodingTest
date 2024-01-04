@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Control movement of the Player in a MOVE state.
+/// </summary>
 [CreateAssetMenu(menuName = "PlayerMovement/playerMoveState", fileName = "playerMoveState")]
 public class PlayerMoveState : PlayerMovementBaseState
 {
