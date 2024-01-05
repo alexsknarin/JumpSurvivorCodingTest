@@ -3,8 +3,11 @@ using UnityEngine.Playables;
 using UnityEngine.Timeline;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.PlayerLoop;
 
+
+/// <summary>
+/// Control animation of Death screen Control Buttons using Timeline.
+/// </summary>
 public class DeathScreenButtonsUIControl : MonoBehaviour
 {
     [SerializeField] private PlayableDirector _buttonsDirector;

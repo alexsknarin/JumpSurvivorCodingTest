@@ -1,10 +1,8 @@
-    using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// Initialization, spawn procedure and Movement algorithm of a Bird.
+/// </summary>
 public class EnemyBird : Enemy
 {
     [SerializeField] private float _midLevel = 5f;
@@ -14,6 +12,7 @@ public class EnemyBird : Enemy
     private Vector3 _sinPos;
     [SerializeField] private GameObject _birdView; 
     private Vector3 _birdScale = Vector3.one;
+    public override string EnemyName => "Bird";
     
     public override void SpawnSetup(float dir)
     {

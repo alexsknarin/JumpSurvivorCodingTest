@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Control animation of main Menu screen Control Buttons using Timeline.
+/// </summary>
 public class MainMenuButtonsTimelineControl : MonoBehaviour
 {
     [SerializeField] private PlayableDirector _bgDirector;
@@ -25,6 +25,11 @@ public class MainMenuButtonsTimelineControl : MonoBehaviour
         _startScoreExitMode = 1;
         _bgDirector.Pause();
         _bgDirector.time = _startGameStartTime / _fps;
+        _bgDirector.Play();
+    }
+    
+    public void Play()
+    {
         _bgDirector.Play();
     }
 

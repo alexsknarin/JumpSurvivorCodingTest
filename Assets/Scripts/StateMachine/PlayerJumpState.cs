@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Control movement of the Player in a JUMP state.
+/// </summary>
 [CreateAssetMenu(menuName = "PlayerMovement/playerJumpState", fileName = "playerJumpState")]
 public class PlayerJumpState : PlayerMovementBaseState
 {

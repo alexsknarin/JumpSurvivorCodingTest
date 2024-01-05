@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
+/// <summary>
+/// Control animation of MainMenu screen Control art assets using TimeLine.
+/// </summary>
 public class MainMenuBGTimelineControl : MonoBehaviour
 {
     [SerializeField] private PlayableDirector _bgDirector;
@@ -13,5 +16,10 @@ public class MainMenuBGTimelineControl : MonoBehaviour
     public void MainMenuLoopContinue()
     {
         _bgDirector.time = _loopFrameStart / _fps;
+    }
+
+    public void Play()
+    {
+        _bgDirector.Play();
     }
 }

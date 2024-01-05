@@ -1,8 +1,10 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 
+/// <summary>
+/// Watch for all Input related to the Player Character movement behaviour.
+/// </summary>
 public class PlayerInputHandler : MonoBehaviour
 {
     private PlayerInputActionMap _playerInputActionMap;

@@ -1,10 +1,15 @@
 using UnityEngine;
 
+/// <summary>
+/// Initialization, spawn procedure and Movement algorithm of a Kangaroo.
+/// </summary>
 public class EnemyKangaroo : Enemy
 {
     private StateMachine _moveStateMachine = new StateMachine();
     [SerializeField] private KangarooMovementBaseState _kangarooWaitState;
     [SerializeField] private KangarooMovementBaseState _kangarooJumpState;
+    public override string EnemyName => "Kangaroo";
+    
     
     public float Speed { get; set; }
     public float JumpPhase { get; set; }

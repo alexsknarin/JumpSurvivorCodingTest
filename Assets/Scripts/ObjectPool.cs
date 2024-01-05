@@ -1,8 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// Abstract Object Pool Class. Generate Pool and Provide access to the current pool member. 
+/// </summary>
 public class ObjectPool
 {
     private List<GameObject> _pooledObjects;

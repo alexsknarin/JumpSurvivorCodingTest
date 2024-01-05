@@ -1,8 +1,12 @@
+/* Truing to use Scriptable object as a container for the data that is shared between different objects and
+ * is also persistent during the whole game lifecycle (are still available after new scene is loaded).
+ */
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Scriptable Object to store persistent data of the float type;
+/// </summary>
 [CreateAssetMenu(menuName = "SO Variables/FloatVariable")]
 public class FloatVariable : ScriptableObject
 {

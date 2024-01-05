@@ -1,9 +1,33 @@
+/* This is basically the place where all game progression is being controlled.
+ * Because game should generate enemies endlessly there is a task to make spawned enemy combinations
+ * diverse and somewhat controllable. Therefore instead of relying on fully random way of spawning enemies
+ * SpawnManager works with "spawnCollections" - Scriptable objects containing lists of smaller spawn behaviour bits.
+ * PROS:
+ *  - Interesting spawning patterns could be authored manually instead of relying on random.
+ *  - Game designer has control over order of spawn bits, which is especially important for the tutorial phase.
+ *  - Designer can replace spawnCollections at any times  which makes it convenient to experiment or test isolated
+ * parts of the experience.
+ *
+ * All spawning logic is implemented in SpawnManager, spawnStates dont contain any logic - only variables.
+ * It practically turns SpawnManager into a sort of Data driven StateMachine, or a very simple interpreter for a visually
+ * Constructed script.
+ *
+ * There are three inputs for spawnCollections - which one to use is decided based on difficulty level.
+ *
+ * Spawn Manager holds Object Pools for each kind of enemy, it initializes them and controls their usage.
+ */
+
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class SpawnManager : MonoBehaviour
+/// <summary>
+/// Controls generation of enemies for the whole game. 
+/// </summary>
+public class SpawnManager : MonoBehaviour, IPausable
 {
     [Header("Enemies:")]
+    // Enemy prefabs and amound that will be generated for enemy object pools.
     [SerializeField] private GameObject _enemyDog;
     [SerializeField] private int _maximumDogs;
     [SerializeField] private GameObject _enemyKangaroo;
@@ -48,10 +72,17 @@ public class SpawnManager : MonoBehaviour
     
     private bool _delayMode = false;
     
+    private bool _isPaused = false;
+    
     // State Debug UI
     public delegate void SpawnStateChanged(string StateName);
     public static event SpawnStateChanged OnSpawnStateChanged;
-    
+
+    private void Start()
+    {
+        Game.Pausables.Add(this);
+    }
+
     private float GetRandomDirection()
     {
         if (UnityEngine.Random.Range(-1f, 1f) > 0)
@@ -97,6 +128,7 @@ public class SpawnManager : MonoBehaviour
             _currentSpawnState = _spawnCollection.SpawnStatesMainLoop[_currentSpawnStateIndex];
         }
         
+        // TODO: remove this even from release version of the code.
         OnSpawnStateChanged(_currentSpawnState.name);
         _delayMode = _currentSpawnState.UseStateDelay;
         _isDogDelayed = true;
@@ -122,6 +154,11 @@ public class SpawnManager : MonoBehaviour
     
     private void Update()
     {
+        if (_isPaused)
+        {
+            return;
+        }
+        
         // State Delay
         if (_delayMode)
         {
@@ -219,6 +256,16 @@ public class SpawnManager : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Spawn Enemy from the Object Pool
+    /// </summary>
+    /// <param name="enemyPool">Object pool with current enemies.</param>
+    /// <param name="enemySpawnPrevTime">Reference to the pevious Spawn Time fo the current enemy.</param>
+    /// <param name="spawnRate">HOw much time you need to wait before spawning a next enemy of current type for the current spawnState.</param>
+    /// <param name="enemyGlobalDir">Single movement direction for the whole duration of current spawnState.</param>
+    /// <param name="useEnemyGlobal">Use single direction for the spawnState instead a random one for each spawn.</param>
+    /// <param name="useStateGlobal">Use single state direction that will be shared with other enemies.</param>
+    /// <param name="isFirstSpawnInState">Required to make the first enemy in state to be spawned without delay.</param>
     private void SpawnEnemy(ObjectPool enemyPool, ref float enemySpawnPrevTime, float spawnRate, 
         float enemyGlobalDir, bool useEnemyGlobal, bool useStateGlobal, ref bool isFirstSpawnInState)
     {
@@ -242,5 +289,15 @@ public class SpawnManager : MonoBehaviour
             enemySpawnPrevTime = Time.time;
             isFirstSpawnInState = false;
         }
+    }
+
+    public void SetPaused()
+    {
+        _isPaused = true;
+    }
+
+    public void SetUnpaused()
+    {
+        _isPaused = false;
     }
 }

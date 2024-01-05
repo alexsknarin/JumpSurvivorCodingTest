@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+/// <summary>
+/// Interface for all objects that may need to be set on pause.
+/// </summary>
 public interface IPausable
 {
     public void SetPaused();

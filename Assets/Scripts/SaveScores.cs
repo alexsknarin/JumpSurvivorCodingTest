@@ -1,12 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEngine.Events;
 
+/// <summary>
+/// Serialize current score as JSON and save it to file. Add new data to the existing stored in the file.
+/// </summary>
 public class SaveScores : MonoBehaviour
 {
     [SerializeField] private StringVariable _playerName;

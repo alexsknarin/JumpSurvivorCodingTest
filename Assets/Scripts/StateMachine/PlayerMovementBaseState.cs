@@ -1,5 +1,11 @@
+/* Player Movement State with common functionality for all player movement states in the StateMachine.
+ * TODO: possible make this class abstract 
+ */
 using UnityEngine;
 
+/// <summary>
+/// Base class for all Player movement states. 
+/// </summary>
 public class PlayerMovementBaseState : ScriptableObject, IState
 {
     protected PlayerMovement _owner;

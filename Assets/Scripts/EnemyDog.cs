@@ -1,12 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Initialization, spawn procedure and Movement algorithm of a Dog.
+/// </summary>
 public class EnemyDog : Enemy
 {
     [SerializeField] private GameObject _dogView;
     private Vector3 _dogScale = Vector3.one;
-    
+
+    public override string EnemyName => "Dog";
+
     public override void SpawnSetup(float dir)
     {
         _spawnPos.x = 15.05f;
