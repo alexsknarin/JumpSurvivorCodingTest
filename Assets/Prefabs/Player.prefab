@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8737541639500692427}
   - component: {fileID: 2262465901274450751}
   m_Layer: 0
-  m_Name: cat_head
+  m_Name: Cat_head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -466,7 +466,7 @@ GameObject:
   - component: {fileID: 1880255988105948202}
   - component: {fileID: 8952216090402075926}
   m_Layer: 0
-  m_Name: cat_body
+  m_Name: Cat_body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
