@@ -3,7 +3,7 @@ using TMPro;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-public class BonusPointsView : MonoBehaviour
+public class BonusPointsView : MonoBehaviour, IPausable
 {
     [SerializeField] private RectTransform _bonusTextTransform;
     [SerializeField] private TMP_Text _text;
@@ -14,6 +14,7 @@ public class BonusPointsView : MonoBehaviour
     private float _animationPhase = 0f;
     private float _prevTime = 0f;
     private Vector3 _translateDirection;
+    
     
 
     public void SpawnSetup(int pointNum, Vector2 startScreenPosition, RectTransform bonusTextTransform)
@@ -54,5 +55,13 @@ public class BonusPointsView : MonoBehaviour
         {
             Animation();
         }
+    }
+
+    public void SetPaused()
+    {
+    }
+
+    public void SetUnpaused()
+    {
     }
 }
