@@ -151,10 +151,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 115804993}
   - {fileID: 1832951921}
-  - {fileID: 317146422}
+  - {fileID: 115804993}
   - {fileID: 2022024093}
+  - {fileID: 317146422}
   - {fileID: 1849512381}
   - {fileID: 119229315}
   - {fileID: 563929039}
@@ -371,9 +371,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bonusAnimated: {fileID: 7308591865088425581, guid: df6fc2790e0a5904ca7655fc3247c381,
     type: 3}
+  _bonusText: {fileID: 2022024094}
   _canvasRectTransform: {fileID: 1207465497}
   _bonusTextTransform: {fileID: 2022024093}
   _maxBonusPointOnScreen: 5
+  _bonusPoints: {fileID: 11400000, guid: bd50214797dbcd143acadb6eed684bb8, type: 2}
 --- !u!1 &119229314
 GameObject:
   m_ObjectHideFlags: 0
@@ -2089,6 +2091,7 @@ GameObject:
   - component: {fileID: 648352126}
   - component: {fileID: 648352128}
   - component: {fileID: 648352129}
+  - component: {fileID: 648352130}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -2162,6 +2165,20 @@ MonoBehaviour:
   _playerName: {fileID: 11400000, guid: de08ab263f70b9b45a546049cd36245d, type: 2}
   _difficultyLevel: {fileID: 11400000, guid: eefded0214c5362409c4b415207d4223, type: 2}
   _gameTime: {fileID: 11400000, guid: 4772841074a0cf94f82fb051dc659af6, type: 2}
+--- !u!114 &648352130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648352125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9963a2a976a3c684a9a327cae3ba6fda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bonusPoints: {fileID: 11400000, guid: bd50214797dbcd143acadb6eed684bb8, type: 2}
+  _kangarooBonus: 5
 --- !u!1 &659390730
 GameObject:
   m_ObjectHideFlags: 0

@@ -39,7 +39,7 @@ public class BonusPointsView : MonoBehaviour, IPausable
         else
         {
             _translateDirection = (_bonusTextTransform.transform.position - transform.position);
-            if (_translateDirection.magnitude < 10f)
+            if (_translateDirection.magnitude < 30f)
             {
                 gameObject.SetActive(false);
                 _isAnimated = false;
