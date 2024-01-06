@@ -26,7 +26,7 @@ public class ObjectPool
     public GameObject GetPooledObject()
     {
         for (int i = 0; i < _poolAmount; i++)
-        {
+        {   
             if (!_pooledObjects[i].activeInHierarchy)
             {
                 return _pooledObjects[i];

@@ -27,7 +27,7 @@ using Random = UnityEngine.Random;
 public class SpawnManager : MonoBehaviour, IPausable
 {
     [Header("Enemies:")]
-    // Enemy prefabs and amound that will be generated for enemy object pools.
+    // Enemy prefabs and amount that will be generated for enemy object pools.
     [SerializeField] private GameObject _enemyDog;
     [SerializeField] private int _maximumDogs;
     [SerializeField] private GameObject _enemyKangaroo;
