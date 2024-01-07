@@ -14,9 +14,9 @@ public class BonusViewHandler : MonoBehaviour
     [SerializeField] private int _maxBonusPointOnScreen;
     [SerializeField] private IntVariable _bonusPoints;
     private WaitForSeconds _bonusTextUpdateDelay;
-    
     private ObjectPool _bonusAnimatedPool;
     private ObjectPool _bonusStarFxPool;
+    private int _currentBonus;
 
     private void Start()
     {
@@ -48,7 +48,7 @@ public class BonusViewHandler : MonoBehaviour
         BonusPointsManager.OnBonusUpdated -= SpawnBonusAnimation;
     }
 
-    private void SpawnBonusAnimation(int enemy, Vector3 playerPosition)
+    private void SpawnBonusAnimation(int currentBonus, Vector3 playerPosition)
     {
         Vector2 canvasPosition = RectTransformUtility.WorldToScreenPoint(Camera.main, playerPosition);
         GameObject currentBonusPointsView = _bonusAnimatedPool.GetPooledObject();
@@ -58,7 +58,7 @@ public class BonusViewHandler : MonoBehaviour
             return;
         }
         currentBonusPointsView.transform.parent = _canvasRectTransform;
-        currentBonusPointsView.GetComponent<BonusPointsView>().SpawnSetup(5, canvasPosition, _bonusTextTransform);
+        currentBonusPointsView.GetComponent<BonusPointsView>().SpawnSetup(currentBonus, canvasPosition, _bonusTextTransform);
         currentBonusStarsFX.transform.parent = _canvasRectTransform;
         currentBonusStarsFX.GetComponent<StarSpawner>().SpawnSetup(canvasPosition);
         StartCoroutine(BonusTextUpdateDelay());

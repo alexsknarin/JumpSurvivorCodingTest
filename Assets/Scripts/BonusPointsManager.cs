@@ -6,10 +6,12 @@ public class BonusPointsManager : MonoBehaviour
 {
     [SerializeField] private IntVariable _bonusPoints;
     [SerializeField] private int _kangarooBonus;
+    [SerializeField] private int _birdBonus;
     private bool _bonusRegisterd = false;
     private int _bonusEnemy;
     private Vector3 _bonusPosition;
     private bool _isDamaged = false;
+    private int _currentBonus;
 
     public delegate void BonusUpdated(int enemy, Vector3 playerPosition);
     public static event BonusUpdated OnBonusUpdated;
@@ -19,6 +21,7 @@ public class BonusPointsManager : MonoBehaviour
         PlayerCollisionHandler.OnBonusCollided += RegisterBonus;
         PlayerCollisionHandler.OnEnemyCollided += DiscardBonus;
         PlayerCollisionHandler.OnGroundCollided += ApplyBonusPoints;
+        PlayerHealth.OnPlayerInvincibilityFinished += SetUndamaged;
 
     }
 
@@ -27,6 +30,7 @@ public class BonusPointsManager : MonoBehaviour
         PlayerCollisionHandler.OnBonusCollided -= RegisterBonus;
         PlayerCollisionHandler.OnEnemyCollided -= DiscardBonus;
         PlayerCollisionHandler.OnGroundCollided -= ApplyBonusPoints;
+        PlayerHealth.OnPlayerInvincibilityFinished -= SetUndamaged;
     }
 
     private void Start()
@@ -34,8 +38,17 @@ public class BonusPointsManager : MonoBehaviour
         _bonusPoints.Value = 0;
     }
 
+    private void SetUndamaged()
+    {
+        _isDamaged = false;
+    }
+
     private void RegisterBonus(int enemy, Vector3 collisionPosition)
     {
+        if (_isDamaged)
+        {
+            return;
+        }
         _bonusRegisterd = true;
         _bonusEnemy = enemy;
         _bonusPosition = collisionPosition;
@@ -57,8 +70,15 @@ public class BonusPointsManager : MonoBehaviour
         if (_bonusEnemy == 0)
         {
             _bonusPoints.Value += _kangarooBonus;
-            OnBonusUpdated?.Invoke(_bonusEnemy, _bonusPosition);
-            _bonusRegisterd = false;
+            _currentBonus = _kangarooBonus;
         }
+        if (_bonusEnemy == 1)
+        {
+            _bonusPoints.Value += _birdBonus;
+            _currentBonus = _birdBonus;
+        }
+        
+        OnBonusUpdated?.Invoke(_currentBonus, _bonusPosition);
+        _bonusRegisterd = false;
     }
 }

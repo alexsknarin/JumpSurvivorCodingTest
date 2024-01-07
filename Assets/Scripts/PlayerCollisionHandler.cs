@@ -31,5 +31,9 @@ public class PlayerCollisionHandler : MonoBehaviour
         {
             OnBonusCollided?.Invoke(0, transform.position);
         }
+        if (other.gameObject.CompareTag("BirdBonus"))
+        {
+            OnBonusCollided?.Invoke(1, transform.position);
+        }
     }
 }

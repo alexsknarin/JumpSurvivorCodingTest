@@ -9,6 +9,7 @@ TagManager:
   - rightBound
   - ground
   - KangarooBonus
+  - BirdBonus
   layers:
   - Default
   - TransparentFX
