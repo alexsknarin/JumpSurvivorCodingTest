@@ -8,6 +8,7 @@ public class BonusViewHandler : MonoBehaviour
     [SerializeField] private GameObject _bonusAnimated;
     [SerializeField] private GameObject _bonusStarsAnimated;
     [SerializeField] private TMP_Text _bonusText;
+    [SerializeField] private BonusTextAnimation _bonusTextAnimation;
     [SerializeField] private RectTransform _canvasRectTransform;
     [SerializeField] private RectTransform _bonusTextTransform;
     [SerializeField] private int _maxBonusPointOnScreen;
@@ -28,6 +29,7 @@ public class BonusViewHandler : MonoBehaviour
     {
         yield return _bonusTextUpdateDelay;
         _bonusText.text = $"+{_bonusPoints.Value}";
+        _bonusTextAnimation.PlayAnimation();
     }
     
     public void InitSpawn()
