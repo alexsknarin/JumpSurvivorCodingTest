@@ -36,12 +36,12 @@ public class BonusViewHandler : MonoBehaviour
     
     private void OnEnable()
     {
-        PlayerCollisionHandler.OnBonusCollided += SpawnBonusAnimation;
+        BonusPointsManager.OnBonusUpdated += SpawnBonusAnimation;
     }
 
     private void OnDisable()
     {
-        PlayerCollisionHandler.OnBonusCollided -= SpawnBonusAnimation;
+        BonusPointsManager.OnBonusUpdated -= SpawnBonusAnimation;
     }
 
     private void SpawnBonusAnimation(int enemy, Vector3 playerPosition)
