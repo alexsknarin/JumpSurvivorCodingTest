@@ -18,14 +18,16 @@ public class PlayerHealthUIView : MonoBehaviour
     private void OnEnable()
     {
         PlayerHealth.OnPlayerDamaged += RecieveDamage;
+        PlayerHealth.OnPlayerHealthSetUp += Initialize;
     }
 
     private void OnDisable()
     {
         PlayerHealth.OnPlayerDamaged -= RecieveDamage;
+        PlayerHealth.OnPlayerHealthSetUp -= Initialize;
     }
     
-    private void Start()
+    public void Initialize()
     {
         // Generate Lifebar items
         for (int i = 0; i < _maxHealth.Value; i++)
@@ -35,14 +37,10 @@ public class PlayerHealthUIView : MonoBehaviour
             newHealthHeartPrefab.transform.localPosition = _newPosition;
             _healthHearts.Add(newHealthHeartPrefab);
         }
-        
-        Debug.Log("Current health: " + _playerHealth.Value.ToString());
-        Debug.Log("Max health: " + _maxHealth.Value.ToString());
     }
 
     private void RecieveDamage()
     {
-        //_healthHearts[_playerHealth.Value].gameObject.SetActive(false);
         if (_playerHealth.Value < _maxHealth.Value * _nearDeathFraction)
         {
             if (!_nearDeath)
@@ -54,7 +52,6 @@ public class PlayerHealthUIView : MonoBehaviour
             }
             _nearDeath = true;
         }
-        Debug.Log($"Player Health {_playerHealth.Value}");
         _healthHearts[_playerHealth.Value].DoDamage();
     }
 }

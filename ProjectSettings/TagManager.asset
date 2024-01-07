@@ -8,6 +8,9 @@ TagManager:
   - leftBound
   - rightBound
   - ground
+  - KangarooBonus
+  - BirdBonus
+  - BonusPointsAnimation
   layers:
   - Default
   - TransparentFX

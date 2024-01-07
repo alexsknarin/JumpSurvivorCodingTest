@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StarSpawner : MonoBehaviour
+public class StarSpawner : MonoBehaviour, IPausable
 {
     [SerializeField] private List<StarUIAnimation> _stars;
 
@@ -12,5 +12,22 @@ public class StarSpawner : MonoBehaviour
         {
             star.StartAnimation();
         }
+    }
+
+    public void SpawnSetup(Vector2 position)
+    {
+        transform.position = position;
+        transform.localScale = transform.localScale * 0.33f; 
+        transform.eulerAngles = Vector3.forward * Random.Range(0f, 360f); 
+        gameObject.SetActive(true);
+        Play();
+    }
+
+    public void SetPaused()
+    {
+    }
+
+    public void SetUnpaused()
+    {
     }
 }

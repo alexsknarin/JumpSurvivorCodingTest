@@ -7,7 +7,10 @@ using UnityEngine;
 public class PlayerCollisionHandler : MonoBehaviour
 {
     public static event Action OnEnemyCollided;
-    public static event Action OnGroundCollided; 
+    public static event Action OnGroundCollided;
+
+    public delegate void BonusCollided(int enemy, Vector3 collisionPosition);
+    public static event BonusCollided OnBonusCollided;
     
     // Collision Analytics data
     public delegate void AnalyticsEnemyCollided(string enemyName);
@@ -23,6 +26,14 @@ public class PlayerCollisionHandler : MonoBehaviour
         if (other.gameObject.CompareTag("ground"))
         {
             OnGroundCollided?.Invoke();
+        }
+        if (other.gameObject.CompareTag("KangarooBonus"))
+        {
+            OnBonusCollided?.Invoke(0, transform.position);
+        }
+        if (other.gameObject.CompareTag("BirdBonus"))
+        {
+            OnBonusCollided?.Invoke(1, transform.position);
         }
     }
 }

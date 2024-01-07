@@ -27,7 +27,7 @@ using Random = UnityEngine.Random;
 public class SpawnManager : MonoBehaviour, IPausable
 {
     [Header("Enemies:")]
-    // Enemy prefabs and amound that will be generated for enemy object pools.
+    // Enemy prefabs and amount that will be generated for enemy object pools.
     [SerializeField] private GameObject _enemyDog;
     [SerializeField] private int _maximumDogs;
     [SerializeField] private GameObject _enemyKangaroo;
@@ -78,11 +78,6 @@ public class SpawnManager : MonoBehaviour, IPausable
     public delegate void SpawnStateChanged(string StateName);
     public static event SpawnStateChanged OnSpawnStateChanged;
 
-    private void Start()
-    {
-        Game.Pausables.Add(this);
-    }
-
     private float GetRandomDirection()
     {
         if (UnityEngine.Random.Range(-1f, 1f) > 0)
@@ -96,6 +91,7 @@ public class SpawnManager : MonoBehaviour, IPausable
     }
     public void InitSpawn()
     {
+        Game.Pausables.Add(this);
         _enemyDogPool = new ObjectPool(_maximumDogs, _enemyDog);
         _enemyKangarooPool = new ObjectPool(_maximumKangaroos, _enemyKangaroo);
         _enemyBirdPool = new ObjectPool(_maximumBirds, _enemyBird);

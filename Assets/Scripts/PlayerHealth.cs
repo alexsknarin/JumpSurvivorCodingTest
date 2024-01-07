@@ -16,6 +16,7 @@ public class PlayerHealth : MonoBehaviour
     private WaitForSeconds _waitForInvincibility;
     public static event Action OnPlayerDamaged;
     public static event Action OnPlayerInvincibilityFinished;
+    public static event Action OnPlayerHealthSetUp;
     
 
     private void OnEnable()
@@ -33,6 +34,7 @@ public class PlayerHealth : MonoBehaviour
         _maxHealthCurrent.Value = _maxHealth[_dificultyLevel.Value].Value;
         _playerHealth.Value = _maxHealthCurrent.Value;
         _waitForInvincibility = new WaitForSeconds(_invincibilityDuration);
+        OnPlayerHealthSetUp?.Invoke();
     }
 
     private IEnumerator WaitForInvincibility()
@@ -50,6 +52,6 @@ public class PlayerHealth : MonoBehaviour
             OnPlayerDamaged?.Invoke();
             _isInvincible = true;
             StartCoroutine(WaitForInvincibility());
-        }
+        }   
     }
 }
