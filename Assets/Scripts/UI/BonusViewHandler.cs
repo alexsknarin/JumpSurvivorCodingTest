@@ -24,13 +24,6 @@ public class BonusViewHandler : MonoBehaviour
         _bonusText.text = "";
         InitSpawn();
     }
-
-    IEnumerator BonusTextUpdateDelay()
-    {
-        yield return _bonusTextUpdateDelay;
-        _bonusText.text = $"+{_bonusPoints.Value}";
-        _bonusTextAnimation.PlayAnimation();
-    }
     
     public void InitSpawn()
     {
@@ -61,6 +54,15 @@ public class BonusViewHandler : MonoBehaviour
         currentBonusPointsView.GetComponent<BonusPointsView>().SpawnSetup(currentBonus, canvasPosition, _bonusTextTransform);
         currentBonusStarsFX.transform.parent = _canvasRectTransform;
         currentBonusStarsFX.GetComponent<StarSpawner>().SpawnSetup(canvasPosition);
-        StartCoroutine(BonusTextUpdateDelay());
+    }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("BonusPointsAnimation"))
+        {
+            other.gameObject.SetActive(false);
+            _bonusTextAnimation.PlayAnimation();
+            _bonusText.text = $"+{_bonusPoints.Value}";
+        }
     }
 }
