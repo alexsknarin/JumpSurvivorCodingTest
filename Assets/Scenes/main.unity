@@ -371,6 +371,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bonusAnimated: {fileID: 7308591865088425581, guid: df6fc2790e0a5904ca7655fc3247c381,
     type: 3}
+  _bonusStarsAnimated: {fileID: 4354498224488367112, guid: e931dcb71d806ed46a1e024ae70ac132,
+    type: 3}
   _bonusText: {fileID: 2022024094}
   _canvasRectTransform: {fileID: 1207465497}
   _bonusTextTransform: {fileID: 2022024093}

@@ -6,6 +6,7 @@ using UnityEngine;
 public class BonusViewHandler : MonoBehaviour
 {
     [SerializeField] private GameObject _bonusAnimated;
+    [SerializeField] private GameObject _bonusStarsAnimated;
     [SerializeField] private TMP_Text _bonusText;
     [SerializeField] private RectTransform _canvasRectTransform;
     [SerializeField] private RectTransform _bonusTextTransform;
@@ -13,8 +14,8 @@ public class BonusViewHandler : MonoBehaviour
     [SerializeField] private IntVariable _bonusPoints;
     private WaitForSeconds _bonusTextUpdateDelay;
     
-
     private ObjectPool _bonusAnimatedPool;
+    private ObjectPool _bonusStarFxPool;
 
     private void Start()
     {
@@ -32,6 +33,7 @@ public class BonusViewHandler : MonoBehaviour
     public void InitSpawn()
     {
         _bonusAnimatedPool = new ObjectPool(_maxBonusPointOnScreen, _bonusAnimated);
+        _bonusStarFxPool = new ObjectPool(_maxBonusPointOnScreen, _bonusStarsAnimated);
     }
     
     private void OnEnable()
@@ -48,15 +50,15 @@ public class BonusViewHandler : MonoBehaviour
     {
         Vector2 canvasPosition = RectTransformUtility.WorldToScreenPoint(Camera.main, playerPosition);
         GameObject currentBonusPointsView = _bonusAnimatedPool.GetPooledObject();
+        GameObject currentBonusStarsFX = _bonusStarFxPool.GetPooledObject();
         if (currentBonusPointsView == null)
         {
-            Debug.Log("No object to spawn");
             return;
         }
-        Debug.Log(currentBonusPointsView.name);
-        currentBonusPointsView.GetComponent<BonusPointsView>().SpawnSetup(5, canvasPosition, _bonusTextTransform);
         currentBonusPointsView.transform.parent = _canvasRectTransform;
-
+        currentBonusPointsView.GetComponent<BonusPointsView>().SpawnSetup(5, canvasPosition, _bonusTextTransform);
+        currentBonusStarsFX.transform.parent = _canvasRectTransform;
+        currentBonusStarsFX.GetComponent<StarSpawner>().SpawnSetup(canvasPosition);
         StartCoroutine(BonusTextUpdateDelay());
     }
 }
