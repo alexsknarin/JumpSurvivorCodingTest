@@ -1,6 +1,10 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
 using TMPro;
+using Unity.Services.Leaderboards;
 using UnityEngine;
+
 
 /// <summary>
 /// Component to Handle formatting and displaying high score data on a screen.
@@ -9,14 +13,10 @@ public class DisplayHighScore : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private string _difficultyLevel;
+    [SerializeField] private string _leaderboardID; // TODO: get leaderboard 
     private int _textWidth = 35;
 
-    private void Start()
-    {
-        UpdateText();
-    }
-
-    public void UpdateText()
+    public void ShowLocalScores()
     {
         // Read Json file
         string fullFileName = Application.persistentDataPath + "/SaveData/" + _difficultyLevel + "_saveSoreFile.json";
@@ -38,4 +38,26 @@ public class DisplayHighScore : MonoBehaviour
         _scoreText.text = text;
     }
 
+    public async void ShowOnlineScores()
+    {
+        _scoreText.text = "";
+        
+        string text = _difficultyLevel + ":\n";
+        try
+        {
+            var scoreResponse = await LeaderboardsService.Instance.GetScoresAsync(_leaderboardID, new GetScoresOptions {IncludeMetadata = true});
+            foreach (var score in scoreResponse.Results)
+            {
+                LeaderboardMetadata data = JsonUtility.FromJson<LeaderboardMetadata>(score.Metadata);
+                text += data.Nickname + " --- " + ((int)score.Score).ToString() + "\n";
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+            text += "No Data Available";
+        }
+        
+        _scoreText.text = text;
+    }
 }

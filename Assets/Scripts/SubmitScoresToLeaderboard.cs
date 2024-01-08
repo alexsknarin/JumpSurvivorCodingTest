@@ -67,7 +67,7 @@ public class SubmitScoresToLeaderboard : MonoBehaviour
     {
         var metadata = new Dictionary<string, string>()
         {
-            {"nickname", _playerName.Value}  
+            {"Nickname", _playerName.Value}  
         };
         try
         {

@@ -810,52 +810,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &206134034
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 206134036}
-  - component: {fileID: 206134035}
-  m_Layer: 0
-  m_Name: AnalyticsCollector
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &206134035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 206134034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81bf0e30de718c847b743ca2bbbd3659, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gameTime: {fileID: 11400000, guid: 4772841074a0cf94f82fb051dc659af6, type: 2}
-  _difficultyLevel: {fileID: 11400000, guid: eefded0214c5362409c4b415207d4223, type: 2}
---- !u!4 &206134036
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 206134034}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &302301584
 GameObject:
   m_ObjectHideFlags: 0
@@ -2036,8 +1990,9 @@ GameObject:
   - component: {fileID: 648352128}
   - component: {fileID: 648352130}
   - component: {fileID: 648352129}
-  - component: {fileID: 648352131}
   - component: {fileID: 648352132}
+  - component: {fileID: 648352133}
+  - component: {fileID: 648352131}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -2153,8 +2108,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eed387b32c965948b5a1f660d94ae9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _analyticsCollector: {fileID: 206134035}
+  _analyticsCollector: {fileID: 648352133}
   _submitScoresToLeaderboard: {fileID: 648352131}
+--- !u!114 &648352133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648352125}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81bf0e30de718c847b743ca2bbbd3659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameTime: {fileID: 11400000, guid: 4772841074a0cf94f82fb051dc659af6, type: 2}
+  _difficultyLevel: {fileID: 11400000, guid: eefded0214c5362409c4b415207d4223, type: 2}
 --- !u!1 &659390730
 GameObject:
   m_ObjectHideFlags: 0
@@ -5405,7 +5374,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 648352127}
-  - {fileID: 206134036}
   - {fileID: 330585546}
   - {fileID: 832575519}
   - {fileID: 7663887110590192060}
