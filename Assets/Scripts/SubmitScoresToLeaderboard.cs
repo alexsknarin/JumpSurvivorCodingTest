@@ -59,6 +59,8 @@ public class SubmitScoresToLeaderboard : MonoBehaviour
             Debug.Log(s);
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        
+        GetScores();
     }
 
     public async void AddScore()
@@ -67,12 +69,28 @@ public class SubmitScoresToLeaderboard : MonoBehaviour
         {
             {"nickname", _playerName.Value}  
         };
+        try
+        {
+            var scoreResponse = await LeaderboardsService.Instance.AddPlayerScoreAsync(
+                _leaderboardIDCurrent,
+                _gameTime.Value,
+                new AddPlayerScoreOptions { Metadata = metadata }
+            );
+            Debug.Log(JsonConvert.SerializeObject(scoreResponse));
+        }
+        catch (Exception e)
+        {
+            Debug.Log($"Failed to submit scores: {e}");
+        }
+        
+    }
 
-        var scoreResponse = await LeaderboardsService.Instance.AddPlayerScoreAsync(
+    private async void GetScores()
+    {
+        var scoreResponse = await LeaderboardsService.Instance.GetScoresAsync(
             _leaderboardIDCurrent,
-            _gameTime.Value,
-            new AddPlayerScoreOptions { Metadata = metadata }
-        );
+            new GetScoresOptions { IncludeMetadata = true }
+            );
         Debug.Log(JsonConvert.SerializeObject(scoreResponse));
     }
 }
