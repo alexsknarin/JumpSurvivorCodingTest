@@ -1500,6 +1500,7 @@ MonoBehaviour:
     type: 2}
   _userNameVariable: {fileID: 11400000, guid: de08ab263f70b9b45a546049cd36245d, type: 2}
   _userNameInput: {fileID: 2006355498}
+  _userNameInputPlaceholderText: {fileID: 1969036906}
 --- !u!114 &748585098
 MonoBehaviour:
   m_ObjectHideFlags: 0
