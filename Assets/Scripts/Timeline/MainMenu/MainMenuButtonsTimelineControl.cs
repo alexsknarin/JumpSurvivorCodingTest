@@ -19,6 +19,7 @@ public class MainMenuButtonsTimelineControl : MonoBehaviour
     [SerializeField] private TMP_Text _userNameInputPlaceholderText;
     private int _difficulty = 0;
     private int _startScoreExitMode = 0;
+    private string _username;
     private float _fps => (float)((TimelineAsset)_bgDirector.playableAsset).editorSettings.frameRate;
 
 
@@ -36,7 +37,9 @@ public class MainMenuButtonsTimelineControl : MonoBehaviour
     
     public void Setup()
     {
-        _userNameInputPlaceholderText.text = CheckPlayerNamePref();
+        _username = CheckPlayerNamePref();
+        _userNameInputPlaceholderText.text = _username;
+        _userNameInput.text = _username;
     }
     
     public void SetScoreScreenMode()
@@ -90,16 +93,16 @@ public class MainMenuButtonsTimelineControl : MonoBehaviour
     
     public void StartGame()
     {
-        string userName = _userNameInput.text;
-        if (userName == "")
+        _username = _userNameInput.text;
+        if (_username == "")
         {
-            userName = "Player1";
+            _username = "Player1";
         }
         else
         {
-            PlayerPrefs.SetString("PlayerName", userName);
+            PlayerPrefs.SetString("PlayerName", _username);
         }
-        _userNameVariable.Value = userName;
+        _userNameVariable.Value = _username;
         _difficultyLevelVariable.Value = _difficulty;
         SceneManager.LoadScene(1);
     }

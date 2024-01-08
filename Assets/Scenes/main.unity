@@ -2034,8 +2034,10 @@ GameObject:
   - component: {fileID: 648352127}
   - component: {fileID: 648352126}
   - component: {fileID: 648352128}
-  - component: {fileID: 648352129}
   - component: {fileID: 648352130}
+  - component: {fileID: 648352129}
+  - component: {fileID: 648352131}
+  - component: {fileID: 648352132}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -2124,6 +2126,35 @@ MonoBehaviour:
   _bonusPoints: {fileID: 11400000, guid: bd50214797dbcd143acadb6eed684bb8, type: 2}
   _kangarooBonus: 5
   _birdBonus: 20
+--- !u!114 &648352131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648352125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23422755fadee004295c24caaa1ab980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerName: {fileID: 11400000, guid: de08ab263f70b9b45a546049cd36245d, type: 2}
+  _difficultyLevel: {fileID: 11400000, guid: eefded0214c5362409c4b415207d4223, type: 2}
+  _gameTime: {fileID: 11400000, guid: 4772841074a0cf94f82fb051dc659af6, type: 2}
+--- !u!114 &648352132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648352125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eed387b32c965948b5a1f660d94ae9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _analyticsCollector: {fileID: 206134035}
+  _submitScoresToLeaderboard: {fileID: 648352131}
 --- !u!1 &659390730
 GameObject:
   m_ObjectHideFlags: 0
@@ -5168,7 +5199,7 @@ PrefabInstance:
     - target: {fileID: 1139145145745341125, guid: d224a49caff226e4f9e95d8d4976f97b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -92.69995
+      value: -92.700195
       objectReference: {fileID: 0}
     - target: {fileID: 1139145145745341125, guid: d224a49caff226e4f9e95d8d4976f97b,
         type: 3}
@@ -5373,6 +5404,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 648352127}
   - {fileID: 206134036}
   - {fileID: 330585546}
   - {fileID: 832575519}
@@ -5382,7 +5414,6 @@ SceneRoots:
   - {fileID: 1403011341}
   - {fileID: 1207465497}
   - {fileID: 526001189}
-  - {fileID: 648352127}
   - {fileID: 1746958047}
   - {fileID: 141157413}
   - {fileID: 2074017995}
