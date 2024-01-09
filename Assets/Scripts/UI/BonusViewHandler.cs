@@ -50,9 +50,9 @@ public class BonusViewHandler : MonoBehaviour
         {
             return;
         }
-        currentBonusPointsView.transform.parent = _canvasRectTransform;
+        currentBonusPointsView.transform.SetParent(_canvasRectTransform);
         currentBonusPointsView.GetComponent<BonusPointsView>().SpawnSetup(currentBonus, canvasPosition, _bonusTextTransform);
-        currentBonusStarsFX.transform.parent = _canvasRectTransform;
+        currentBonusStarsFX.transform.SetParent(_canvasRectTransform);
         currentBonusStarsFX.GetComponent<StarSpawner>().SpawnSetup(canvasPosition);
     }
     

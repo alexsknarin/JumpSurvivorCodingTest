@@ -42,14 +42,10 @@ public class AnalyticsCollector : MonoBehaviour
         _spawnStateNum++;
     }
 
-    async void Start()
+    public void Setup()
     {
         try
         {
-            var options = new InitializationOptions();
-            options.SetEnvironmentName("production");
-            await UnityServices.InitializeAsync(options);
-            // await UnityServices.InitializeAsync();
             GiveConsent();
         }
         catch (ConsentCheckException e)

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class MainMenu : MonoBehaviour
@@ -25,6 +24,7 @@ public class MainMenu : MonoBehaviour
     {
         _consentScreen.SetActive(false);
         _mainMenuBgTimelineControl.Play();
+        _mainMenuButtonsTimelineControl.Setup();
         _mainMenuButtonsTimelineControl.Play();
     }
 
