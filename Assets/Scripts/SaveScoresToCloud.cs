@@ -38,7 +38,8 @@ public class SaveScoresToCloud : MonoBehaviour
     {
         var saveData = new Dictionary<string, object>
         {
-            { _playerName.Value, _gameTime.Value.ToString() },
+            { "playerName", _playerName.Value},
+            { "scores", _gameTime.Value.ToString() },
             { "difficultyLevel", _dificultyLevelString }
         };
         await CloudSaveService.Instance.Data.Player.SaveAsync(saveData);
