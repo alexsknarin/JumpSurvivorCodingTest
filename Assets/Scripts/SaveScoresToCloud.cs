@@ -42,6 +42,14 @@ public class SaveScoresToCloud : MonoBehaviour
             { "scores", _gameTime.Value.ToString() },
             { "difficultyLevel", _dificultyLevelString }
         };
-        await CloudSaveService.Instance.Data.Player.SaveAsync(saveData);
+        try
+        {
+            await CloudSaveService.Instance.Data.Player.SaveAsync(saveData);
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+        }
+        
     }
 }
