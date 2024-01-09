@@ -42,7 +42,7 @@ public class AnalyticsCollector : MonoBehaviour
         _spawnStateNum++;
     }
 
-    public async void Setup()
+    public void Setup()
     {
         try
         {

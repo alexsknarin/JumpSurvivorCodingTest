@@ -36,6 +36,12 @@ public class Game : MonoBehaviour
     [SerializeField] private DeathScreenButtonsUIControl _deathScreenButtonsUIControl;
     [SerializeField] private float _gameOverUIdelay;
     private WaitForSeconds _gameOverUIdelayWait;
+    
+    // UGS
+    [Header("-------------------------")]
+    [Header("Unity Game Services")]
+    [SerializeField] private AnalyticsCollector _analyticsCollector;
+    [SerializeField] private SubmitScoresToLeaderboard _submitScoresToLeaderboard;
  
     // Pause Handling
     public static List<IPausable> Pausables = new List<IPausable>();
@@ -112,6 +118,11 @@ public class Game : MonoBehaviour
     {
         _spawnManager.InitSpawn();
         _gameOverUIdelayWait = new WaitForSeconds(_gameOverUIdelay);
+        
+        // UGS
+        // Call Analytics and Score Setups
+        //_analyticsCollector.Setup();
+        _submitScoresToLeaderboard.Setup();
     }
     
     private void CheckLife()

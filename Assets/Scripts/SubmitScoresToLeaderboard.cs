@@ -28,7 +28,7 @@ public class SubmitScoresToLeaderboard : MonoBehaviour
         Game.OnGameOver -= AddScore;
     }
     
-    public async void Setup()
+    public void Setup()
     {
         switch (_difficultyLevel.Value)
         {
@@ -42,25 +42,6 @@ public class SubmitScoresToLeaderboard : MonoBehaviour
                 _leaderboardIDCurrent = _leaderboardIDHard;
                 break;
         }
-        
-        SignInAnonymously();
-    }
-
-    // Sign in to UGS 
-    private async Task SignInAnonymously()
-    {
-        AuthenticationService.Instance.SignedIn += () =>
-        {
-            Debug.Log("Signed in as: " + AuthenticationService.Instance.PlayerId);
-        };
-        AuthenticationService.Instance.SignInFailed += s =>
-        {
-            Debug.Log("Authentification Failed");
-            Debug.Log(s);
-        };
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();
-        
-        GetScores();
     }
 
     public async void AddScore()
@@ -82,15 +63,5 @@ public class SubmitScoresToLeaderboard : MonoBehaviour
         {
             Debug.Log($"Failed to submit scores: {e}");
         }
-        
-    }
-
-    private async void GetScores()
-    {
-        var scoreResponse = await LeaderboardsService.Instance.GetScoresAsync(
-            _leaderboardIDCurrent,
-            new GetScoresOptions { IncludeMetadata = true }
-            );
-        Debug.Log(JsonConvert.SerializeObject(scoreResponse));
     }
 }

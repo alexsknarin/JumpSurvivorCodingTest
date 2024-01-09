@@ -29,22 +29,6 @@ public class HighScoresUI : MonoBehaviour
         _showLocalScoresButton.onClick.AddListener(ShowLocalScores);
         _showOnlineScoresButton.onClick.AddListener(ShowOnlineScores);
         ShowLocalScores();
-        SignInAnonymously();
-    }
-    
-    
-    private async Task SignInAnonymously()
-    {
-        AuthenticationService.Instance.SignedIn += () =>
-        {
-            Debug.Log("Signed in as: " + AuthenticationService.Instance.PlayerId);
-        };
-        AuthenticationService.Instance.SignInFailed += s =>
-        {
-            Debug.Log("Authentification Failed");
-            Debug.Log(s);
-        };
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();
     }
 
     private void BackToMainMenu()
