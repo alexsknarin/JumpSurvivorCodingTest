@@ -1992,6 +1992,7 @@ GameObject:
   - component: {fileID: 648352133}
   - component: {fileID: 648352129}
   - component: {fileID: 648352131}
+  - component: {fileID: 648352134}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -2111,6 +2112,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameTime: {fileID: 11400000, guid: 4772841074a0cf94f82fb051dc659af6, type: 2}
   _difficultyLevel: {fileID: 11400000, guid: eefded0214c5362409c4b415207d4223, type: 2}
+--- !u!114 &648352134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648352125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66386de9c79bb18489c1b7f7c5a60782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerName: {fileID: 11400000, guid: de08ab263f70b9b45a546049cd36245d, type: 2}
+  _difficultyLevel: {fileID: 11400000, guid: eefded0214c5362409c4b415207d4223, type: 2}
+  _gameTime: {fileID: 11400000, guid: 4772841074a0cf94f82fb051dc659af6, type: 2}
 --- !u!1 &659390730
 GameObject:
   m_ObjectHideFlags: 0
