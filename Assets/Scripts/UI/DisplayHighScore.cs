@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using TMPro;
+using Unity.Services.CloudSave;
 using Unity.Services.Leaderboards;
 using UnityEngine;
 
@@ -58,5 +60,44 @@ public class DisplayHighScore : MonoBehaviour
         }
         
         _scoreText.text = text;
+    }
+
+    public async void ShowOnlineData()
+    {
+        try
+        {
+            string text = "Your Latest Results:\n\n";
+            
+            var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string>{"playerName"});
+            if (playerData.TryGetValue("playerName", out var playerName))
+            {
+                text += "Player Name: " + playerName.Value.GetAsString() + "\n";
+            }
+            
+            playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string>{"difficultyLevel"});
+            if (playerData.TryGetValue("difficultyLevel", out var difficultyLevel))
+            {
+                text += "Difficulty Level: " + difficultyLevel.Value.GetAsString() + "\n";
+            }
+            
+            playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string>{"scores"});
+            if (playerData.TryGetValue("scores", out var scores))
+            {
+                text += "Scores: " + ((int)scores.Value.GetAs<float>()).ToString() + "\n";
+            }
+
+            _scoreText.text = text;
+
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+            _scoreText.text = "No Data Available";
+        }
+    }
+
+    public void Clear()
+    {
+        _scoreText.text = "";
     }
 }
