@@ -406,7 +406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scoreText: {fileID: 94657252}
   _difficultyLevel: Hard
-  _leaderboardID: paw_hard01
+  _leaderboardID: paw_hard01_test
 --- !u!1 &168390383
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,7 +758,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scoreText: {fileID: 505553444}
   _difficultyLevel: Easy
-  _leaderboardID: paw_easy01
+  _leaderboardID: paw_easy01_test
 --- !u!1 &530007475
 GameObject:
   m_ObjectHideFlags: 0
@@ -1668,7 +1668,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scoreText: {fileID: 1595756858}
   _difficultyLevel: Meduim
-  _leaderboardID: paw_medium01
+  _leaderboardID: paw_medium01_test
 --- !u!1 &1775575076
 GameObject:
   m_ObjectHideFlags: 0

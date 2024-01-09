@@ -13,9 +13,9 @@ public class SubmitScoresToLeaderboard : MonoBehaviour
     [SerializeField] private IntVariable _difficultyLevel;
     [SerializeField] private FloatVariable _gameTime;
 
-    private const string _leaderboardIDEasy = "paw_easy01";
-    private const string _leaderboardIDMedium = "paw_medium01";
-    private const string _leaderboardIDHard = "paw_hard01";
+    private const string _leaderboardIDEasy = "paw_easy01_test";
+    private const string _leaderboardIDMedium = "paw_medium01_test";
+    private const string _leaderboardIDHard = "paw_hard01_test";
     private string _leaderboardIDCurrent;
 
     private void OnEnable()
