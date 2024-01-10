@@ -2645,6 +2645,7 @@ MonoBehaviour:
   _playerName: {fileID: 11400000, guid: de08ab263f70b9b45a546049cd36245d, type: 2}
   _difficultyLevel: {fileID: 11400000, guid: eefded0214c5362409c4b415207d4223, type: 2}
   _gameTime: {fileID: 11400000, guid: 4772841074a0cf94f82fb051dc659af6, type: 2}
+  _bonusPoints: {fileID: 11400000, guid: bd50214797dbcd143acadb6eed684bb8, type: 2}
 --- !u!114 &648352130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2675,6 +2676,7 @@ MonoBehaviour:
   _playerName: {fileID: 11400000, guid: de08ab263f70b9b45a546049cd36245d, type: 2}
   _difficultyLevel: {fileID: 11400000, guid: eefded0214c5362409c4b415207d4223, type: 2}
   _gameTime: {fileID: 11400000, guid: 4772841074a0cf94f82fb051dc659af6, type: 2}
+  _bonusPoints: {fileID: 11400000, guid: bd50214797dbcd143acadb6eed684bb8, type: 2}
 --- !u!114 &648352133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2704,6 +2706,7 @@ MonoBehaviour:
   _playerName: {fileID: 11400000, guid: de08ab263f70b9b45a546049cd36245d, type: 2}
   _difficultyLevel: {fileID: 11400000, guid: eefded0214c5362409c4b415207d4223, type: 2}
   _gameTime: {fileID: 11400000, guid: 4772841074a0cf94f82fb051dc659af6, type: 2}
+  _bonusPoints: {fileID: 11400000, guid: bd50214797dbcd143acadb6eed684bb8, type: 2}
 --- !u!1 &659390730
 GameObject:
   m_ObjectHideFlags: 0
