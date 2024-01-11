@@ -1618,6 +1618,7 @@ MonoBehaviour:
   - {fileID: 732918215}
   - {fileID: 1077967977}
   - {fileID: 1476742373}
+  _animDuration: 0.5
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -3952,6 +3953,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StarSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 4873123414447079701, guid: e931dcb71d806ed46a1e024ae70ac132,
+        type: 3}
+      propertyPath: _animDuration
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5155825106236744093, guid: e931dcb71d806ed46a1e024ae70ac132,
         type: 3}
       propertyPath: m_Pivot.x
@@ -5797,7 +5803,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 6.225}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 253.3, y: -203.6}
+  m_AnchoredPosition: {x: 253.2998, y: -203.59998}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2022024094
@@ -6035,7 +6041,7 @@ MonoBehaviour:
   _bonusTextAnimation: {fileID: 2022024096}
   _canvasRectTransform: {fileID: 1207465497}
   _bonusTextTransform: {fileID: 2022024093}
-  _maxBonusPointOnScreen: 5
+  _maxBonusPointOnScreen: 2
   _bonusPoints: {fileID: 11400000, guid: bd50214797dbcd143acadb6eed684bb8, type: 2}
 --- !u!1 &2074017994
 GameObject:

@@ -29,6 +29,7 @@ public class BonusViewHandler : MonoBehaviour
     {
         _bonusAnimatedPool = new ObjectPool(_maxBonusPointOnScreen, _bonusAnimated);
         _bonusStarFxPool = new ObjectPool(_maxBonusPointOnScreen, _bonusStarsAnimated);
+        
     }
     
     private void OnEnable()

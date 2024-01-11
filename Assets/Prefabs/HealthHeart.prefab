@@ -127,7 +127,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   _damageAnimationSpeed: 2.5
   _nearDeathFlashFrequency: 12
-  _healAnimationSpeed: 0.8
+  _healAnimationSpeed: 3
   _healScaleAnimCurve:
     serializedVersion: 2
     m_Curve:
