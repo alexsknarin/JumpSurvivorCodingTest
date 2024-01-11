@@ -2661,6 +2661,7 @@ MonoBehaviour:
   _bonusPoints: {fileID: 11400000, guid: bd50214797dbcd143acadb6eed684bb8, type: 2}
   _kangarooBonus: 5
   _birdBonus: 20
+  _healEveryNPoints: 25
 --- !u!114 &648352131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4454,6 +4455,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LifeBar
       objectReference: {fileID: 0}
+    - target: {fileID: 1454332143416455876, guid: 9479f634103d6b44c9f9143e9a6139cd,
+        type: 3}
+      propertyPath: _bonusTextTransform
+      value: 
+      objectReference: {fileID: 2022024093}
     - target: {fileID: 3305594942478349477, guid: 9479f634103d6b44c9f9143e9a6139cd,
         type: 3}
       propertyPath: m_Pivot.x

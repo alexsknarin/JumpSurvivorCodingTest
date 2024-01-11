@@ -32,7 +32,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -91,7 +90,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _heartImage: {fileID: 7904406505839079265}
   _baseColor: {r: 0.8313726, g: 0.20784315, b: 0.20784315, a: 1}
-  _damagedColor: {r: 1, g: 0.35486764, b: 0.27987415, a: 1}
   _healColor: {r: 0.11949676, g: 1, b: 0.2388788, a: 0}
   _nearDeathColor: {r: 0.9716981, g: 0.22611837, b: 0.22611837, a: 1}
   _damageAnimCurve:
@@ -129,3 +127,61 @@ MonoBehaviour:
     m_RotationOrder: 4
   _damageAnimationSpeed: 2.5
   _nearDeathFlashFrequency: 12
+  _healAnimationSpeed: 0.8
+  _healScaleAnimCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.15
+      inSlope: 2.7935362
+      outSlope: 2.7935362
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.04006018
+    - serializedVersion: 3
+      time: 0.7011276
+      value: 1.2008231
+      inSlope: -0.014554363
+      outSlope: -0.014554363
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.123888366
+      outWeight: 0.21792074
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -1.1329185
+      outSlope: -1.1329185
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.17692102
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _healMoveAnimCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.4938524
+      outSlope: 0.4938524
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.045392264
+    - serializedVersion: 3
+      time: 0.7
+      value: 1
+      inSlope: 2.484884
+      outSlope: 2.484884
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.027064001
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
