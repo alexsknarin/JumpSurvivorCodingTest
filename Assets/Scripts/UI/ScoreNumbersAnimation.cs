@@ -1,8 +1,5 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ScoreNumbersAnimation : MonoBehaviour
@@ -11,7 +8,7 @@ public class ScoreNumbersAnimation : MonoBehaviour
     [SerializeField] private float _duration;
     [SerializeField] private float _bonusDuration;
     [SerializeField] private BonusPlusAnimation _bonusText;
-    [SerializeField] private StarSpawner _starsVFX;
+    [SerializeField] private StarExplosion _starsVFX;
 
     [Header("Game Variables")] 
     [SerializeField] private FloatVariable _gameTime;
@@ -29,12 +26,6 @@ public class ScoreNumbersAnimation : MonoBehaviour
     private int _maxExclamation = 3;
     private int _currExclamation = 0;
 
-    // private void Start()
-    // {
-    //     StartAnimation();
-    //     
-    // }
-
     public void StartAnimation()
     {
         _isAnimated = true;
@@ -50,7 +41,7 @@ public class ScoreNumbersAnimation : MonoBehaviour
         yield return _bonusDelay;
         _isBonusAnimated = true;
         _prevTime = Time.time;
-        _starsVFX.Play();
+        //_starsVFX.Play();
     }
     
     IEnumerator ExclamationDelay()

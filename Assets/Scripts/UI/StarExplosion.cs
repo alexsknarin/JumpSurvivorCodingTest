@@ -9,7 +9,7 @@ class StarAnimData
     public int RotateDirection { get; set; }
 }
 
-public class StarExplosion : MonoBehaviour
+public class StarExplosion : MonoBehaviour, IPausable
 {
     [SerializeField] private RectTransform _canvas;
     [SerializeField] private List<Transform> _stars;
@@ -29,19 +29,16 @@ public class StarExplosion : MonoBehaviour
 
     public void Play()
     {
-        gameObject.SetActive(true);
         for(int i = 0; i < _stars.Count; i++)
         {
+            _stars[i].localScale = Vector3.zero;
             float startScale = Random.Range(_minSize, _maxSize);
-            _stars[i].localScale = Vector3.one * startScale;
             
             Vector3 startPos = Random.insideUnitCircle * _emitRadius;
             _stars[i].localPosition = startPos;
             Vector3 endPos = CheckIfRandomInQuarter(i,Random.insideUnitCircle).normalized * _maxDistance;
             endPos *= Mathf.Lerp(startScale / _maxSize, 0.6f, 1f) * 1.4f;
-            Debug.DrawLine(startPos+transform.position, endPos+transform.position, Color.black, 3f);
-                _stars[i].localEulerAngles = Vector3.forward * Random.Range(0, 360);
-            
+
             _starsAnimData[i].Scale = startScale;
             _starsAnimData[i].StartPos = startPos;
             _starsAnimData[i].EndPos = endPos;
@@ -50,6 +47,7 @@ public class StarExplosion : MonoBehaviour
             _prevTime = Time.time;
             _isAnimated = true;
         }
+        gameObject.SetActive(true);
     }
 
     private void PerformAnimation()
@@ -95,14 +93,14 @@ public class StarExplosion : MonoBehaviour
         return randomPoint;
     }
    
-    private void Start()
+    private void Awake()
     {
         _starsAnimData = new List<StarAnimData>();
         for (int i = 0; i < _stars.Count; i++)
         {
             _starsAnimData.Add(new StarAnimData());    
         }
-        Play();
+        gameObject.SetActive(false);
     }
 
     private void Update()
@@ -125,5 +123,13 @@ public class StarExplosion : MonoBehaviour
             Gizmos.color = Color.magenta;
             Gizmos.DrawWireSphere(centerPos, _maxDistance);
         }
+    }
+
+    public void SetPaused()
+    {
+    }
+
+    public void SetUnpaused()
+    {
     }
 }
