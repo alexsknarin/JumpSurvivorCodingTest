@@ -12,6 +12,7 @@ public class SubmitScoresToLeaderboard : MonoBehaviour
     [SerializeField] private StringVariable _playerName;
     [SerializeField] private IntVariable _difficultyLevel;
     [SerializeField] private FloatVariable _gameTime;
+    [SerializeField] private IntVariable _bonusPoints;
 
     private const string _leaderboardIDEasy = "paw_easy01_test";
     private const string _leaderboardIDMedium = "paw_medium01_test";
@@ -54,7 +55,7 @@ public class SubmitScoresToLeaderboard : MonoBehaviour
         {
             var scoreResponse = await LeaderboardsService.Instance.AddPlayerScoreAsync(
                 _leaderboardIDCurrent,
-                _gameTime.Value,
+                _gameTime.Value + _bonusPoints.Value,
                 new AddPlayerScoreOptions { Metadata = metadata }
             );
             Debug.Log(JsonConvert.SerializeObject(scoreResponse));

@@ -17,16 +17,19 @@ public class PlayerHealth : MonoBehaviour
     public static event Action OnPlayerDamaged;
     public static event Action OnPlayerInvincibilityFinished;
     public static event Action OnPlayerHealthSetUp;
+    public static event Action OnLifeIncreased;
     
 
     private void OnEnable()
     {
         PlayerCollisionHandler.OnEnemyCollided += DecreaseLives;
+        BonusPointsManager.OnHeal += IncreaseLives;
     }
 
     private void OnDisable()
     {
         PlayerCollisionHandler.OnEnemyCollided -= DecreaseLives;
+        BonusPointsManager.OnHeal -= IncreaseLives;
     }
 
     private void Start()
@@ -53,5 +56,14 @@ public class PlayerHealth : MonoBehaviour
             _isInvincible = true;
             StartCoroutine(WaitForInvincibility());
         }   
+    }
+
+    private void IncreaseLives()
+    {
+        if (_playerHealth.Value < _maxHealthCurrent.Value)
+        {
+            _playerHealth.Value++;
+            OnLifeIncreased?.Invoke();
+        }
     }
 }

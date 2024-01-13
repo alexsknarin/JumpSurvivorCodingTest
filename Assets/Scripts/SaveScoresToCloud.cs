@@ -11,6 +11,7 @@ public class SaveScoresToCloud : MonoBehaviour
     [SerializeField] private StringVariable _playerName;
     [SerializeField] private IntVariable _difficultyLevel;
     [SerializeField] private FloatVariable _gameTime;
+    [SerializeField] private IntVariable _bonusPoints;
     private string _dificultyLevelString;
 
     private void Start()
@@ -39,7 +40,7 @@ public class SaveScoresToCloud : MonoBehaviour
         var saveData = new Dictionary<string, object>
         {
             { "playerName", _playerName.Value},
-            { "scores", _gameTime.Value.ToString() },
+            { "scores", (_gameTime.Value + _bonusPoints.Value).ToString() },
             { "difficultyLevel", _dificultyLevelString }
         };
         try

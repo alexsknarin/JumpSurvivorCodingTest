@@ -29,6 +29,7 @@ public class BonusViewHandler : MonoBehaviour
     {
         _bonusAnimatedPool = new ObjectPool(_maxBonusPointOnScreen, _bonusAnimated);
         _bonusStarFxPool = new ObjectPool(_maxBonusPointOnScreen, _bonusStarsAnimated);
+        
     }
     
     private void OnEnable()
@@ -53,7 +54,8 @@ public class BonusViewHandler : MonoBehaviour
         currentBonusPointsView.transform.SetParent(_canvasRectTransform);
         currentBonusPointsView.GetComponent<BonusPointsView>().SpawnSetup(currentBonus, canvasPosition, _bonusTextTransform);
         currentBonusStarsFX.transform.SetParent(_canvasRectTransform);
-        currentBonusStarsFX.GetComponent<StarSpawner>().SpawnSetup(canvasPosition);
+        currentBonusStarsFX.transform.position = canvasPosition;
+        currentBonusStarsFX.GetComponent<StarExplosion>().Play();
     }
     
     private void OnTriggerEnter2D(Collider2D other)
