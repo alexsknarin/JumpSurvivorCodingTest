@@ -13,21 +13,21 @@ public class PlayerHealthUIView : MonoBehaviour
     [SerializeField] private Transform _bonusTextTransform;
     private Vector3 _newPosition = Vector3.zero;
     private List<HealthHeartAnimation> _healthHearts = new List<HealthHeartAnimation>();
-    private bool _nearDeath = false;
     [SerializeField] private float _nearDeathFraction;
+    private float _nearDeathHealthNumber;
 
     private void OnEnable()
     {
-        PlayerHealth.OnPlayerDamaged += RecieveDamage;
+        PlayerHealth.OnPlayerDamaged += ReceiveDamage;
         PlayerHealth.OnPlayerHealthSetUp += Initialize;
-        PlayerHealth.OnLifeIncreased += HealDamage;
+        PlayerHealth.OnHealthIncreased += HealDamage;
     }
 
     private void OnDisable()
     {
-        PlayerHealth.OnPlayerDamaged -= RecieveDamage;
+        PlayerHealth.OnPlayerDamaged -= ReceiveDamage;
         PlayerHealth.OnPlayerHealthSetUp -= Initialize;
-        PlayerHealth.OnLifeIncreased -= HealDamage;
+        PlayerHealth.OnHealthIncreased -= HealDamage;
     }
     
     public void Initialize()
@@ -38,29 +38,40 @@ public class PlayerHealthUIView : MonoBehaviour
             _newPosition.x -= _heartsDistance;
             HealthHeartAnimation newHealthHeartPrefab = Instantiate(_healthHeartPrefab, Vector3.zero, _healthHeartPrefab.transform.rotation, transform);
             newHealthHeartPrefab.transform.localPosition = _newPosition;
-            newHealthHeartPrefab.SaveInitialState(_newPosition, transform.localPosition);
+            newHealthHeartPrefab.SaveInitialState(_newPosition, transform.localPosition, _bonusTextTransform.localPosition);
             _healthHearts.Add(newHealthHeartPrefab);
         }
+
+        _nearDeathHealthNumber = _maxHealth.Value * _nearDeathFraction;
     }
 
-    private void RecieveDamage()
+    private void ReceiveDamage()
     {
-        if (_playerHealth.Value < _maxHealth.Value * _nearDeathFraction)
-        {
-            if (!_nearDeath)
-            {
-                for(int i=0; i<_playerHealth.Value; i++)
-                {
-                    _healthHearts[i].DoNearDeath();
-                }    
-            }
-            _nearDeath = true;
-        }
         _healthHearts[_playerHealth.Value].DoDamage();
+        CheckUpdateNearDeathState();
     }
 
     private void HealDamage()
     {
-        _healthHearts[_playerHealth.Value-1].DoHeal(_bonusTextTransform.localPosition);
+        _healthHearts[_playerHealth.Value-1].DoHeal();
+        CheckUpdateNearDeathState();
+    }
+
+    private void CheckUpdateNearDeathState()
+    {
+        if (_playerHealth.Value < _nearDeathHealthNumber)
+        {
+            for(int i=0; i<_playerHealth.Value; i++)
+            {
+                _healthHearts[i].EnableNearDeath();
+            }    
+        }
+        else
+        {
+            for(int i=0; i<_playerHealth.Value; i++)
+            {
+                _healthHearts[i].DisableNearDeath();
+            }    
+        }
     }
 }
