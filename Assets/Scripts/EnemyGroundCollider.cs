@@ -17,7 +17,7 @@ public class EnemyGroundCollider : MonoBehaviour
     {
         if (other.gameObject.CompareTag("ground"))
         {
-            _enemyCollidable.CollidedWIthGround();
+            _enemyCollidable.HandleCollision();
         }
     }
 }

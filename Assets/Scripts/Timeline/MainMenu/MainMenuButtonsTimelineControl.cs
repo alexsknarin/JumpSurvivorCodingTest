@@ -22,19 +22,6 @@ public class MainMenuButtonsTimelineControl : MonoBehaviour
     private string _username;
     private float _fps => (float)((TimelineAsset)_bgDirector.playableAsset).editorSettings.frameRate;
 
-
-    private string CheckPlayerNamePref()
-    {
-        if (PlayerPrefs.HasKey("PlayerName"))
-        {
-            return PlayerPrefs.GetString("PlayerName");
-        }
-        else
-        {
-            return "Player1";
-        }
-    }
-    
     public void Setup()
     {
         _username = CheckPlayerNamePref();
@@ -42,16 +29,28 @@ public class MainMenuButtonsTimelineControl : MonoBehaviour
         _userNameInput.text = _username;
     }
     
+    public void Play()
+    {
+        _bgDirector.Play();
+    }
+    
+    public void PerformMenuStartScoresExit()
+    {
+        if (_startScoreExitMode == 1)
+        {
+            SceneManager.LoadScene(2);
+        }
+        else if (_startScoreExitMode == 2)
+        {
+            ExitGame();
+        }
+    }
+    
     public void SetScoreScreenMode()
     {
         _startScoreExitMode = 1;
         _bgDirector.Pause();
         _bgDirector.time = _startGameStartTime / _fps;
-        _bgDirector.Play();
-    }
-    
-    public void Play()
-    {
         _bgDirector.Play();
     }
 
@@ -106,16 +105,16 @@ public class MainMenuButtonsTimelineControl : MonoBehaviour
         _difficultyLevelVariable.Value = _difficulty;
         SceneManager.LoadScene(1);
     }
-
-    public void MenuStartScoresExit()
+    
+    private string CheckPlayerNamePref()
     {
-        if (_startScoreExitMode == 1)
+        if (PlayerPrefs.HasKey("PlayerName"))
         {
-            SceneManager.LoadScene(2);
+            return PlayerPrefs.GetString("PlayerName");
         }
-        else if (_startScoreExitMode == 2)
+        else
         {
-            ExitGame();
+            return "Player1";
         }
     }
     

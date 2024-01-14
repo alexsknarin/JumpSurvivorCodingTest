@@ -6,34 +6,31 @@ using UnityEngine;
 /// </summary>
 public class PlayerCollisionHandler : MonoBehaviour
 {
-    public static event Action OnEnemyCollided;
-    public static event Action OnGroundCollided;
-
-    public delegate void BonusCollided(int enemy, Vector3 collisionPosition);
-    public static event BonusCollided OnBonusCollided;
+    public static event Action EnemyCollided;
+    public static event Action GroundCollided;
+    public static event Action<int, Vector3> BonusCollided;
     
     // Collision Analytics data
-    public delegate void AnalyticsEnemyCollided(string enemyName);
-    public static event AnalyticsEnemyCollided OnAnalyticsEnemyCollided;
+    public static event Action<string> AnalyticsEnemyCollided;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            OnEnemyCollided?.Invoke();
-            OnAnalyticsEnemyCollided?.Invoke(other.GetComponent<Enemy>().EnemyName);
+            EnemyCollided?.Invoke();
+            AnalyticsEnemyCollided?.Invoke(other.GetComponent<Enemy>().EnemyName);
         }
         if (other.gameObject.CompareTag("ground"))
         {
-            OnGroundCollided?.Invoke();
+            GroundCollided?.Invoke();
         }
         if (other.gameObject.CompareTag("KangarooBonus"))
         {
-            OnBonusCollided?.Invoke(0, transform.position);
+            BonusCollided?.Invoke(0, transform.position);
         }
         if (other.gameObject.CompareTag("BirdBonus"))
         {
-            OnBonusCollided?.Invoke(1, transform.position);
+            BonusCollided?.Invoke(1, transform.position);
         }
     }
 }

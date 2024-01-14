@@ -21,6 +21,39 @@ public class CameraShake : MonoBehaviour, IPausable
     private bool _isDamageable = true;
     private bool _isGameOver = false;
     
+    private void Start()
+    {
+        _originalPos = transform.position;
+        _isShaking = false;
+        _afterGameoverShakeWait = new WaitForSeconds(_afterGameoverShakeDuration);
+        Game.Pausables.Add(this);
+    }
+    
+    private void Update()
+    {
+        if (!_isPaused || _isGameOver)
+        {
+            if (_isShaking)
+            {
+                PerformShake();
+            }
+        }
+    }
+    
+    private void OnEnable()
+    {
+        PlayerCollisionHandler.EnemyCollided += PlayerCollisionHandler_EnemyCollided;
+        PlayerHealth.PlayerInvincibilityFinished += PlayerHealth_PlayerInvincibilityFinished;
+        Game.GameOver += Game_GameOver;
+    }
+
+    private void OnDisable()
+    {
+        PlayerCollisionHandler.EnemyCollided -= PlayerCollisionHandler_EnemyCollided;
+        PlayerHealth.PlayerInvincibilityFinished -= PlayerHealth_PlayerInvincibilityFinished;
+        Game.GameOver -= Game_GameOver;
+    }
+    
     public void SetPaused()
     {
         _isPaused = true;
@@ -30,8 +63,11 @@ public class CameraShake : MonoBehaviour, IPausable
     {
         _isPaused = false;
     }
-
-    private void SetGameover()
+    
+    /// <summary>
+    /// Switch Camera Shake into a gameover mode with different amplitude.
+    /// </summary>
+    private void Game_GameOver()
     {
         _isGameOver = true;
         StartCoroutine(AfterGameOverShakeWait());
@@ -47,58 +83,11 @@ public class CameraShake : MonoBehaviour, IPausable
     {
         _isGameOver = false;
     }
-    
-    private void OnEnable()
-    {
-        PlayerCollisionHandler.OnEnemyCollided += StartShake;
-        PlayerHealth.PlayerInvincibilityFinished += StopInvincibility;
-        Game.OnGameOver += SetGameover;
-    }
 
-    private void OnDisable()
-    {
-        PlayerCollisionHandler.OnEnemyCollided -= StartShake;
-        PlayerHealth.PlayerInvincibilityFinished -= StopInvincibility;
-        Game.OnGameOver -= SetGameover;
-    }
-    
-    void Start()
-    {
-        _originalPos = transform.position;
-        _isShaking = false;
-        _afterGameoverShakeWait = new WaitForSeconds(_afterGameoverShakeDuration);
-        Game.Pausables.Add(this);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (!_isPaused || _isGameOver)
-        {
-            if (_isShaking)
-            {
-                Shake();
-            }
-        }
-    }
-
-    private void Shake()
-    {
-        if (_gameTime.Value - _prevTime < _shakeDuration)
-        {
-            float shakeMask = _shakeProfileCurve.Evaluate((_gameTime.Value - _prevTime) / _shakeDuration);
-            float gameoverAmplitude = 1;
-            if (_isGameOver)
-                gameoverAmplitude = _gameoverMultiplier;
-            transform.position = Vector3.Lerp(_originalPos, _originalPos + (Vector3)(Random.insideUnitCircle * (_shakeAmplitude * gameoverAmplitude)), shakeMask);            
-        }
-        else
-        {
-            _isShaking = false;
-        }            
-    }
-
-    private void StartShake()
+    /// <summary>
+    /// Initialize Camera Shake
+    /// </summary>
+    private void PlayerCollisionHandler_EnemyCollided()
     {
         if (_isDamageable)
         {
@@ -107,8 +96,29 @@ public class CameraShake : MonoBehaviour, IPausable
             _isDamageable = false;
         }
     }
-
-    private void StopInvincibility()
+    
+    private void PerformShake()
+    {
+        if (_gameTime.Value - _prevTime < _shakeDuration)
+        {
+            float shakeMask = _shakeProfileCurve.Evaluate((_gameTime.Value - _prevTime) / _shakeDuration);
+            float gameoverAmplitude = 1;
+            if (_isGameOver)
+            {
+                gameoverAmplitude = _gameoverMultiplier;
+            }
+            transform.position = Vector3.Lerp(_originalPos, _originalPos + (Vector3)(Random.insideUnitCircle * (_shakeAmplitude * gameoverAmplitude)), shakeMask);            
+        }
+        else
+        {
+            _isShaking = false;
+        }            
+    }
+    
+    /// <summary>
+    /// If Player is damageable again - allow camera to shake. While invincible camera will ignore enemy collisions.
+    /// </summary>
+    private void PlayerHealth_PlayerInvincibilityFinished()
     {
         _isDamageable = true;
     }

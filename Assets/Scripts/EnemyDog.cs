@@ -10,7 +10,7 @@ public class EnemyDog : Enemy
 
     public override string EnemyName => "Dog";
 
-    public override void SpawnSetup(float dir)
+    public override void SetupSpawn(float dir)
     {
         _spawnPos.x = 15.05f;
         _spawnPos.x *= -dir;

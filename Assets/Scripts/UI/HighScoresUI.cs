@@ -24,7 +24,7 @@ public class HighScoresUI : MonoBehaviour
         await UnityServices.InitializeAsync(options);
     }
     
-    private async void Start()
+    private void Start()
     {
         _backToMainMenuButton.onClick.AddListener(BackToMainMenu);
         _showLocalScoresButton.onClick.AddListener(ShowLocalScores);

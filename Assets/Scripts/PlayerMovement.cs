@@ -19,8 +19,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
     public float Speed { get; set; }
     public float JumpPhase { get; set; }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         Game.Pausables.Add(this);
         PlayerMoveState.Init(this, _moveStateMachine);
@@ -28,8 +27,7 @@ public class PlayerMovement : MonoBehaviour, IPausable
         _moveStateMachine.SetState(PlayerMoveState);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (!_isPaused)
         {

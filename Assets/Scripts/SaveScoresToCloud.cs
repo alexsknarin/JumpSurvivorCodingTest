@@ -27,15 +27,18 @@ public class SaveScoresToCloud : MonoBehaviour
 
     private void OnEnable()
     {
-        Game.OnGameOver += SaveSoreData;
+        Game.GameOver += Game_GameOver;
     }
 
     private void OnDisable()
     {
-        Game.OnGameOver -= SaveSoreData;
+        Game.GameOver -= Game_GameOver;
     }
     
-    private async void SaveSoreData()
+    /// <summary>
+    /// Save scores to the cloud on a GameOver event
+    /// </summary>
+    private async void Game_GameOver()
     {
         var saveData = new Dictionary<string, object>
         {
@@ -51,6 +54,5 @@ public class SaveScoresToCloud : MonoBehaviour
         {
             Debug.Log(e);
         }
-        
     }
 }

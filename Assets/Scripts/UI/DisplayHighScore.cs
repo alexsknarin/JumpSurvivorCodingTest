@@ -14,7 +14,7 @@ public class DisplayHighScore : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private string _difficultyLevel;
-    [SerializeField] private string _leaderboardID; // TODO: get leaderboard 
+    [SerializeField] private string _leaderboardID;
     private int _textWidth = 35;
 
     public void ShowLocalScores()
@@ -46,7 +46,10 @@ public class DisplayHighScore : MonoBehaviour
         string text = _difficultyLevel + ":\n";
         try
         {
-            var scoreResponse = await LeaderboardsService.Instance.GetScoresAsync(_leaderboardID, new GetScoresOptions {IncludeMetadata = true});
+            var scoreResponse = await LeaderboardsService.Instance.GetScoresAsync(
+                _leaderboardID, 
+                new GetScoresOptions {IncludeMetadata = true});
+            
             foreach (var score in scoreResponse.Results)
             {
                 LeaderboardMetadata data = JsonUtility.FromJson<LeaderboardMetadata>(score.Metadata);
@@ -68,13 +71,17 @@ public class DisplayHighScore : MonoBehaviour
         {
             string text = "Your Latest Results:\n\n";
             
-            var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string>{"playerName"});
+            var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(
+                new HashSet<string>{"playerName"});
+            
             if (playerData.TryGetValue("playerName", out var playerName))
             {
                 text += "Player Name: " + playerName.Value.GetAsString() + "\n";
             }
             
-            playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string>{"difficultyLevel"});
+            playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(
+                new HashSet<string>{"difficultyLevel"});
+            
             if (playerData.TryGetValue("difficultyLevel", out var difficultyLevel))
             {
                 text += "Difficulty Level: " + difficultyLevel.Value.GetAsString() + "\n";
