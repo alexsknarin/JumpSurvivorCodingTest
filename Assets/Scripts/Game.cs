@@ -54,12 +54,12 @@ public class Game : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerHealth.OnPlayerDamaged += CheckLife;
+        PlayerHealth.HealthDecreased += CheckLife;
     }
 
     private void OnDisable()
     {
-        PlayerHealth.OnPlayerDamaged -= CheckLife;
+        PlayerHealth.HealthDecreased -= CheckLife;
     }
     
     private void PauseGame()

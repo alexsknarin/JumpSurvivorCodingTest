@@ -19,20 +19,39 @@ public class HealthHeartAnimation : MonoBehaviour
      [SerializeField] private Image _heartImage;
      [SerializeField] private Color _baseColor;
      [SerializeField] private Color _nearDeathColor;
+     
      [SerializeField] private AnimationCurve _damageAnimCurve;
-
-     private float _animationPhase = 0f;
      [SerializeField] private float _damageAnimationSpeed;
      [SerializeField] private float _nearDeathFlashFrequency;
-     private float _nearDeathPulse;
+     private float _animationPhase = 0f;
      [SerializeField] private float _healAnimationSpeed;
      [SerializeField] private AnimationCurve _healScaleAnimCurve;
      [SerializeField] private AnimationCurve _healMoveAnimCurve;
+     private HeartStates _animationState = HeartStates.NormalState;
+     
+     private bool _isNearDeath = false;
+     private float _nearDeathPulseValue;
+     
      private Vector3 _instancePersistentPosition;
      private Vector3 _healStartPos;
-     private HeartStates _heartState = HeartStates.NormalState;
-     private bool _isNearDeath = false;
+     
+     private void Update()
+     {
+          if (_animationState == HeartStates.DamageAnimState)
+          {
+               PerformDamageAnimation();
+          }
+          else if(_animationState == HeartStates.HealAnimState)
+          {
+               PerformHealAnimation();
+          }
 
+          if (_isNearDeath)
+          {
+               PerformNearDeathAnimation();
+          }
+     }
+     
      public void SaveInitialState(Vector3 currentPos, Vector3 parentPos, Vector3 healStartPos)
      {
           _instancePersistentPosition = currentPos;
@@ -50,14 +69,21 @@ public class HealthHeartAnimation : MonoBehaviour
           _heartImage.color = _baseColor;
      }
      
-     public void DoDamage()
+     public void StartDamageAnimation()
      {
-          _heartState = HeartStates.DamageAnimState;
+          _animationState = HeartStates.DamageAnimState;
           _heartImage.color = _nearDeathColor;
           _animationPhase = 0f;
      }
      
-     private void DamageAnimationState()
+     public void StartHealAnimation()
+     {
+          gameObject.SetActive(true);
+          _animationPhase = 0;
+          _animationState = HeartStates.HealAnimState;
+     }
+     
+     private void PerformDamageAnimation()
      {
           transform.localScale = Vector3.one * _damageAnimCurve.Evaluate(_animationPhase);
           _animationPhase += _damageAnimationSpeed*Time.deltaTime;
@@ -67,48 +93,23 @@ public class HealthHeartAnimation : MonoBehaviour
           }
      }
 
-     public void DoHeal()
-     {
-          gameObject.SetActive(true);
-          _animationPhase = 0;
-          _heartState = HeartStates.HealAnimState;
-     }
-     
-     private void HealAnimationState()
+     private void PerformHealAnimation()
      {
           transform.localScale = Vector3.one * _healScaleAnimCurve.Evaluate(_animationPhase);
           transform.localPosition = Vector3.Lerp(_healStartPos, _instancePersistentPosition, _healMoveAnimCurve.Evaluate(_animationPhase));
           _animationPhase += _healAnimationSpeed*Time.deltaTime;
           if (_animationPhase > 1)
           {
-               _heartState = HeartStates.NormalState;
+               _animationState = HeartStates.NormalState;
                transform.localPosition = _instancePersistentPosition;
                _heartImage.color = _baseColor;    
           }
      }
-
-     private void AnimateNearDeath()
-     {
-          _nearDeathPulse = Mathf.Sin(Time.time * _nearDeathFlashFrequency) * 0.5f + 1;
-          _heartImage.color = Color.Lerp(_baseColor, _nearDeathColor, _nearDeathPulse);
-          transform.localScale = Vector3.one * (_nearDeathPulse*0.15f+0.85f);
-     }
      
-     private void Update()
+     private void PerformNearDeathAnimation()
      {
-          if (_heartState == HeartStates.DamageAnimState)
-          {
-               DamageAnimationState();
-          }
-          else if(_heartState == HeartStates.HealAnimState)
-          {
-               HealAnimationState();
-          }
-
-          if (_isNearDeath)
-          {
-               AnimateNearDeath();
-          }
-          
+          _nearDeathPulseValue = Mathf.Sin(Time.time * _nearDeathFlashFrequency) * 0.5f + 1;
+          _heartImage.color = Color.Lerp(_baseColor, _nearDeathColor, _nearDeathPulseValue);
+          transform.localScale = Vector3.one * (_nearDeathPulseValue*0.15f+0.85f);
      }
 }

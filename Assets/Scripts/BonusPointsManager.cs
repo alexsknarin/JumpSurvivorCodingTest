@@ -25,7 +25,7 @@ public class BonusPointsManager : MonoBehaviour
         PlayerCollisionHandler.OnBonusCollided += RegisterBonus;
         PlayerCollisionHandler.OnEnemyCollided += DiscardBonus;
         PlayerCollisionHandler.OnGroundCollided += ApplyBonusPoints;
-        PlayerHealth.OnPlayerInvincibilityFinished += SetUndamaged;
+        PlayerHealth.PlayerInvincibilityFinished += SetUndamaged;
 
     }
 
@@ -34,7 +34,7 @@ public class BonusPointsManager : MonoBehaviour
         PlayerCollisionHandler.OnBonusCollided -= RegisterBonus;
         PlayerCollisionHandler.OnEnemyCollided -= DiscardBonus;
         PlayerCollisionHandler.OnGroundCollided -= ApplyBonusPoints;
-        PlayerHealth.OnPlayerInvincibilityFinished -= SetUndamaged;
+        PlayerHealth.PlayerInvincibilityFinished -= SetUndamaged;
     }
 
     private void Start()

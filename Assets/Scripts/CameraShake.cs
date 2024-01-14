@@ -51,14 +51,14 @@ public class CameraShake : MonoBehaviour, IPausable
     private void OnEnable()
     {
         PlayerCollisionHandler.OnEnemyCollided += StartShake;
-        PlayerHealth.OnPlayerInvincibilityFinished += StopInvincibility;
+        PlayerHealth.PlayerInvincibilityFinished += StopInvincibility;
         Game.OnGameOver += SetGameover;
     }
 
     private void OnDisable()
     {
         PlayerCollisionHandler.OnEnemyCollided -= StartShake;
-        PlayerHealth.OnPlayerInvincibilityFinished -= StopInvincibility;
+        PlayerHealth.PlayerInvincibilityFinished -= StopInvincibility;
         Game.OnGameOver -= SetGameover;
     }
     
