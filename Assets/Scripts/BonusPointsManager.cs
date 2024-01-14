@@ -15,6 +15,7 @@ public class BonusPointsManager : MonoBehaviour
     private Vector3 _bonusPosition;
     private bool _isDamaged = false;
     private int _currentBonus;
+    private int _healCount = 0;
 
     public delegate void BonusUpdated(int enemy, Vector3 playerPosition);
     public static event BonusUpdated OnBonusUpdated;
@@ -86,9 +87,10 @@ public class BonusPointsManager : MonoBehaviour
         _bonusRegisterd = false;
         
         // Check for heal
-        if (_bonusPoints.Value % _healEveryNPoints == 0)
+        if ((int)(_bonusPoints.Value / _healEveryNPoints) > _healCount)
         {
             OnHeal?.Invoke();
+            _healCount++;
         }
     }
 }
