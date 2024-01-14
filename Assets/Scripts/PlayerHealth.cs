@@ -29,14 +29,14 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerCollisionHandler.OnEnemyCollided += OnDecreaseHealth;
-        BonusPointsManager.OnHeal += OnIncreaseHealth;
+        PlayerCollisionHandler.EnemyCollided += PlayerCollisionHandler_EnemyCollided;
+        BonusPointsManager.HealBonusReached += BonusPointsManager_HealBonusReached;
     }
 
     private void OnDisable()
     {
-        PlayerCollisionHandler.OnEnemyCollided -= OnDecreaseHealth;
-        BonusPointsManager.OnHeal -= OnIncreaseHealth;
+        PlayerCollisionHandler.EnemyCollided -= PlayerCollisionHandler_EnemyCollided;
+        BonusPointsManager.HealBonusReached -= BonusPointsManager_HealBonusReached;
     }
 
     private IEnumerator WaitForInvincibility()
@@ -46,7 +46,10 @@ public class PlayerHealth : MonoBehaviour
         _isInvincible = false;
     }
 
-    private void OnDecreaseHealth()
+    /// <summary>
+    /// Decrease Health
+    /// </summary>
+    private void PlayerCollisionHandler_EnemyCollided()
     {
         if (!_isInvincible)
         {
@@ -57,7 +60,10 @@ public class PlayerHealth : MonoBehaviour
         }   
     }
 
-    private void OnIncreaseHealth()
+    /// <summary>
+    /// Increase Health
+    /// </summary>
+    private void BonusPointsManager_HealBonusReached()
     {
         if (_playerHealth.Value < _maxHealthCurrent.Value)
         {

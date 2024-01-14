@@ -12,9 +12,26 @@ public class BonusPointsView : MonoBehaviour, IPausable
     private float _animationPhase = 0f;
     private float _prevTime = 0f;
     private Vector3 _translateDirection;
+    
     public int CurrentBonusPoints { get; set; }
+    
+    private void Update()
+    {
+        if (_isAnimated)
+        {
+            Animation();
+        }
+    }
 
-        public void SpawnSetup(int pointNum, Vector2 startScreenPosition, RectTransform bonusTextTransform)
+    public void SetPaused()
+    {
+    }
+
+    public void SetUnpaused()
+    {
+    }
+
+    public void SpawnSetup(int pointNum, Vector2 startScreenPosition, RectTransform bonusTextTransform)
     {
         gameObject.SetActive(true);
         transform.position = startScreenPosition;
@@ -38,21 +55,5 @@ public class BonusPointsView : MonoBehaviour, IPausable
             _translateDirection = (_bonusTextTransform.transform.position - transform.position);
         }
         transform.Translate(_translateDirection.normalized * (_speed * Time.deltaTime * _animationSpeedCurve.Evaluate(_animationPhase)));
-    }
-
-    private void Update()
-    {
-        if (_isAnimated)
-        {
-            Animation();
-        }
-    }
-
-    public void SetPaused()
-    {
-    }
-
-    public void SetUnpaused()
-    {
     }
 }

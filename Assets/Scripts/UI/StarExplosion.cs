@@ -27,6 +27,22 @@ public class StarExplosion : MonoBehaviour, IPausable
     private float _animPhase;
     private bool _isAnimated = false;
 
+    private void Update()
+    {
+        if (_isAnimated)
+        {
+            PerformAnimation();
+        }
+    }
+    
+    public void SetPaused()
+    {
+    }
+
+    public void SetUnpaused()
+    {
+    }
+    
     public void Play()
     {
         for(int i = 0; i < _stars.Count; i++)
@@ -103,15 +119,6 @@ public class StarExplosion : MonoBehaviour, IPausable
         gameObject.SetActive(false);
     }
 
-    private void Update()
-    {
-        if (_isAnimated)
-        {
-            PerformAnimation();
-        }
-    }
-    
-    
     private void OnDrawGizmos()
     {
         if (_canvas)
@@ -123,13 +130,5 @@ public class StarExplosion : MonoBehaviour, IPausable
             Gizmos.color = Color.magenta;
             Gizmos.DrawWireSphere(centerPos, _maxDistance);
         }
-    }
-
-    public void SetPaused()
-    {
-    }
-
-    public void SetUnpaused()
-    {
     }
 }

@@ -1566,7 +1566,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 748585097}
           m_TargetAssemblyTypeName: MainMenuButtonsTimelineControl, Assembly-CSharp
-          m_MethodName: MenuStartScoresExit
+          m_MethodName: PerformMenuStartScoresExit
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

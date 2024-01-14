@@ -17,14 +17,19 @@ public class SaveScores : MonoBehaviour
 
     private void OnEnable()
     {
-        Game.OnGameOver += SaveSoreData;
+        Game.GameOver += Game_GameOver;
     }
 
     private void OnDisable()
     {
-        Game.OnGameOver -= SaveSoreData;
+        Game.GameOver -= Game_GameOver;
     }
 
+    private void Game_GameOver()
+    {
+        SaveSoreData();
+    }
+    
     private void SaveSoreData()
     {
         // Generate file path

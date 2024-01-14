@@ -11,7 +11,17 @@ public class SpawnUI : MonoBehaviour
     [SerializeField] private List<Color> _randomColors;
     private int _colorIndex = 0;
 
-    private void ChangeText(string newText)
+    private void OnEnable()
+    {
+        SpawnManager.SpawnStateChanged += SpawnManager_SpawnStateChanged;
+    }
+
+    private void OnDisable()
+    {
+        SpawnManager.SpawnStateChanged -= SpawnManager_SpawnStateChanged;
+    }
+    
+    private void SpawnManager_SpawnStateChanged(string newText)
     {
         _text.text = newText;
         _text.color = _randomColors[_colorIndex];
@@ -20,15 +30,5 @@ public class SpawnUI : MonoBehaviour
         {
             _colorIndex = 0;
         }
-    }
-
-    private void OnEnable()
-    {
-        SpawnManager.OnSpawnStateChanged += ChangeText;
-    }
-
-    private void OnDisable()
-    {
-        SpawnManager.OnSpawnStateChanged -= ChangeText;
     }
 }

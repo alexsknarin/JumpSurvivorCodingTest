@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
@@ -18,14 +19,9 @@ public class PlayerInputHandler : MonoBehaviour
     private float _horizontalInertia;
     private float _horizontalSensitiveInput;
     private bool _jumpButtonPressed = false;
-    
     private InputDevice _currentInputDevice = new Keyboard();
     
     // events for extreme stick positions
-    public delegate void StickPositionChanged(float xValue);
-    public static event StickPositionChanged OnStickPositionChanged;
-    
-
     public float HorizontalAxis 
     {
         get
@@ -36,19 +32,15 @@ public class PlayerInputHandler : MonoBehaviour
                 ApplyLegacyGravityHorizontalAxis();
             }
             // Provide current stick state as an event with data
-            OnStickPositionChanged?.Invoke(_horizontalAxisInput);
+            StickPositionChanged?.Invoke(_horizontalAxisInput);
          
             return _horizontalAxisInput;
         }
     }
-    public bool JumpAction
-    {
-        get
-        {
-            return _jumpButtonPressed;
-        }
-    }
+    public bool JumpAction => _jumpButtonPressed;
     
+    public static event Action<float> StickPositionChanged;
+
     void Awake()
     {
         _playerInputActionMap = new PlayerInputActionMap();

@@ -11,15 +11,18 @@ public class PlayerDeathAnimation : MonoBehaviour
 
     private void OnEnable()
     {
-        Game.OnGameOver += PlayDeathAnimation;
+        Game.GameOver += Game_GameOver;
     }
 
     private void OnDisable()
     {
-        Game.OnGameOver -= PlayDeathAnimation;
+        Game.GameOver -= Game_GameOver;
     }
 
-    private void PlayDeathAnimation()
+    /// <summary>
+    /// Play Death Animation
+    /// </summary>
+    private void Game_GameOver()
     {
         _playerViewBase.SetActive(false);
         _deathAnimationVFX.gameObject.SetActive(true);

@@ -3,7 +3,7 @@
  * therefore any object HAS to have IPausable implemented to be able to be used in the Object Pool
  *
  * TODO: optimizе Object pool and make it more abstract
- * 
+ * TODO: remove pausable setup from the pool - add iterator to be able to runt it from outside???
  */
 
 using System.Collections.Generic;

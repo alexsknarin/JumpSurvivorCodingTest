@@ -21,12 +21,12 @@ public class SubmitScoresToLeaderboard : MonoBehaviour
 
     private void OnEnable()
     {
-        Game.OnGameOver += AddScore;
+        Game.GameOver += Game_GameOver;
     }
 
     private void OnDisable()
     {
-        Game.OnGameOver -= AddScore;
+        Game.GameOver -= Game_GameOver;
     }
     
     public void Setup()
@@ -45,7 +45,7 @@ public class SubmitScoresToLeaderboard : MonoBehaviour
         }
     }
 
-    public async void AddScore()
+    public async void Game_GameOver()
     {
         var metadata = new Dictionary<string, string>()
         {

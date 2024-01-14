@@ -19,15 +19,7 @@ public class MainMenu : MonoBehaviour
             _consentScreen.SetActive(true);            
         }
     }
-
-    private void StartMainMenu()
-    {
-        _consentScreen.SetActive(false);
-        _mainMenuBgTimelineControl.Play();
-        _mainMenuButtonsTimelineControl.Setup();
-        _mainMenuButtonsTimelineControl.Play();
-    }
-
+    
     public void AgreeToDataCollection()
     {
         _enableDataCollectionButton.SetActive(false);
@@ -53,4 +45,14 @@ public class MainMenu : MonoBehaviour
     {
         PlayerPrefs.SetInt("dataConsent", 0);
     }
+
+    private void StartMainMenu()
+    {
+        _consentScreen.SetActive(false);
+        _mainMenuBgTimelineControl.Play();
+        _mainMenuButtonsTimelineControl.Setup();
+        _mainMenuButtonsTimelineControl.Play();
+    }
+
+
 }

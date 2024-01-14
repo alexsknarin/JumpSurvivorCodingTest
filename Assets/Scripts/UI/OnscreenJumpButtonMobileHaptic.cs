@@ -14,15 +14,23 @@ public class OnscreenJumpButtonMobileHaptic : MonoBehaviour
     
     private void OnEnable()
     {
-        PlayerCollisionHandler.OnEnemyCollided += BlockHaptic;
+        PlayerCollisionHandler.EnemyCollided += PlayerCollisionHandler_EnemyCollided;
     }
 
     private void OnDisable()
     {
-        PlayerCollisionHandler.OnEnemyCollided -= BlockHaptic;
+        PlayerCollisionHandler.EnemyCollided -= PlayerCollisionHandler_EnemyCollided;
     }
     
-    private void BlockHaptic()
+    public void ButtonVibrate()
+    {
+        if (_hapticAllowed)
+        {
+            HapticFeedback.HeavyFeedback();
+        }
+    }
+    
+    private void PlayerCollisionHandler_EnemyCollided()
     {
         if (_hapticAllowed)
         {
@@ -35,13 +43,5 @@ public class OnscreenJumpButtonMobileHaptic : MonoBehaviour
     {
         yield return _waitForHapticBlocked;
         _hapticAllowed = true;
-    }
-
-    public void ButtonVibrate()
-    {
-        if (_hapticAllowed)
-        {
-            HapticFeedback.HeavyFeedback();
-        }
     }
 }

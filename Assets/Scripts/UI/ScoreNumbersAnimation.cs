@@ -51,7 +51,6 @@ public class ScoreNumbersAnimation : MonoBehaviour
         _currExclamation++;
         _isExclamationAnimated = true;
     }
-    
 
     private void Update()
     {

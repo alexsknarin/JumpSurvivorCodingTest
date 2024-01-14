@@ -9,8 +9,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Services.Analytics;
-using Unity.Services.Core;
-using Unity.Services.Core.Environments;
 
 /// <summary>
 /// Class to collect all Analytics Data and send it to Unity Analytics service.
@@ -24,22 +22,16 @@ public class AnalyticsCollector : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerCollisionHandler.OnAnalyticsEnemyCollided += PlayerDamagedCustomEvent;
-        SpawnManager.OnSpawnStateChanged += SpawnStateNameChange;
-        Game.OnGameOver += PlayerDeathCustomEvent;
+        PlayerCollisionHandler.AnalyticsEnemyCollided += PlayerCollisionHandler_AnalyticsEnemyCollided;
+        SpawnManager.SpawnStateChanged += SpawnManager_SpawnStateChanged;
+        Game.GameOver += Game_GameOver;
     }
     
     private void OnDisable()
     {
-        PlayerCollisionHandler.OnAnalyticsEnemyCollided -= PlayerDamagedCustomEvent;
-        SpawnManager.OnSpawnStateChanged -= SpawnStateNameChange;
-        Game.OnGameOver -= PlayerDeathCustomEvent;
-    }
-
-    private void SpawnStateNameChange(string spawnStateName)
-    {
-        _spawnStateName = spawnStateName;
-        _spawnStateNum++;
+        PlayerCollisionHandler.AnalyticsEnemyCollided -= PlayerCollisionHandler_AnalyticsEnemyCollided;
+        SpawnManager.SpawnStateChanged -= SpawnManager_SpawnStateChanged;
+        Game.GameOver -= Game_GameOver;
     }
 
     public void Setup()
@@ -53,6 +45,12 @@ public class AnalyticsCollector : MonoBehaviour
             Debug.Log(e.ToString());
         }
     }
+    
+    private void SpawnManager_SpawnStateChanged(string spawnStateName)
+    {
+        _spawnStateName = spawnStateName;
+        _spawnStateNum++;
+    }
 
     private void GiveConsent()
     {
@@ -63,7 +61,7 @@ public class AnalyticsCollector : MonoBehaviour
         }
     }
 
-    private void PlayerDamagedCustomEvent(string enemyName)
+    private void PlayerCollisionHandler_AnalyticsEnemyCollided(string enemyName)
     {
         Dictionary<string, object> parameters = new Dictionary<string, object>()
         {
@@ -78,7 +76,7 @@ public class AnalyticsCollector : MonoBehaviour
         AnalyticsService.Instance.Flush();
     }
 
-    private void PlayerDeathCustomEvent()
+    private void Game_GameOver()
     {
         Dictionary<string, object> parameters = new Dictionary<string, object>()
         {

@@ -5,7 +5,6 @@ using UnityEngine;
 /// </summary>
 public class KangarooMovementBaseState : ScriptableObject, IState
 {
-    
     protected EnemyKangaroo _owner;
     protected StateMachine _stateMachine;
     protected Transform _transform;

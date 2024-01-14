@@ -11,13 +11,6 @@ public class BonusPlusAnimation : MonoBehaviour
     private bool _isAnimated = false;
     private float _animationPhase;
 
-    public void Play()
-    {
-        _prevTime = Time.time;
-        _isAnimated = true;
-        transform.localScale = Vector3.one*0.05f;
-    }
-
     private void Update()
     {
         if (_isAnimated)
@@ -31,5 +24,12 @@ public class BonusPlusAnimation : MonoBehaviour
             }
             transform.localScale = Vector3.one * _animationCurve.Evaluate(_animationPhase);
         }
+    }
+    
+    public void Play()
+    {
+        _prevTime = Time.time;
+        _isAnimated = true;
+        transform.localScale = Vector3.one*0.05f;
     }
 }

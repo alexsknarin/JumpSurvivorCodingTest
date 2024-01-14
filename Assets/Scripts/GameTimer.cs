@@ -8,16 +8,6 @@ public class GameTimer : MonoBehaviour, IPausable
     [SerializeField] private FloatVariable _gameTime;
     private bool _isPaused;
     
-    public void SetPaused()
-    {
-        _isPaused = true;
-    }
-
-    public void SetUnpaused()
-    {
-        _isPaused = false;
-    }
-    
     void Start()
     {
         Game.Pausables.Add(this);
@@ -35,5 +25,15 @@ public class GameTimer : MonoBehaviour, IPausable
         {
             _gameTime.Value += Time.deltaTime;
         }
+    }
+    
+    public void SetPaused()
+    {
+        _isPaused = true;
+    }
+
+    public void SetUnpaused()
+    {
+        _isPaused = false;
     }
 }

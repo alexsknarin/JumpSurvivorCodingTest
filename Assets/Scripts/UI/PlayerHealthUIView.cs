@@ -18,19 +18,19 @@ public class PlayerHealthUIView : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerHealth.HealthDecreased += OnApplyDamage;
-        PlayerHealth.PlayerHealthSetUp += OnInitialize;
-        PlayerHealth.HealthIncreased += OnApplyHealing;
+        PlayerHealth.HealthDecreased += PlayerHealth_HealthDecreased;
+        PlayerHealth.PlayerHealthSetUp += PlayerHealth_PlayerHealthSetUp;
+        PlayerHealth.HealthIncreased += PlayerHealth_HealthIncreased;
     }
 
     private void OnDisable()
     {
-        PlayerHealth.HealthDecreased -= OnApplyDamage;
-        PlayerHealth.PlayerHealthSetUp -= OnInitialize;
-        PlayerHealth.HealthIncreased -= OnApplyHealing;
+        PlayerHealth.HealthDecreased -= PlayerHealth_HealthDecreased;
+        PlayerHealth.PlayerHealthSetUp -= PlayerHealth_PlayerHealthSetUp;
+        PlayerHealth.HealthIncreased -= PlayerHealth_HealthIncreased;
     }
     
-    public void OnInitialize()
+    public void PlayerHealth_PlayerHealthSetUp()
     {
         // Generate Lifebar items
         for (int i = 0; i < _maxHealth.Value; i++)
@@ -45,13 +45,13 @@ public class PlayerHealthUIView : MonoBehaviour
         _nearDeathHealthNumber = _maxHealth.Value * _nearDeathFraction;
     }
 
-    private void OnApplyDamage()
+    private void PlayerHealth_HealthDecreased()
     {
         _healthIcons[_currentHealth.Value].StartDamageAnimation();
         CheckUpdateNearDeathState();
     }
 
-    private void OnApplyHealing()
+    private void PlayerHealth_HealthIncreased()
     {
         _healthIcons[_currentHealth.Value-1].StartHealAnimation();
         CheckUpdateNearDeathState();

@@ -47,37 +47,52 @@ public class Game : MonoBehaviour
     public static List<IPausable> Pausables = new List<IPausable>();
     
     // Game Over event
-    public static event Action OnGameOver;
+    public static event Action GameOver;
     
 
     private bool _isGameOver = false;
+    
+    private void Start()
+    {
+        _spawnManager.InitSpawn();
+        _gameOverUIdelayWait = new WaitForSeconds(_gameOverUIdelay);
+        
+        // UGS
+        // Call Analytics and Score Setups
+        //_analyticsCollector.Setup();
+        _submitScoresToLeaderboard.Setup();
+    }
 
     private void OnEnable()
     {
-        PlayerHealth.HealthDecreased += CheckLife;
+        PlayerHealth.HealthDecreased += PlayerHealth_HealthDecreased;
     }
 
     private void OnDisable()
     {
-        PlayerHealth.HealthDecreased -= CheckLife;
+        PlayerHealth.HealthDecreased -= PlayerHealth_HealthDecreased;
     }
     
-    private void PauseGame()
+    /// <summary>
+    /// This method is for debugging only. TODO: Remove 
+    /// </summary>
+    private void Update()
     {
-        foreach (var p in Pausables)
+        if (Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.P))
         {
-            p.SetPaused();
+            //Debug.Break();              
+            PauseGame();
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            UnPauseGame();
+        }
+        if (Input.GetKeyDown(KeyCode.Escape) && _isGameOver)
+        {
+            SceneManager.LoadScene(0);
         }
     }
     
-    private void UnPauseGame()
-    {
-        foreach (var p in Pausables)
-        {
-            p.SetUnpaused();
-        }
-    }
-
     public static string GetDifficultyLevelName(int index)
     {
         switch (index)
@@ -95,37 +110,26 @@ public class Game : MonoBehaviour
         return " ";
     }
     
-    
-    private void Update()
+    private void PauseGame()
     {
-        if (Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.P))
+        foreach (var p in Pausables)
         {
-            //Debug.Break();              
-            PauseGame();
+            p.SetPaused();
         }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            UnPauseGame();
-        }
-        if (Input.GetKeyDown(KeyCode.Escape) && _isGameOver)
-        {
-            SceneManager.LoadScene(0);
-        }
-        
-    }
-
-    private void Start()
-    {
-        _spawnManager.InitSpawn();
-        _gameOverUIdelayWait = new WaitForSeconds(_gameOverUIdelay);
-        
-        // UGS
-        // Call Analytics and Score Setups
-        //_analyticsCollector.Setup();
-        _submitScoresToLeaderboard.Setup();
     }
     
-    private void CheckLife()
+    private void UnPauseGame()
+    {
+        foreach (var p in Pausables)
+        {
+            p.SetUnpaused();
+        }
+    }
+    
+    /// <summary>
+    /// Each Time helath decreased this method check if it was the last health and it is time for GameOver event
+    /// </summary>
+    private void PlayerHealth_HealthDecreased()
     {
         // Game Over
         if (_playerHealth.Value == 0)
@@ -133,7 +137,7 @@ public class Game : MonoBehaviour
             PauseGame();
             _isGameOver = true;
             StartCoroutine(GameOverScreenDelay());
-            OnGameOver?.Invoke();
+            GameOver?.Invoke();
         }
     }
 
