@@ -6,61 +6,72 @@ using UnityEngine;
 /// </summary>
 public class PlayerHealthUIView : MonoBehaviour
 {
-    [SerializeField] private HealthHeartAnimation _healthHeartPrefab;
-    [SerializeField] private IntVariable _playerHealth;
+    [SerializeField] private HealthHeartAnimation _healthIconPrefab;
+    [SerializeField] private IntVariable _currentHealth;
     [SerializeField] private IntVariable _maxHealth;
-    [SerializeField] private float _heartsDistance;
+    [SerializeField] private float _iconMargin;
     [SerializeField] private Transform _bonusTextTransform;
     private Vector3 _newPosition = Vector3.zero;
-    private List<HealthHeartAnimation> _healthHearts = new List<HealthHeartAnimation>();
-    private bool _nearDeath = false;
+    private List<HealthHeartAnimation> _healthIcons = new List<HealthHeartAnimation>();
     [SerializeField] private float _nearDeathFraction;
+    private float _nearDeathHealthNumber;
 
     private void OnEnable()
     {
-        PlayerHealth.OnPlayerDamaged += RecieveDamage;
-        PlayerHealth.OnPlayerHealthSetUp += Initialize;
-        PlayerHealth.OnLifeIncreased += HealDamage;
+        PlayerHealth.HealthDecreased += OnApplyDamage;
+        PlayerHealth.PlayerHealthSetUp += OnInitialize;
+        PlayerHealth.HealthIncreased += OnApplyHealing;
     }
 
     private void OnDisable()
     {
-        PlayerHealth.OnPlayerDamaged -= RecieveDamage;
-        PlayerHealth.OnPlayerHealthSetUp -= Initialize;
-        PlayerHealth.OnLifeIncreased -= HealDamage;
+        PlayerHealth.HealthDecreased -= OnApplyDamage;
+        PlayerHealth.PlayerHealthSetUp -= OnInitialize;
+        PlayerHealth.HealthIncreased -= OnApplyHealing;
     }
     
-    public void Initialize()
+    public void OnInitialize()
     {
         // Generate Lifebar items
         for (int i = 0; i < _maxHealth.Value; i++)
         {
-            _newPosition.x -= _heartsDistance;
-            HealthHeartAnimation newHealthHeartPrefab = Instantiate(_healthHeartPrefab, Vector3.zero, _healthHeartPrefab.transform.rotation, transform);
+            _newPosition.x -= _iconMargin;
+            HealthHeartAnimation newHealthHeartPrefab = Instantiate(_healthIconPrefab, Vector3.zero, _healthIconPrefab.transform.rotation, transform);
             newHealthHeartPrefab.transform.localPosition = _newPosition;
-            newHealthHeartPrefab.SaveInitialState(_newPosition, transform.localPosition);
-            _healthHearts.Add(newHealthHeartPrefab);
+            newHealthHeartPrefab.SaveInitialState(_newPosition, transform.localPosition, _bonusTextTransform.localPosition);
+            _healthIcons.Add(newHealthHeartPrefab);
         }
+
+        _nearDeathHealthNumber = _maxHealth.Value * _nearDeathFraction;
     }
 
-    private void RecieveDamage()
+    private void OnApplyDamage()
     {
-        if (_playerHealth.Value < _maxHealth.Value * _nearDeathFraction)
+        _healthIcons[_currentHealth.Value].StartDamageAnimation();
+        CheckUpdateNearDeathState();
+    }
+
+    private void OnApplyHealing()
+    {
+        _healthIcons[_currentHealth.Value-1].StartHealAnimation();
+        CheckUpdateNearDeathState();
+    }
+
+    private void CheckUpdateNearDeathState()
+    {
+        if (_currentHealth.Value < _nearDeathHealthNumber)
         {
-            if (!_nearDeath)
+            for(int i=0; i<_currentHealth.Value; i++)
             {
-                for(int i=0; i<_playerHealth.Value; i++)
-                {
-                    _healthHearts[i].DoNearDeath();
-                }    
-            }
-            _nearDeath = true;
+                _healthIcons[i].EnableNearDeath();
+            }    
         }
-        _healthHearts[_playerHealth.Value].DoDamage();
-    }
-
-    private void HealDamage()
-    {
-        _healthHearts[_playerHealth.Value-1].DoHeal(_bonusTextTransform.localPosition);
+        else
+        {
+            for(int i=0; i<_currentHealth.Value; i++)
+            {
+                _healthIcons[i].DisableNearDeath();
+            }    
+        }
     }
 }

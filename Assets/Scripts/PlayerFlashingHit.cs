@@ -19,13 +19,13 @@ public class PlayerFlashingHit : MonoBehaviour
     private void OnEnable()
     {
         PlayerCollisionHandler.OnEnemyCollided += StartFlashing;
-        PlayerHealth.OnPlayerInvincibilityFinished += StopFlashing;
+        PlayerHealth.PlayerInvincibilityFinished += StopFlashing;
     }
 
     private void OnDisable()
     {
         PlayerCollisionHandler.OnEnemyCollided -= StartFlashing;
-        PlayerHealth.OnPlayerInvincibilityFinished -= StopFlashing;
+        PlayerHealth.PlayerInvincibilityFinished -= StopFlashing;
         _material.SetColor("_Color", Color.white);
         _material.SetFloat("_HitMix", 0);
     }

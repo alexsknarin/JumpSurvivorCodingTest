@@ -9,13 +9,13 @@ public class PlayerVibratingHit : MonoBehaviour
     private void OnEnable()
     {
         PlayerCollisionHandler.OnEnemyCollided += Vibrate;
-        PlayerHealth.OnPlayerInvincibilityFinished += StopInvincibility;
+        PlayerHealth.PlayerInvincibilityFinished += StopInvincibility;
     }
 
     private void OnDisable()
     {
         PlayerCollisionHandler.OnEnemyCollided -= Vibrate;
-        PlayerHealth.OnPlayerInvincibilityFinished -= StopInvincibility;
+        PlayerHealth.PlayerInvincibilityFinished -= StopInvincibility;
     }
     
     void Vibrate()

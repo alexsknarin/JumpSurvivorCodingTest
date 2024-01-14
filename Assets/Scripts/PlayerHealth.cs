@@ -14,56 +14,55 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float _invincibilityDuration;
     private bool _isInvincible = false;
     private WaitForSeconds _waitForInvincibility;
-    public static event Action OnPlayerDamaged;
-    public static event Action OnPlayerInvincibilityFinished;
-    public static event Action OnPlayerHealthSetUp;
-    public static event Action OnLifeIncreased;
-    
-
-    private void OnEnable()
-    {
-        PlayerCollisionHandler.OnEnemyCollided += DecreaseLives;
-        BonusPointsManager.OnHeal += IncreaseLives;
-    }
-
-    private void OnDisable()
-    {
-        PlayerCollisionHandler.OnEnemyCollided -= DecreaseLives;
-        BonusPointsManager.OnHeal -= IncreaseLives;
-    }
+    public static event Action HealthDecreased;
+    public static event Action PlayerInvincibilityFinished;
+    public static event Action PlayerHealthSetUp;
+    public static event Action HealthIncreased;
 
     private void Start()
     {
         _maxHealthCurrent.Value = _maxHealth[_dificultyLevel.Value].Value;
         _playerHealth.Value = _maxHealthCurrent.Value;
         _waitForInvincibility = new WaitForSeconds(_invincibilityDuration);
-        OnPlayerHealthSetUp?.Invoke();
+        PlayerHealthSetUp?.Invoke();
+    }
+
+    private void OnEnable()
+    {
+        PlayerCollisionHandler.OnEnemyCollided += OnDecreaseHealth;
+        BonusPointsManager.OnHeal += OnIncreaseHealth;
+    }
+
+    private void OnDisable()
+    {
+        PlayerCollisionHandler.OnEnemyCollided -= OnDecreaseHealth;
+        BonusPointsManager.OnHeal -= OnIncreaseHealth;
     }
 
     private IEnumerator WaitForInvincibility()
     {
         yield return _waitForInvincibility;
-        OnPlayerInvincibilityFinished?.Invoke();
+        PlayerInvincibilityFinished?.Invoke();
         _isInvincible = false;
     }
 
-    private void DecreaseLives()
+    private void OnDecreaseHealth()
     {
         if (!_isInvincible)
         {
             _playerHealth.Value -= 1;
-            OnPlayerDamaged?.Invoke();
+            HealthDecreased?.Invoke();
             _isInvincible = true;
             StartCoroutine(WaitForInvincibility());
         }   
     }
 
-    private void IncreaseLives()
+    private void OnIncreaseHealth()
     {
         if (_playerHealth.Value < _maxHealthCurrent.Value)
         {
             _playerHealth.Value++;
-            OnLifeIncreased?.Invoke();
+            HealthIncreased?.Invoke();
         }
     }
 }
