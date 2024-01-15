@@ -27,10 +27,11 @@ public class PlayerInputHandler : MonoBehaviour
         get
         {
             _horizontalAxisInput = _playerInputActionMap.PlayerMovement.Move.ReadValue<Vector2>().x;
-            if (_applyLegacyGravity && (_currentInputDevice.ToString() == "Keyboard:/Keyboard"))
-            {
-                ApplyLegacyGravityHorizontalAxis();
-            }
+            // if (_applyLegacyGravity && (_currentInputDevice.ToString() == "Keyboard:/Keyboard"))
+            // {
+            //     ApplyLegacyGravityHorizontalAxis();
+            // }
+            ApplyLegacyGravityHorizontalAxis();
             // Provide current stick state as an event with data
             StickPositionChanged?.Invoke(_horizontalAxisInput);
          
