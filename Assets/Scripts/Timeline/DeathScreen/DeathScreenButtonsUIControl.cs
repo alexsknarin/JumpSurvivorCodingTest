@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
@@ -13,6 +14,9 @@ public class DeathScreenButtonsUIControl : MonoBehaviour
     [SerializeField] private PlayableDirector _buttonsDirector;
     private int _restartScoresMenuMode = 0;
     private float _fps => (float)((TimelineAsset)_buttonsDirector.playableAsset).editorSettings.frameRate;
+
+    public static event Action<int> DeathUIButtonPressed;
+    
 
     public void TimelinePlay()
     {
@@ -32,6 +36,6 @@ public class DeathScreenButtonsUIControl : MonoBehaviour
 
     public void RestartScoresMenuExecute()
     {
-        SceneManager.LoadScene(_restartScoresMenuMode);    
+        DeathUIButtonPressed?.Invoke(_restartScoresMenuMode);
     }
 }

@@ -26,15 +26,13 @@ public class Game : MonoBehaviour
     // Global Game UI
     [SerializeField] private GameObject _inGameUI;
     [SerializeField] private GameObject _gameOverUI;
-    [SerializeField] private TextMeshProUGUI _userNameStats;
+    
     
     // Game Over Setup
     [Header("-------------------------")]
     [Header("Game Over")]
-    [SerializeField] private TextMeshProUGUI _gameOverStats;
-    [SerializeField] private DeathScreenUiTimeineControl _deathScreenUiTimeineControl;
-    [SerializeField] private DeathScreenButtonsUIControl _deathScreenButtonsUIControl;
     [SerializeField] private float _gameOverUIdelay;
+    [SerializeField] private DeathScreenUI _deathScreenUI;
     private WaitForSeconds _gameOverUIdelayWait;
     
     // UGS
@@ -56,6 +54,7 @@ public class Game : MonoBehaviour
     {
         _spawnManager.InitSpawn();
         _gameOverUIdelayWait = new WaitForSeconds(_gameOverUIdelay);
+        _deathScreenUI.gameObject.SetActive(false);
         
         // UGS
         // Call Analytics and Score Setups
@@ -66,11 +65,13 @@ public class Game : MonoBehaviour
     private void OnEnable()
     {
         PlayerHealth.HealthDecreased += PlayerHealth_HealthDecreased;
+        DeathScreenButtonsUIControl.DeathUIButtonPressed += DeathScreenButtonsUIControl_DeathUIButtonPressed;
     }
 
     private void OnDisable()
     {
         PlayerHealth.HealthDecreased -= PlayerHealth_HealthDecreased;
+        DeathScreenButtonsUIControl.DeathUIButtonPressed -= DeathScreenButtonsUIControl_DeathUIButtonPressed;
     }
     
     /// <summary>
@@ -148,11 +149,16 @@ public class Game : MonoBehaviour
     }
     private void ShowGameOverUI()
     {
-        _gameOverUI.SetActive(true);
-        _inGameUI.SetActive(false);
-        _gameOverStats.text = ((int)_gameTime.Value).ToString() + " Seconds!!!";
-        _userNameStats.text = _currentUserName.Value;
-        _deathScreenUiTimeineControl.TimelinePlay();
-        _deathScreenButtonsUIControl.TimelinePlay();
+        //_inGameUI.SetActive(false);
+        _deathScreenUI.Play(((int)_gameTime.Value).ToString() + " Seconds!!!", _currentUserName.Value);
+    }
+
+    /// <summary>
+    /// Handle death screen button press
+    /// </summary>
+    /// <param name="sceneIndex">Scene to load</param>
+    private void DeathScreenButtonsUIControl_DeathUIButtonPressed(int sceneIndex)
+    {
+        SceneManager.LoadScene(sceneIndex);
     }
 }
