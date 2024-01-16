@@ -2,6 +2,8 @@
  * it's position supplied as an argument for DoHeal
  * 
  */
+
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,19 +53,19 @@ public class HealthHeartAnimation : MonoBehaviour
                PerformNearDeathAnimation();
           }
      }
-     
+
      public void SaveInitialState(Vector3 currentPos, Vector3 parentPos, Vector3 healStartPos)
      {
           _instancePersistentPosition = currentPos;
           _healStartPos = healStartPos - parentPos;
      }
      
-     public void EnableNearDeath()
+     public void StartNearDeath()
      {
           _isNearDeath = true;
      }
      
-     public void DisableNearDeath()
+     public void StopNearDeath()
      {
           _isNearDeath = false;
           _heartImage.color = _baseColor;

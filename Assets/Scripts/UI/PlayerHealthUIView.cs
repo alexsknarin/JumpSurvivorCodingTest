@@ -13,7 +13,6 @@ public class PlayerHealthUIView : MonoBehaviour
     [SerializeField] private Transform _bonusTextTransform;
     private Vector3 _newPosition = Vector3.zero;
     private List<HealthHeartAnimation> _healthIcons = new List<HealthHeartAnimation>();
-    [SerializeField] private float _nearDeathFraction;
     private float _nearDeathHealthNumber;
 
     private void OnEnable()
@@ -21,6 +20,8 @@ public class PlayerHealthUIView : MonoBehaviour
         PlayerHealth.HealthDecreased += PlayerHealth_HealthDecreased;
         PlayerHealth.PlayerHealthSetUp += PlayerHealth_PlayerHealthSetUp;
         PlayerHealth.HealthIncreased += PlayerHealth_HealthIncreased;
+        PlayerHealth.NearDeathStarted += PlayerHealth_NearDeathStarted;
+        PlayerHealth.NearDeathEnded += PlayerHealth_NearDeathEnded;
     }
 
     private void OnDisable()
@@ -28,8 +29,10 @@ public class PlayerHealthUIView : MonoBehaviour
         PlayerHealth.HealthDecreased -= PlayerHealth_HealthDecreased;
         PlayerHealth.PlayerHealthSetUp -= PlayerHealth_PlayerHealthSetUp;
         PlayerHealth.HealthIncreased -= PlayerHealth_HealthIncreased;
+        PlayerHealth.NearDeathStarted -= PlayerHealth_NearDeathStarted;
+        PlayerHealth.NearDeathEnded -= PlayerHealth_NearDeathEnded;
     }
-    
+   
     public void PlayerHealth_PlayerHealthSetUp()
     {
         // Generate Lifebar items
@@ -41,37 +44,31 @@ public class PlayerHealthUIView : MonoBehaviour
             newHealthHeartPrefab.SaveInitialState(_newPosition, transform.localPosition, _bonusTextTransform.localPosition);
             _healthIcons.Add(newHealthHeartPrefab);
         }
-
-        _nearDeathHealthNumber = _maxHealth.Value * _nearDeathFraction;
     }
 
+    private void PlayerHealth_NearDeathStarted()
+    {
+        foreach (var icon in _healthIcons)
+        {
+            icon.StartNearDeath();
+        }
+    }
+
+    private void PlayerHealth_NearDeathEnded()
+    {
+        foreach (var icon in _healthIcons)
+        {
+            icon.StopNearDeath();
+        }
+    }
+    
     private void PlayerHealth_HealthDecreased()
     {
         _healthIcons[_currentHealth.Value].StartDamageAnimation();
-        CheckUpdateNearDeathState();
     }
 
     private void PlayerHealth_HealthIncreased()
     {
         _healthIcons[_currentHealth.Value-1].StartHealAnimation();
-        CheckUpdateNearDeathState();
-    }
-
-    private void CheckUpdateNearDeathState()
-    {
-        if (_currentHealth.Value < _nearDeathHealthNumber)
-        {
-            for(int i=0; i<_currentHealth.Value; i++)
-            {
-                _healthIcons[i].EnableNearDeath();
-            }    
-        }
-        else
-        {
-            for(int i=0; i<_currentHealth.Value; i++)
-            {
-                _healthIcons[i].DisableNearDeath();
-            }    
-        }
     }
 }
