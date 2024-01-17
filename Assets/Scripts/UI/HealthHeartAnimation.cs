@@ -33,8 +33,9 @@ public class HealthHeartAnimation : MonoBehaviour
      
      private bool _isNearDeath = false;
      private float _nearDeathPulseValue;
-     
+     private Vector3 _parentPos;
      private Vector3 _instancePersistentPosition;
+     private Vector3 _healBonusStartPos;
      private Vector3 _healStartPos;
      
      private void Update()
@@ -54,10 +55,12 @@ public class HealthHeartAnimation : MonoBehaviour
           }
      }
 
-     public void SaveInitialState(Vector3 currentPos, Vector3 parentPos, Vector3 healStartPos)
+     public void SaveInitialState(Vector3 currentPos, Vector3 parentPos, Vector3 healBonusStartPos)
      {
           _instancePersistentPosition = currentPos;
-          _healStartPos = healStartPos - parentPos;
+          _parentPos = parentPos;
+          _healBonusStartPos = healBonusStartPos - _parentPos;
+          _healStartPos = _healBonusStartPos;
      }
      
      public void StartNearDeath()
@@ -78,11 +81,21 @@ public class HealthHeartAnimation : MonoBehaviour
           _animationPhase = 0f;
      }
      
-     public void StartHealAnimation()
+     public void StartHealAnimation(int mode, Vector3 pos)
      {
+          if (mode == 0)
+          {
+               _healStartPos = _healBonusStartPos;
+          }
+          else if (mode == 1)
+          {
+               _healStartPos = pos - _parentPos;
+          }
+          
           gameObject.SetActive(true);
           _animationPhase = 0;
           _animationState = HeartStates.HealAnimState;
+          Debug.Break();
      }
      
      private void PerformDamageAnimation()

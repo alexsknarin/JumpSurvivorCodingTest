@@ -20,7 +20,7 @@ public class PlayerHealth : MonoBehaviour
     public static event Action HealthDecreased;
     public static event Action PlayerInvincibilityFinished;
     public static event Action PlayerHealthSetUp;
-    public static event Action HealthIncreased;
+    public static event Action<int, Vector3> HealthIncreased;
     public static event Action NearDeathStarted;
     public static event Action NearDeathEnded;
 
@@ -37,12 +37,14 @@ public class PlayerHealth : MonoBehaviour
     {
         PlayerCollisionHandler.EnemyCollided += PlayerCollisionHandler_EnemyCollided;
         BonusPointsManager.HealBonusReached += BonusPointsManager_HealBonusReached;
+        PlayerCollisionHandler.MedkitCollided += PlayerCollisionHandler_MedkitCollided;
     }
 
     private void OnDisable()
     {
         PlayerCollisionHandler.EnemyCollided -= PlayerCollisionHandler_EnemyCollided;
         BonusPointsManager.HealBonusReached -= BonusPointsManager_HealBonusReached;
+        PlayerCollisionHandler.MedkitCollided -= PlayerCollisionHandler_MedkitCollided;
     }
 
     private IEnumerator WaitForInvincibility()
@@ -67,35 +69,34 @@ public class PlayerHealth : MonoBehaviour
         }   
     }
 
-    /// <summary>
-    /// Increase Health
-    /// </summary>
-    private void BonusPointsManager_HealBonusReached()
+    private void IncreaseHealth(int mode, Vector3 pos)
     {
         if (_playerHealth.Value < _maxHealthCurrent.Value)
         {
             _playerHealth.Value++;
             CheckUpdateNearDeathState();
-            HealthIncreased?.Invoke();
+            HealthIncreased?.Invoke(mode, pos);
         }
+    }
+    private void BonusPointsManager_HealBonusReached()
+    {
+        IncreaseHealth(0, Vector3.zero);
     }
     
     private void CheckUpdateNearDeathState()
     {
-        Debug.Log("Current health is: ");
-        Debug.Log(_playerHealth.Value);
-        Debug.Log("NearDeath is expected on    : ");
-        Debug.Log(_nearDeathHealthNumber);
-        
         if (_playerHealth.Value < _nearDeathHealthNumber)
         {
-            Debug.Log("Near Death Start");
             NearDeathStarted?.Invoke();
         }
         else
         {
-            Debug.Log("Near Death Stop");
             NearDeathEnded?.Invoke();
         }
+    }
+
+    private void PlayerCollisionHandler_MedkitCollided(Vector3 pos)
+    {
+        IncreaseHealth(1, pos);
     }
 }

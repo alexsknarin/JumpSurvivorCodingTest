@@ -67,8 +67,10 @@ public class PlayerHealthUIView : MonoBehaviour
         _healthIcons[_currentHealth.Value].StartDamageAnimation();
     }
 
-    private void PlayerHealth_HealthIncreased()
+    private void PlayerHealth_HealthIncreased(int mode, Vector3 pos)
     {
-        _healthIcons[_currentHealth.Value-1].StartHealAnimation();
+        Vector2 canvasPosition = RectTransformUtility.WorldToScreenPoint(Camera.main, pos);
+        Debug.Log(pos); 
+        _healthIcons[_currentHealth.Value-1].StartHealAnimation(mode, canvasPosition);
     }
 }
