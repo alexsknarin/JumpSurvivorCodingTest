@@ -11,6 +11,7 @@ TagManager:
   - KangarooBonus
   - BirdBonus
   - BonusPointsAnimation
+  - Medkit
   layers:
   - Default
   - TransparentFX
