@@ -34,6 +34,11 @@ public class SpawnManager : MonoBehaviour, IPausable
     [SerializeField] private int _maximumKangaroos;
     [SerializeField] private GameObject _enemyBird;
     [SerializeField] private int _maximumBirds;
+    [Header("Healer:")]
+    [SerializeField] private GameObject _healBird;
+
+    [SerializeField] private float _minHealTime;
+    [SerializeField] private float _maxHealTime; 
 
     [Header("Spawn States")] 
     private SpawnStateCollection _spawnCollection;
@@ -73,8 +78,27 @@ public class SpawnManager : MonoBehaviour, IPausable
     private bool _delayMode = false;
     private bool _isPaused = false;
     
+    // Healing Bird
+    private GameObject _healBirdInstance;
+    private Medkit _medkit;
+    private bool _isHealNeeded = false;
+    private float _timeToNextHeal;
+    private float _prevHealTime;
+    
     // State Debug UI
     public static event Action<string> SpawnStateChanged;
+
+    private void OnEnable()
+    {
+        PlayerHealth.NearDeathStarted += PlayerHealth_NearDeathStarted;
+        PlayerHealth.NearDeathEnded += PlayerHealth_NearDeathEnded;
+    }
+
+    private void OnDisable()
+    {
+        PlayerHealth.NearDeathStarted -= PlayerHealth_NearDeathStarted;
+        PlayerHealth.NearDeathEnded -= PlayerHealth_NearDeathEnded;
+    }
 
     private void Update()
     {
@@ -191,6 +215,8 @@ public class SpawnManager : MonoBehaviour, IPausable
                 }
             }
         }
+
+        CheckForHealBird();
     }
     
     public void InitSpawn()
@@ -202,6 +228,11 @@ public class SpawnManager : MonoBehaviour, IPausable
         
         // Select Difficulty Level
         _spawnCollection = _spawnCollectionDifficulties[_dificultyLevel.Value];
+        
+        // Spawn and setup Heal Bird
+        _healBirdInstance = GameObject.Instantiate(_healBird, _healBird.transform.position, _healBird.transform.rotation);
+        _healBirdInstance.SetActive(false);
+        _medkit = _healBirdInstance.GetComponent<Medkit>();
         ChangeSpawnState();
     }
     
@@ -302,4 +333,41 @@ public class SpawnManager : MonoBehaviour, IPausable
         _isKangarooFirstSpawnInState = true;
         _isBirdFirstSpawnInState = true;
     }
+
+    private void HealSetup()
+    {
+        _isHealNeeded = true;
+        _timeToNextHeal = Random.Range(_minHealTime, _maxHealTime);
+        _prevHealTime = Time.time;
+        Debug.Log("Dird will fly in: " + _timeToNextHeal.ToString());
+    }
+
+    private void CheckForHealBird()
+    {
+        if (_isHealNeeded)
+        {
+            if (Time.time - _prevHealTime > _timeToNextHeal)
+            {
+                StartHealBird();
+                HealSetup();
+            }
+        }
+    }
+
+    private void StartHealBird()
+    {
+        _medkit.Init();
+        _healBirdInstance.GetComponent<Enemy>().SetupSpawn(GetRandomDirection());
+    }
+    
+    private void PlayerHealth_NearDeathStarted()
+    {
+        HealSetup();
+    }
+
+    private void PlayerHealth_NearDeathEnded()
+    {
+        _isHealNeeded = false;
+    }
+    
 }
