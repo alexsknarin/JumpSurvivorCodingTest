@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -26,6 +27,8 @@ public class ScoreNumbersAnimation : MonoBehaviour
     private int _maxExclamation = 3;
     private int _currExclamation = 0;
 
+    public static event Action ScoreAnimationFinished;
+
     public void StartAnimation()
     {
         _isAnimated = true;
@@ -41,7 +44,7 @@ public class ScoreNumbersAnimation : MonoBehaviour
         yield return _bonusDelay;
         _isBonusAnimated = true;
         _prevTime = Time.time;
-        //_starsVFX.Play();
+        _starsVFX.Play();
     }
     
     IEnumerator ExclamationDelay()
@@ -101,7 +104,8 @@ public class ScoreNumbersAnimation : MonoBehaviour
             else
             {
                 _isExclamationAnimated = false;
-                _starsVFX.Play();   
+                _starsVFX.Play();
+                ScoreAnimationFinished?.Invoke();
             }
         }
     }
