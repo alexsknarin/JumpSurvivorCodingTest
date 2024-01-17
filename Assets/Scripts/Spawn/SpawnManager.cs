@@ -339,7 +339,7 @@ public class SpawnManager : MonoBehaviour, IPausable
         _isHealNeeded = true;
         _timeToNextHeal = Random.Range(_minHealTime, _maxHealTime);
         _prevHealTime = Time.time;
-        Debug.Log("Dird will fly in: " + _timeToNextHeal.ToString());
+        Debug.Log("HealBird will fly in: " + _timeToNextHeal.ToString());
     }
 
     private void CheckForHealBird()
@@ -356,8 +356,8 @@ public class SpawnManager : MonoBehaviour, IPausable
 
     private void StartHealBird()
     {
-        _medkit.Init();
         _healBirdInstance.GetComponent<Enemy>().SetupSpawn(GetRandomDirection());
+        _medkit.Init();
     }
     
     private void PlayerHealth_NearDeathStarted()

@@ -6,6 +6,6 @@ public class Medkit : MonoBehaviour
 
     public void Init()
     {
-        gameObject.SetActive(true);
+        _medkit.SetActive(true);
     }
 }

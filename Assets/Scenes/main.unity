@@ -4422,8 +4422,8 @@ MonoBehaviour:
   _maximumBirds: 5
   _healBird: {fileID: 8343860797102799413, guid: 8f98c99e5dc7a814d877c06af642ba3a,
     type: 3}
-  _minHealTime: 8
-  _maxHealTime: 20
+  _minHealTime: 5
+  _maxHealTime: 15
   _dificultyLevel: {fileID: 11400000, guid: eefded0214c5362409c4b415207d4223, type: 2}
   _spawnCollectionDifficulties:
   - {fileID: 11400000, guid: bab9983dabc300341baab577388571c8, type: 2}
