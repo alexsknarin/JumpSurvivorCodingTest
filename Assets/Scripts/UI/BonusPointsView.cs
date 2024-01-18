@@ -39,7 +39,6 @@ public class BonusPointsView : MonoBehaviour, IPausable
         transform.position = startScreenPosition;
         Debug.Log(transform.position);
         Debug.Log(transform.localPosition);
-        Debug.Break();
         _bonusTextTransform = bonusTextTransform;
         _text.text = $"+ {pointNum}";
         _isAnimated = true;

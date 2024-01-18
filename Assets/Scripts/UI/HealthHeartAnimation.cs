@@ -33,7 +33,6 @@ public class HealthHeartAnimation : MonoBehaviour
      
      private bool _isNearDeath = false;
      private float _nearDeathPulseValue;
-     private Vector3 _parentPos;
      private Vector3 _instancePersistentPosition;
      private Vector3 _healBonusStartPos;
      private Vector3 _healStartPos;
@@ -55,11 +54,10 @@ public class HealthHeartAnimation : MonoBehaviour
           }
      }
 
-     public void SaveInitialState(Vector3 currentPos, Vector3 parentPos, Vector3 healBonusStartPos)
+     public void SaveInitialState(Vector3 currentPos, Vector3 healBonusStartPos)
      {
           _instancePersistentPosition = currentPos;
-          _parentPos = parentPos;
-          _healBonusStartPos = healBonusStartPos - _parentPos;
+          _healBonusStartPos = healBonusStartPos;
           _healStartPos = _healBonusStartPos;
      }
      
@@ -89,13 +87,12 @@ public class HealthHeartAnimation : MonoBehaviour
           }
           else if (mode == 1)
           {
-               _healStartPos = pos - _parentPos;
+               _healStartPos = pos;
           }
           
           gameObject.SetActive(true);
           _animationPhase = 0;
           _animationState = HeartStates.HealAnimState;
-          Debug.Break();
      }
      
      private void PerformDamageAnimation()
@@ -111,12 +108,12 @@ public class HealthHeartAnimation : MonoBehaviour
      private void PerformHealAnimation()
      {
           transform.localScale = Vector3.one * _healScaleAnimCurve.Evaluate(_animationPhase);
-          transform.localPosition = Vector3.Lerp(_healStartPos, _instancePersistentPosition, _healMoveAnimCurve.Evaluate(_animationPhase));
+          transform.position = Vector3.Lerp(_healStartPos, _instancePersistentPosition, _healMoveAnimCurve.Evaluate(_animationPhase));
           _animationPhase += _healAnimationSpeed*Time.deltaTime;
           if (_animationPhase > 1)
           {
                _animationState = HeartStates.NormalState;
-               transform.localPosition = _instancePersistentPosition;
+               transform.position = _instancePersistentPosition;
                _heartImage.color = _baseColor;    
           }
      }
