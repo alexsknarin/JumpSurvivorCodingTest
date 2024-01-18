@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Medkit : MonoBehaviour
 {
-    [SerializeField] private GameObject _medkit;
+    [SerializeField] private GameObject _medkit;    
 
     public void Init()
     {
