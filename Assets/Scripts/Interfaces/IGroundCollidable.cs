@@ -3,5 +3,5 @@
 /// </summary>
 public interface IGroundCollidable
 {
-    public void CollidedWIthGround();
+    public void HandleCollision();
 }

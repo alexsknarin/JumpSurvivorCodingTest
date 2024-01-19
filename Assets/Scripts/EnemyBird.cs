@@ -14,7 +14,7 @@ public class EnemyBird : Enemy
     private Vector3 _birdScale = Vector3.one;
     public override string EnemyName => "Bird";
     
-    public override void SpawnSetup(float dir)
+    public override void SetupSpawn(float dir)
     {
 
         _spawnPos.x = 15.05f;

@@ -8,17 +8,20 @@ public class PlayerVibratingHit : MonoBehaviour
     private bool _isDamageable = true;
     private void OnEnable()
     {
-        PlayerCollisionHandler.OnEnemyCollided += Vibrate;
-        PlayerHealth.OnPlayerInvincibilityFinished += StopInvincibility;
+        PlayerCollisionHandler.EnemyCollided += PlayerCollisionHandler_EnemyCollided;
+        PlayerHealth.PlayerInvincibilityFinished += PlayerHealth_PlayerInvincibilityFinished;
     }
 
     private void OnDisable()
     {
-        PlayerCollisionHandler.OnEnemyCollided -= Vibrate;
-        PlayerHealth.OnPlayerInvincibilityFinished -= StopInvincibility;
+        PlayerCollisionHandler.EnemyCollided -= PlayerCollisionHandler_EnemyCollided;
+        PlayerHealth.PlayerInvincibilityFinished -= PlayerHealth_PlayerInvincibilityFinished;
     }
     
-    void Vibrate()
+    /// <summary>
+    /// Vibrate
+    /// </summary>
+    void PlayerCollisionHandler_EnemyCollided()
     {
         if (_isDamageable)
         {
@@ -26,8 +29,11 @@ public class PlayerVibratingHit : MonoBehaviour
             _isDamageable = false;
         }
     }
-
-    private void StopInvincibility()
+    
+    /// <summary>
+    /// Allow Vibration only if player can be damaged
+    /// </summary>
+    private void PlayerHealth_PlayerInvincibilityFinished()
     {
         _isDamageable = true;
     }

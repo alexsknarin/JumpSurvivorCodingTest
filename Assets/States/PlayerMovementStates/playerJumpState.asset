@@ -50,4 +50,4 @@ MonoBehaviour:
   _jumpHeight: 4
   _jumpTime: 0.8
   _jumpHorizontalSpeed: 13
-  _airControl: 0.5
+  _airControl: 0.65

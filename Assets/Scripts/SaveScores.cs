@@ -9,6 +9,7 @@ public class SaveScores : MonoBehaviour
     [SerializeField] private StringVariable _playerName;
     [SerializeField] private IntVariable _difficultyLevel;
     [SerializeField] private FloatVariable _gameTime;
+    [SerializeField] private IntVariable _bonusPoints;
     private string _scoreFolder = "/SaveData/";
     private string _baseFileName = "saveSoreFile.json";
     private SaveContainer _saveContainer = new SaveContainer();
@@ -16,14 +17,19 @@ public class SaveScores : MonoBehaviour
 
     private void OnEnable()
     {
-        Game.OnGameOver += SaveSoreData;
+        Game.GameOver += Game_GameOver;
     }
 
     private void OnDisable()
     {
-        Game.OnGameOver -= SaveSoreData;
+        Game.GameOver -= Game_GameOver;
     }
 
+    private void Game_GameOver()
+    {
+        SaveSoreData();
+    }
+    
     private void SaveSoreData()
     {
         // Generate file path
@@ -43,7 +49,7 @@ public class SaveScores : MonoBehaviour
         }
 
         _saveData.Name = _playerName.Value;
-        _saveData.Time = (int)_gameTime.Value;
+        _saveData.Time = (int)_gameTime.Value + _bonusPoints.Value;
         _saveContainer.AddEntry(_saveData);
         _saveContainer.SortScores();
         json = JsonUtility.ToJson(_saveContainer);

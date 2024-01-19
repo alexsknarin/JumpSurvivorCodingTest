@@ -1,60 +1,80 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// Responsible for lifebar and health icon management. Link to _bonusTextTransform is for hearts heal animation;
+/// </summary>
 public class PlayerHealthUIView : MonoBehaviour
 {
-    [SerializeField] private HealthHeartAnimation _healthHeartPrefab;
-    [SerializeField] private IntVariable _playerHealth;
+    [SerializeField] private HealthHeartAnimation _healthIconPrefab;
+    [SerializeField] private IntVariable _currentHealth;
     [SerializeField] private IntVariable _maxHealth;
-    [SerializeField] private float _heartsDistance;
+    [SerializeField] private float _iconMargin;
+    [SerializeField] private Transform _bonusTextTransform;
+    [SerializeField] private Transform _inGameUIRect;
     private Vector3 _newPosition = Vector3.zero;
-    private List<HealthHeartAnimation> _healthHearts = new List<HealthHeartAnimation>();
-    private bool _nearDeath = false;
-    [SerializeField] private float _nearDeathFraction;
+    private Vector3 _newLocalPosition = Vector3.zero;
+    private List<HealthHeartAnimation> _healthIcons = new List<HealthHeartAnimation>();
+    private float _nearDeathHealthNumber;
 
     private void OnEnable()
     {
-        PlayerHealth.OnPlayerDamaged += RecieveDamage;
+        PlayerHealth.HealthDecreased += PlayerHealth_HealthDecreased;
+        PlayerHealth.PlayerHealthSetUp += PlayerHealth_PlayerHealthSetUp;
+        PlayerHealth.HealthIncreased += PlayerHealth_HealthIncreased;
+        PlayerHealth.NearDeathStarted += PlayerHealth_NearDeathStarted;
+        PlayerHealth.NearDeathEnded += PlayerHealth_NearDeathEnded;
     }
 
     private void OnDisable()
     {
-        PlayerHealth.OnPlayerDamaged -= RecieveDamage;
+        PlayerHealth.HealthDecreased -= PlayerHealth_HealthDecreased;
+        PlayerHealth.PlayerHealthSetUp -= PlayerHealth_PlayerHealthSetUp;
+        PlayerHealth.HealthIncreased -= PlayerHealth_HealthIncreased;
+        PlayerHealth.NearDeathStarted -= PlayerHealth_NearDeathStarted;
+        PlayerHealth.NearDeathEnded -= PlayerHealth_NearDeathEnded;
     }
-    
-    private void Start()
+   
+    public void PlayerHealth_PlayerHealthSetUp()
     {
-        // Generate Lifebar items
+        _newPosition = transform.position;
+        
+        
         for (int i = 0; i < _maxHealth.Value; i++)
         {
-            _newPosition.x -= _heartsDistance;
-            HealthHeartAnimation newHealthHeartPrefab = Instantiate(_healthHeartPrefab, Vector3.zero, _healthHeartPrefab.transform.rotation, transform);
-            newHealthHeartPrefab.transform.localPosition = _newPosition;
-            _healthHearts.Add(newHealthHeartPrefab);
+            HealthHeartAnimation newHealthHeartPrefab = Instantiate(_healthIconPrefab, _newPosition, _healthIconPrefab.transform.rotation, _inGameUIRect);
+            _newLocalPosition = newHealthHeartPrefab.transform.localPosition;
+            _newLocalPosition.x -= _iconMargin * i;
+            newHealthHeartPrefab.transform.localPosition = _newLocalPosition;
+            newHealthHeartPrefab.SaveInitialState(newHealthHeartPrefab.transform.position, _bonusTextTransform.position);
+            _healthIcons.Add(newHealthHeartPrefab);
         }
-        
-        Debug.Log("Current health: " + _playerHealth.Value.ToString());
-        Debug.Log("Max health: " + _maxHealth.Value.ToString());
     }
 
-    private void RecieveDamage()
+    private void PlayerHealth_NearDeathStarted()
     {
-        //_healthHearts[_playerHealth.Value].gameObject.SetActive(false);
-        if (_playerHealth.Value < _maxHealth.Value * _nearDeathFraction)
+        foreach (var icon in _healthIcons)
         {
-            if (!_nearDeath)
-            {
-                for(int i=0; i<_playerHealth.Value; i++)
-                {
-                    _healthHearts[i].DoNearDeath();
-                }    
-            }
-            _nearDeath = true;
+            icon.StartNearDeath();
         }
-        Debug.Log($"Player Health {_playerHealth.Value}");
-        _healthHearts[_playerHealth.Value].DoDamage();
+    }
+
+    private void PlayerHealth_NearDeathEnded()
+    {
+        foreach (var icon in _healthIcons)
+        {
+            icon.StopNearDeath();
+        }
+    }
+    
+    private void PlayerHealth_HealthDecreased()
+    {
+        _healthIcons[_currentHealth.Value].StartDamageAnimation();
+    }
+
+    private void PlayerHealth_HealthIncreased(int mode, Vector3 pos)
+    {
+        Vector2 canvasPosition = RectTransformUtility.WorldToScreenPoint(Camera.main, pos);
+        _healthIcons[_currentHealth.Value-1].StartHealAnimation(mode, canvasPosition);
     }
 }

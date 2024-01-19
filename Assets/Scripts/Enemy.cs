@@ -27,8 +27,13 @@ public abstract class Enemy : MonoBehaviour, IPausable
     {
         if (_testingMode)
         {
-            SpawnSetup(1);
+            SetupSpawn(1);
         }
+    }
+    
+    private void Update()
+    {
+        Move();        
     }
 
     public void SetPaused()
@@ -41,13 +46,7 @@ public abstract class Enemy : MonoBehaviour, IPausable
         _isPaused = false;
     }
     
-    // Update is called once per frame
-    void Update()
-    {
-        Move();        
-    }
-
-    public abstract void SpawnSetup(float dir);
+    public abstract void SetupSpawn(float dir);
 
     protected abstract void Move();
 

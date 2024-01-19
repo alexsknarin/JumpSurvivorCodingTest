@@ -23,36 +23,13 @@ public class TimerUI : MonoBehaviour
 
     [SerializeField] private UnityEvent CheckpointReached;
 
-    void Start()
-    {
-    }
-
-    private void CheckpointAnimation()
-    {
-        _animCurrentTime = (Time.time - _animStartTime) / _checkpointAnimDuration;
-        _localRotation = transform.localEulerAngles;
-        _localRotation.z += Mathf.Sin(Time.time * _trembleFrequency) * _trembleAmplitude * _trembleAnimCurve.Evaluate(_animCurrentTime);
-        transform.localEulerAngles = _localRotation;
-        transform.localScale = Vector3.one * _inflateAnimCurve.Evaluate(_animCurrentTime);
-        if (_animCurrentTime > _checkpointAnimDuration)
-        {
-            _isCheckpointAnimation = false;
-        }
-    }
-
-    private void StartCheckPointAnimation()
-    {
-        _animStartTime = Time.time;
-        _isCheckpointAnimation = true;
-    }
-    
     void Update()
     {
         ShowTimeText(FormatTime(_gameTime.Value));
       
         if (_isCheckpointAnimation)
         {
-            CheckpointAnimation();            
+            PerformCheckpointAnimation();            
         }
         else
         {
@@ -62,6 +39,24 @@ public class TimerUI : MonoBehaviour
                 StartCheckPointAnimation();
                 CheckpointReached?.Invoke();
             }
+        }
+    }
+    
+    private void StartCheckPointAnimation()
+    {
+        _animStartTime = Time.time;
+        _isCheckpointAnimation = true;
+    }    
+    private void PerformCheckpointAnimation()
+    {
+        _animCurrentTime = (Time.time - _animStartTime) / _checkpointAnimDuration;
+        _localRotation = transform.localEulerAngles;
+        _localRotation.z += Mathf.Sin(Time.time * _trembleFrequency) * _trembleAmplitude * _trembleAnimCurve.Evaluate(_animCurrentTime);
+        transform.localEulerAngles = _localRotation;
+        transform.localScale = Vector3.one * _inflateAnimCurve.Evaluate(_animCurrentTime);
+        if (_animCurrentTime > _checkpointAnimDuration)
+        {
+            _isCheckpointAnimation = false;
         }
     }
 

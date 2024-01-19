@@ -8,6 +8,10 @@ TagManager:
   - leftBound
   - rightBound
   - ground
+  - KangarooBonus
+  - BirdBonus
+  - BonusPointsAnimation
+  - Medkit
   layers:
   - Default
   - TransparentFX

@@ -10,7 +10,21 @@ public class OnscreenStickAnimation : MonoBehaviour
     private Color _activeColor = new Color(1f, 1f, 1f, 0.3f);
     private Color _passiveColor = new Color(1f, 1f, 1f, 0.1f);
 
+    private void Awake()
+    {
+        _stickImage.color = _passiveColor;
+    }
 
+    private void OnEnable()
+    {
+        PlayerInputHandler.StickPositionChanged += PlayerInputHandler_StickPositionChanged;
+    }
+
+    private void OnDisable()
+    {
+        PlayerInputHandler.StickPositionChanged -= PlayerInputHandler_StickPositionChanged;
+    }
+    
     public void OnPressed()
     {
         _stickImage.color = _activeColor;
@@ -21,22 +35,7 @@ public class OnscreenStickAnimation : MonoBehaviour
         _stickImage.color = _passiveColor;
     }
 
-    private void Awake()
-    {
-        _stickImage.color = _passiveColor;
-    }
-
-    private void OnEnable()
-    {
-        PlayerInputHandler.OnStickPositionChanged += HandleInput;
-    }
-
-    private void OnDisable()
-    {
-        PlayerInputHandler.OnStickPositionChanged -= HandleInput;
-    }
-
-    private void HandleInput(float xValue)
+    private void PlayerInputHandler_StickPositionChanged(float xValue)
     {
         if (xValue < -0.8f)
         {
@@ -54,9 +53,7 @@ public class OnscreenStickAnimation : MonoBehaviour
         }
     }
     
-    
-
-    void SetNeutralPosition()
+    private void SetNeutralPosition()
     {
         _stickImage.sprite = _neutralPositionImage;
     }

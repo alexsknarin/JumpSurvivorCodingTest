@@ -12,6 +12,7 @@ public class EnemyKangarooViewHandler : MonoBehaviour, IGroundCollidable
     private Vector3 _xFlip = Vector3.one;
     [SerializeField] private Animator _kangarooAnimator;
     [SerializeField] private EnemyKangaroo _enemyKangaroo;
+    // Replacing string constants with int code numbers 
     private static readonly int JumpPhase = Animator.StringToHash("jumpPhase");
     private static readonly int OnGround = Animator.StringToHash("onGround");
 
@@ -37,7 +38,7 @@ public class EnemyKangarooViewHandler : MonoBehaviour, IGroundCollidable
         }
     }
 
-    public void CollidedWIthGround()
+    public void HandleCollision()
     {
         _kangarooAnimator.SetBool(OnGround, true);
     }

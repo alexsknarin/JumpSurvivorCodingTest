@@ -12,8 +12,10 @@ public class StateMachine
 
     public void SetState(IState state)
     {
-        if(_currentState != null)
+        if (_currentState != null)
+        {
             _currentState.ExitState();
+        }
         _currentState = state;
         _currentState.EnterState();
     }

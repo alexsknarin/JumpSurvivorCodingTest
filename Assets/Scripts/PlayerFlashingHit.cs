@@ -15,51 +15,53 @@ public class PlayerFlashingHit : MonoBehaviour
     private bool _isFlashing;
     private float _prevTime;
     
-
-    private void OnEnable()
-    {
-        PlayerCollisionHandler.OnEnemyCollided += StartFlashing;
-        PlayerHealth.OnPlayerInvincibilityFinished += StopFlashing;
-    }
-
-    private void OnDisable()
-    {
-        PlayerCollisionHandler.OnEnemyCollided -= StartFlashing;
-        PlayerHealth.OnPlayerInvincibilityFinished -= StopFlashing;
-        _material.SetColor("_Color", Color.white);
-        _material.SetFloat("_HitMix", 0);
-    }
-
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _material = _catSpriteRenderer.sharedMaterial;
         _isFlashing = false;
     }
+    
+    private void OnEnable()
+    {
+        PlayerCollisionHandler.EnemyCollided += PlayerCollisionHandler_EnemyCollided;
+        PlayerHealth.PlayerInvincibilityFinished += PlayerHealth_PlayerInvincibilityFinished;
+    }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
+    {
+        PlayerCollisionHandler.EnemyCollided -= PlayerCollisionHandler_EnemyCollided;
+        PlayerHealth.PlayerInvincibilityFinished -= PlayerHealth_PlayerInvincibilityFinished;
+        _material.SetColor("_Color", Color.white);
+        _material.SetFloat("_HitMix", 0);
+    }
+
+    private void Update()
     {
         if (_isFlashing)
         {
-            Flashing();    
+            PerformFlashing();    
         }
     }
 
-    private void Flashing()
+    private void PerformFlashing()
     {
         _flashValue = (Mathf.Sin(_gameTime.Value * _flashFreq) + 1f) / 2f; 
         _material.SetColor("_Color", _flashColor);
         _material.SetFloat("_HitMix", _flashValue);
     }
-
-    private void StartFlashing()
+    
+    /// <summary>
+    /// Start flashing
+    /// </summary>
+    private void PlayerCollisionHandler_EnemyCollided()
     {
         _isFlashing = true;
     }
-
-    private void StopFlashing()
+    
+    /// <summary>
+    /// Stop flashing
+    /// </summary>
+    private void PlayerHealth_PlayerInvincibilityFinished()
     {
         _isFlashing = false;
         _material.SetColor("_Color", Color.white);

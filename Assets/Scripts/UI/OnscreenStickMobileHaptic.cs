@@ -19,17 +19,17 @@ public class OnscreenStickMobileHaptic : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerInputHandler.OnStickPositionChanged += StickCheckValueAndVibrate;
-        PlayerCollisionHandler.OnEnemyCollided += BlockHaptic;
+        PlayerInputHandler.StickPositionChanged += PlayerInputHandler_StickPositionChanged;
+        PlayerCollisionHandler.EnemyCollided += PlayerCollisionHandler_EnemyCollided;
     }
 
     private void OnDisable()
     {
-        PlayerInputHandler.OnStickPositionChanged -= StickCheckValueAndVibrate;
-        PlayerCollisionHandler.OnEnemyCollided -= BlockHaptic;
+        PlayerInputHandler.StickPositionChanged -= PlayerInputHandler_StickPositionChanged;
+        PlayerCollisionHandler.EnemyCollided -= PlayerCollisionHandler_EnemyCollided;
     }
 
-    private void BlockHaptic()
+    private void PlayerCollisionHandler_EnemyCollided()
     {
         if (_hapticAllowed)
         {
@@ -49,7 +49,7 @@ public class OnscreenStickMobileHaptic : MonoBehaviour
         _hapticAllowed = true;
     }
 
-    private void StickCheckValueAndVibrate(float xValue)
+    private void PlayerInputHandler_StickPositionChanged(float xValue)
     {
         if (_hapticAllowed)
         {
