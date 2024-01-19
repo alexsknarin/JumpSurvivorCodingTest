@@ -4604,7 +4604,7 @@ PrefabInstance:
     - target: {fileID: 1454332143416455876, guid: 9479f634103d6b44c9f9143e9a6139cd,
         type: 3}
       propertyPath: _iconMargin
-      value: 115
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 1454332143416455876, guid: 9479f634103d6b44c9f9143e9a6139cd,
         type: 3}

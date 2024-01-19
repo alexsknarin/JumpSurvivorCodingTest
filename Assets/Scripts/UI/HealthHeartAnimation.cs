@@ -70,6 +70,7 @@ public class HealthHeartAnimation : MonoBehaviour
      {
           _isNearDeath = false;
           _heartImage.color = _baseColor;
+          transform.localScale = Vector3.one;
      }
      
      public void StartDamageAnimation()

@@ -13,6 +13,7 @@ public class PlayerHealthUIView : MonoBehaviour
     [SerializeField] private Transform _bonusTextTransform;
     [SerializeField] private Transform _inGameUIRect;
     private Vector3 _newPosition = Vector3.zero;
+    private Vector3 _newLocalPosition = Vector3.zero;
     private List<HealthHeartAnimation> _healthIcons = new List<HealthHeartAnimation>();
     private float _nearDeathHealthNumber;
 
@@ -37,12 +38,16 @@ public class PlayerHealthUIView : MonoBehaviour
     public void PlayerHealth_PlayerHealthSetUp()
     {
         _newPosition = transform.position;
+        
+        
         for (int i = 0; i < _maxHealth.Value; i++)
         {
             HealthHeartAnimation newHealthHeartPrefab = Instantiate(_healthIconPrefab, _newPosition, _healthIconPrefab.transform.rotation, _inGameUIRect);
-            newHealthHeartPrefab.SaveInitialState(_newPosition, _bonusTextTransform.position);
+            _newLocalPosition = newHealthHeartPrefab.transform.localPosition;
+            _newLocalPosition.x -= _iconMargin * i;
+            newHealthHeartPrefab.transform.localPosition = _newLocalPosition;
+            newHealthHeartPrefab.SaveInitialState(newHealthHeartPrefab.transform.position, _bonusTextTransform.position);
             _healthIcons.Add(newHealthHeartPrefab);
-            _newPosition.x -= _iconMargin;
         }
     }
 
