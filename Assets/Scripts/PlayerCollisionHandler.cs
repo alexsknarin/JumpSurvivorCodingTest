@@ -10,6 +10,8 @@ public class PlayerCollisionHandler : MonoBehaviour
     public static event Action GroundCollided;
     public static event Action<int, Vector3> BonusCollided;
     
+    public static event Action<Vector3> MedkitCollided;
+    
     // Collision Analytics data
     public static event Action<string> AnalyticsEnemyCollided;
 
@@ -31,6 +33,11 @@ public class PlayerCollisionHandler : MonoBehaviour
         if (other.gameObject.CompareTag("BirdBonus"))
         {
             BonusCollided?.Invoke(1, transform.position);
+        }
+        if (other.gameObject.CompareTag("Medkit"))
+        {
+            MedkitCollided?.Invoke(transform.position);
+            other.gameObject.SetActive(false);
         }
     }
 }

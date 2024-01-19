@@ -34,7 +34,11 @@ public class BonusPointsView : MonoBehaviour, IPausable
     public void SpawnSetup(int pointNum, Vector2 startScreenPosition, RectTransform bonusTextTransform)
     {
         gameObject.SetActive(true);
+        Debug.Log(transform.position);
+        Debug.Log(startScreenPosition);
         transform.position = startScreenPosition;
+        Debug.Log(transform.position);
+        Debug.Log(transform.localPosition);
         _bonusTextTransform = bonusTextTransform;
         _text.text = $"+ {pointNum}";
         _isAnimated = true;

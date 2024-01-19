@@ -33,8 +33,8 @@ public class HealthHeartAnimation : MonoBehaviour
      
      private bool _isNearDeath = false;
      private float _nearDeathPulseValue;
-     
      private Vector3 _instancePersistentPosition;
+     private Vector3 _healBonusStartPos;
      private Vector3 _healStartPos;
      
      private void Update()
@@ -54,10 +54,11 @@ public class HealthHeartAnimation : MonoBehaviour
           }
      }
 
-     public void SaveInitialState(Vector3 currentPos, Vector3 parentPos, Vector3 healStartPos)
+     public void SaveInitialState(Vector3 currentPos, Vector3 healBonusStartPos)
      {
           _instancePersistentPosition = currentPos;
-          _healStartPos = healStartPos - parentPos;
+          _healBonusStartPos = healBonusStartPos;
+          _healStartPos = _healBonusStartPos;
      }
      
      public void StartNearDeath()
@@ -69,6 +70,7 @@ public class HealthHeartAnimation : MonoBehaviour
      {
           _isNearDeath = false;
           _heartImage.color = _baseColor;
+          transform.localScale = Vector3.one;
      }
      
      public void StartDamageAnimation()
@@ -78,8 +80,17 @@ public class HealthHeartAnimation : MonoBehaviour
           _animationPhase = 0f;
      }
      
-     public void StartHealAnimation()
+     public void StartHealAnimation(int mode, Vector3 pos)
      {
+          if (mode == 0)
+          {
+               _healStartPos = _healBonusStartPos;
+          }
+          else if (mode == 1)
+          {
+               _healStartPos = pos;
+          }
+          
           gameObject.SetActive(true);
           _animationPhase = 0;
           _animationState = HeartStates.HealAnimState;
@@ -98,12 +109,12 @@ public class HealthHeartAnimation : MonoBehaviour
      private void PerformHealAnimation()
      {
           transform.localScale = Vector3.one * _healScaleAnimCurve.Evaluate(_animationPhase);
-          transform.localPosition = Vector3.Lerp(_healStartPos, _instancePersistentPosition, _healMoveAnimCurve.Evaluate(_animationPhase));
+          transform.position = Vector3.Lerp(_healStartPos, _instancePersistentPosition, _healMoveAnimCurve.Evaluate(_animationPhase));
           _animationPhase += _healAnimationSpeed*Time.deltaTime;
           if (_animationPhase > 1)
           {
                _animationState = HeartStates.NormalState;
-               transform.localPosition = _instancePersistentPosition;
+               transform.position = _instancePersistentPosition;
                _heartImage.color = _baseColor;    
           }
      }
