@@ -1,17 +1,23 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
-{
+{   
+    [SerializeField] private IntroTutorial _introTutorial;
     [SerializeField] private EnemyTutorial _kangarooTutorial;
     [SerializeField] private EnemyTutorial _birdTutorial;
+    [SerializeField] private BonusTutorial _bonusTutorial;
+    [SerializeField] private float _bonusTutorialDelay;
     [SerializeField] private Transform _playerTransform;
     [SerializeField] private TutorialStartTrigger _kangarooStartTriggerL;
     [SerializeField] private TutorialStartTrigger _kangarooStartTriggerR;
     [SerializeField] private TutorialStartTrigger _birdStartTriggerL;
     [SerializeField] private TutorialStartTrigger _birdStartTriggerR;
     private int _arrowDirection = 1;
+    
+    private WaitForSeconds _bonusTutorialDelayWaitForSeconds;
 
     private void OnEnable()
     {
@@ -29,6 +35,19 @@ public class TutorialManager : MonoBehaviour
         _birdStartTriggerR.BirdTriggered -= BirdStartTrigger_BirdTriggered;
     }
 
+    private void Start()
+    {
+        _introTutorial.gameObject.SetActive(true);
+        _introTutorial.Perform();
+        _bonusTutorialDelayWaitForSeconds = new WaitForSeconds(_bonusTutorialDelay);
+    }
+    
+    private IEnumerator BonusDelay()
+    {
+        yield return _bonusTutorialDelayWaitForSeconds;
+        _bonusTutorial.Perform();
+    }
+
     private void KangarooStartTrigger_KangarooTriggered(int direction)
     {
         _kangarooStartTriggerL.gameObject.SetActive(false);
@@ -41,6 +60,7 @@ public class TutorialManager : MonoBehaviour
         _birdStartTriggerL.gameObject.SetActive(false);
         _birdStartTriggerR.gameObject.SetActive(false);
         EnemyTutorialStart(direction, _birdTutorial);
+        StartCoroutine(BonusDelay());
     }
     
     private void EnemyTutorialStart(int direction, EnemyTutorial enemyTutorial)

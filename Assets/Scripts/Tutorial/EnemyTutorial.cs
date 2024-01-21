@@ -28,9 +28,12 @@ public class EnemyTutorial : MonoBehaviour
         _arrowTutorialSpriteRenderer = _arrowTutorialObject.GetComponent<SpriteRenderer>();
         _bonusTutorialText = _bonusTutorialObject.GetComponent<TMP_Text>();
         
+        _bonusTutorialText.color = _invisibleColor;
+        
         _enemyTutorialObject.SetActive(false);
         _arrowTutorialObject.SetActive(false);
         _bonusTutorialObject.SetActive(false);
+        
     }
 
     public void Perform( int direction, int arrowDirection)
@@ -52,24 +55,37 @@ public class EnemyTutorial : MonoBehaviour
         _isActive = true;
     }
 
-    private void AppearAnimation()
+    private void PerformAppearAnimation()
     {
         _animationPhase = (Time.time - _prevTime) / _delay;
         Color currentColor = Color.Lerp(_invisibleColor, _visibleColor, _animationPhase);
         _kanagrooTutorialSpriteRenderer.color = currentColor; 
         _bonusTutorialText.color = currentColor;
+        if(_animationPhase > 1f)
+        {
+            _isDelayPhase = false;
+            _bonusTutorialObject.SetActive(true);
+            _prevTime = Time.time;
+            _isBonusAnimated = true;
+        }
     }
     
-    private void DisappearAnimation()
+    private void PerformDisappearAnimation()
     {
         _animationPhase = (Time.time - _prevTime) / _delay;
         Color currentColor = Color.Lerp(_visibleColor, _invisibleColor, _animationPhase);
         _kanagrooTutorialSpriteRenderer.color = currentColor; 
         _arrowTutorialSpriteRenderer.color = currentColor;
         _bonusTutorialText.color = currentColor;
+        if(_animationPhase > 1f)
+        {
+            gameObject.SetActive(false);
+            _prevTime = Time.time;
+        }
+        
     }
     
-    private void BonusAnimation()
+    private void PerformBonusAnimation()
     {
         _animationPhase = (Time.time - _prevTime) / .5f;
         Color currentColor = Color.Lerp(_invisibleColor, _visibleColor, _animationPhase);
@@ -86,29 +102,17 @@ public class EnemyTutorial : MonoBehaviour
         {
             if (_isDelayPhase)
             {
-                AppearAnimation();
-                if(Time.time - _prevTime > _delay)
-                {
-                    _isDelayPhase = false;
-                    _bonusTutorialObject.SetActive(true);
-                    _prevTime = Time.time;
-                    _isBonusAnimated = true;
-                }
+                PerformAppearAnimation();
             }
             else if (_isDissapearPhase)
             {
-                DisappearAnimation();
-                if(Time.time - _prevTime > _delay)
-                {
-                    gameObject.SetActive(false);
-                    _prevTime = Time.time;
-                }
+                PerformDisappearAnimation();
             }
             else
             {
                 if (_isBonusAnimated)
                 {
-                    BonusAnimation();
+                    PerformBonusAnimation();
                 }
                 if (Time.time - _prevTime > _duration)
                 {
