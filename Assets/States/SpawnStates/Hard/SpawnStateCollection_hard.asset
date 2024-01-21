@@ -18,10 +18,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3e84c58d9ad1258438d9aae1e7f00dd2, type: 2}
   - {fileID: 11400000, guid: 3dc5c6ba0e951f44eb6c7a976f84ca3d, type: 2}
   - {fileID: 11400000, guid: b1b33f5c7a673954081cbfc0d82769ed, type: 2}
-  - {fileID: 11400000, guid: a37eba878992f8948a383a70d7bc9b05, type: 2}
+  - {fileID: 11400000, guid: 74e796b3e6d51304f91cdf13a252d244, type: 2}
   - {fileID: 11400000, guid: 74e796b3e6d51304f91cdf13a252d244, type: 2}
   - {fileID: 11400000, guid: ccf6da703eac1244ea659840a9ff549c, type: 2}
   - {fileID: 11400000, guid: a37eba878992f8948a383a70d7bc9b05, type: 2}
+  - {fileID: 11400000, guid: a10f1cbb1aa87ff41a89c49593641bd8, type: 2}
   - {fileID: 11400000, guid: 09fe5f5be2067f444beeb18ae26ee396, type: 2}
   - {fileID: 11400000, guid: f7d42fb23f08cf348beaef0a3ea50039, type: 2}
   SpawnStatesMainLoop:

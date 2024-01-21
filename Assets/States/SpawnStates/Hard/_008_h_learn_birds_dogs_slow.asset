@@ -15,7 +15,7 @@ MonoBehaviour:
   _stateId: 0
   _stateDuration: 5
   _useStateDelay: 1
-  _stateDelay: 0.7
+  _stateDelay: 1.5
   _dogsEnabled: 1
   _dogsRandomOncePerState: 0
   _dogsUseGlobalStateDirection: 0
