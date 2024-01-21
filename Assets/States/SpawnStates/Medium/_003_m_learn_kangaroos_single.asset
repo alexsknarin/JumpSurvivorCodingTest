@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stateId: 0
   _stateDuration: 1.5
-  _useStateDelay: 0
-  _stateDelay: 0.25
+  _useStateDelay: 1
+  _stateDelay: 1.5
   _dogsEnabled: 0
   _dogsRandomOncePerState: 0
   _dogsUseGlobalStateDirection: 0
