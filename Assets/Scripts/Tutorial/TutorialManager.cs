@@ -16,8 +16,9 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private TutorialStartTrigger _birdStartTriggerL;
     [SerializeField] private TutorialStartTrigger _birdStartTriggerR;
     private int _arrowDirection = 1;
-    
     private WaitForSeconds _bonusTutorialDelayWaitForSeconds;
+    
+    public static event Action FirstBirdSpawned;
 
     private void OnEnable()
     {
@@ -61,6 +62,7 @@ public class TutorialManager : MonoBehaviour
         _birdStartTriggerR.gameObject.SetActive(false);
         EnemyTutorialStart(direction, _birdTutorial);
         StartCoroutine(BonusDelay());
+        FirstBirdSpawned?.Invoke();
     }
     
     private void EnemyTutorialStart(int direction, EnemyTutorial enemyTutorial)
