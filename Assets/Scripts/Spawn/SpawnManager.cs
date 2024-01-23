@@ -82,6 +82,7 @@ public class SpawnManager : MonoBehaviour, IPausable
     private GameObject _healBirdInstance;
     private Medkit _medkit;
     private bool _isHealNeeded = false;
+    private bool _isFirstBirdSpawned = false;
     private float _timeToNextHeal;
     private float _prevHealTime;
     
@@ -92,12 +93,14 @@ public class SpawnManager : MonoBehaviour, IPausable
     {
         PlayerHealth.NearDeathStarted += PlayerHealth_NearDeathStarted;
         PlayerHealth.NearDeathEnded += PlayerHealth_NearDeathEnded;
+        TutorialManager.FirstBirdSpawned += TutorialManager_FirstBirdSpawned;
     }
 
     private void OnDisable()
     {
         PlayerHealth.NearDeathStarted -= PlayerHealth_NearDeathStarted;
         PlayerHealth.NearDeathEnded -= PlayerHealth_NearDeathEnded;
+        TutorialManager.FirstBirdSpawned -= TutorialManager_FirstBirdSpawned;
     }
 
     private void Update()
@@ -344,7 +347,7 @@ public class SpawnManager : MonoBehaviour, IPausable
 
     private void CheckForHealBird()
     {
-        if (_isHealNeeded)
+        if (_isHealNeeded && _isFirstBirdSpawned)
         {
             if (Time.time - _prevHealTime > _timeToNextHeal)
             {
@@ -369,5 +372,10 @@ public class SpawnManager : MonoBehaviour, IPausable
     {
         _isHealNeeded = false;
     }
-    
+
+    private void TutorialManager_FirstBirdSpawned()
+    {
+        _isFirstBirdSpawned = true;
+        CheckForHealBird();
+    }
 }

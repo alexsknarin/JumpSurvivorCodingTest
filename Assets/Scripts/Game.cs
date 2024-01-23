@@ -58,7 +58,7 @@ public class Game : MonoBehaviour
         
         // UGS
         // Call Analytics and Score Setups
-        //_analyticsCollector.Setup();
+        _analyticsCollector.Setup();
         _submitScoresToLeaderboard.Setup();
     }
 
