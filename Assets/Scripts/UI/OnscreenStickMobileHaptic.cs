@@ -1,6 +1,8 @@
-using System;
-using System.Collections;
+#if UNITY_ANDROID
 using CandyCoded.HapticFeedback;
+#endif
+
+using System.Collections;
 using UnityEngine;
 
 
@@ -57,7 +59,9 @@ public class OnscreenStickMobileHaptic : MonoBehaviour
             // Medium Stick Haptics
             if (_stickHapticMin && (_inputXAbsValue > 0.65f))
             {
+#if UNITY_ANDROID
                 HapticFeedback.LightFeedback();
+#endif  
                 _stickHapticMin = false;
             }
         
@@ -69,7 +73,9 @@ public class OnscreenStickMobileHaptic : MonoBehaviour
             // Extreme Stick Haptics
             if (_stickHapticMax && (_inputXAbsValue > 0.95f))
             {
+#if UNITY_ANDROID
                 HapticFeedback.HeavyFeedback();
+#endif
                 _stickHapticMax = false;
             }
         
