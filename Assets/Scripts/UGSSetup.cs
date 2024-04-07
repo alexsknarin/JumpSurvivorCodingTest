@@ -78,5 +78,4 @@ public class UGSSetup : MonoBehaviour
     {
         AnalyticsService.Instance.StartDataCollection();
     }
-
 }
