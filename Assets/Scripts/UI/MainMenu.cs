@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private MainMenuButtonsTimelineControl _mainMenuButtonsTimelineControl;
     [SerializeField] private GameObject _enableDataCollectionButton;
     [SerializeField] private GameObject _disableDataCollectionButton;
+    [SerializeField] private UGSSetup _ugsSetup;
 
     private void Awake()
     {
@@ -39,11 +40,13 @@ public class MainMenu : MonoBehaviour
     public void EnableDataCollectionSetting()
     {
         PlayerPrefs.SetInt("dataConsent", 1);
+        _ugsSetup.StartAnalyticsCollection();
     }
     
     public void DisableDataCollectionSetting()
     {
         PlayerPrefs.SetInt("dataConsent", 0);
+        _ugsSetup.StopAnalyticsCollection();
     }
 
     private void StartMainMenu()
@@ -52,6 +55,12 @@ public class MainMenu : MonoBehaviour
         _mainMenuBgTimelineControl.Play();
         _mainMenuButtonsTimelineControl.Setup();
         _mainMenuButtonsTimelineControl.Play();
+        
+        if(PlayerPrefs.GetInt("dataConsent") == 1)
+        {
+            _ugsSetup = UGSSetup.Instance;
+            _ugsSetup.Setup();
+        }
     }
 
 

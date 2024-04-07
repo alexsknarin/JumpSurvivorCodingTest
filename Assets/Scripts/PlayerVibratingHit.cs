@@ -25,7 +25,9 @@ public class PlayerVibratingHit : MonoBehaviour
     {
         if (_isDamageable)
         {
+#if UNITY_ANDROID
             Handheld.Vibrate();
+#endif
             _isDamageable = false;
         }
     }

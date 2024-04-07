@@ -3330,7 +3330,7 @@ MonoBehaviour:
   _gameOverUI: {fileID: 1291350859}
   _gameOverUIdelay: 1
   _deathScreenUI: {fileID: 1291350861}
-  _analyticsCollector: {fileID: 648352133}
+  _ugsSetup: {fileID: 0}
   _submitScoresToLeaderboard: {fileID: 648352131}
 --- !u!4 &648352127
 Transform:

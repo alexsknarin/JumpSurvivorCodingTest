@@ -38,7 +38,7 @@ public class Game : MonoBehaviour
     // UGS
     [Header("-------------------------")]
     [Header("Unity Game Services")]
-    [SerializeField] private AnalyticsCollector _analyticsCollector;
+    [SerializeField] private UGSSetup _ugsSetup;
     [SerializeField] private SubmitScoresToLeaderboard _submitScoresToLeaderboard;
  
     // Pause Handling
@@ -58,7 +58,8 @@ public class Game : MonoBehaviour
         
         // UGS
         // Call Analytics and Score Setups
-        _analyticsCollector.Setup();
+        _ugsSetup = UGSSetup.Instance;
+        _ugsSetup.Setup();    
         _submitScoresToLeaderboard.Setup();
     }
 

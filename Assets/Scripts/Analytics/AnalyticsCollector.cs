@@ -33,32 +33,11 @@ public class AnalyticsCollector : MonoBehaviour
         SpawnManager.SpawnStateChanged -= SpawnManager_SpawnStateChanged;
         Game.GameOver -= Game_GameOver;
     }
-
-    public void Setup()
-    {
-        try
-        {
-            GiveConsent();
-        }
-        catch (ConsentCheckException e)
-        {
-            Debug.Log(e.ToString());
-        }
-    }
-    
+ 
     private void SpawnManager_SpawnStateChanged(string spawnStateName)
     {
         _spawnStateName = spawnStateName;
         _spawnStateNum++;
-    }
-
-    private void GiveConsent()
-    {
-        if (PlayerPrefs.GetInt("dataConsent") == 1)
-        {
-            AnalyticsService.Instance.StartDataCollection();
-            Debug.Log("Consent has been provided. The SDK is now collecting data");
-        }
     }
 
     private void PlayerCollisionHandler_AnalyticsEnemyCollided(string enemyName)
@@ -72,8 +51,6 @@ public class AnalyticsCollector : MonoBehaviour
         };
         
         AnalyticsService.Instance.CustomData("playerDamaged", parameters);
-        
-        AnalyticsService.Instance.Flush();
     }
 
     private void Game_GameOver()
@@ -81,11 +58,10 @@ public class AnalyticsCollector : MonoBehaviour
         Dictionary<string, object> parameters = new Dictionary<string, object>()
         {
             {"difficultyLevel", _difficultyLevel.Value},
-            {"spawnState", _spawnStateName}
+            {"spawnState", _spawnStateName},
+            {"spawnStateNum", _spawnStateNum}
         };
         
         AnalyticsService.Instance.CustomData("playerDeath", parameters);
-        
-        AnalyticsService.Instance.Flush();
     }
 }

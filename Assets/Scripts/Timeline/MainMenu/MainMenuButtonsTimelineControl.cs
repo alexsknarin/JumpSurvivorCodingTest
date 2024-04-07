@@ -65,7 +65,6 @@ public class MainMenuButtonsTimelineControl : MonoBehaviour
     public void PauseTimeline()
     {
         _bgDirector.Pause();
-        Debug.Log("Pause");
     }
 
     public void StartGameTimeline()
