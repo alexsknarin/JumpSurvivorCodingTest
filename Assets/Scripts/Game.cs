@@ -7,7 +7,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -40,17 +39,27 @@ public class Game : MonoBehaviour
     [Header("Unity Game Services")]
     [SerializeField] private UGSSetup _ugsSetup;
     [SerializeField] private SubmitScoresToLeaderboard _submitScoresToLeaderboard;
+    
+    // Scene Preflight
+    [Header("-------------------------")]
+    [Header("Scene Preflight")]
+    [SerializeField] private Camera _mainCamera;
+    [SerializeField] private GameObject _mainCanvas;
  
     // Pause Handling
     public static List<IPausable> Pausables = new List<IPausable>();
     
     // Game Over event
     public static event Action GameOver;
-    
-
     private bool _isGameOver = false;
     
     private void Start()
+    {
+        _mainCamera.enabled = false;
+        _mainCanvas.SetActive(false);
+    }
+
+    private void Initialize()
     {
         _spawnManager.InitSpawn();
         _gameOverUIdelayWait = new WaitForSeconds(_gameOverUIdelay);
@@ -61,18 +70,23 @@ public class Game : MonoBehaviour
         _ugsSetup = UGSSetup.Instance;
         _ugsSetup.Setup();    
         _submitScoresToLeaderboard.Setup();
+        
+        _mainCamera.enabled = true;
+        _mainCanvas.SetActive(true);
     }
-
+    
     private void OnEnable()
     {
         PlayerHealth.HealthDecreased += PlayerHealth_HealthDecreased;
         DeathScreenButtonsUIControl.DeathUIButtonPressed += DeathScreenButtonsUIControl_DeathUIButtonPressed;
+        MainMenuButtonsTimelineControl.OnGameStartAnimationOver += Initialize;
     }
 
     private void OnDisable()
     {
         PlayerHealth.HealthDecreased -= PlayerHealth_HealthDecreased;
         DeathScreenButtonsUIControl.DeathUIButtonPressed -= DeathScreenButtonsUIControl_DeathUIButtonPressed;
+        MainMenuButtonsTimelineControl.OnGameStartAnimationOver -= Initialize;
     }
     
     /// <summary>

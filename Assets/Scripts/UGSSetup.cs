@@ -4,8 +4,7 @@
  * per game session.
  */
 
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using System.Threading.Tasks;
 using Unity.Services.Analytics;
 using UnityEngine;
@@ -30,12 +29,11 @@ public class UGSSetup : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
     }
-    
+
     public async void Setup()
     {
         if (!_isConnecceted)
         {
-            
             Debug.Log("Setting up UGS");
             var options = new InitializationOptions();
             options.SetEnvironmentName("production");

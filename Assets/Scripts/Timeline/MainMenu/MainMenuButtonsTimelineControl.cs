@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -22,6 +23,9 @@ public class MainMenuButtonsTimelineControl : MonoBehaviour
     private string _username;
     private float _fps => (float)((TimelineAsset)_bgDirector.playableAsset).editorSettings.frameRate;
 
+    public static event Action OnGameStartAnimationOver;
+    public static event Action OnStartButtonPressed;
+    
     public void Setup()
     {
         _username = CheckPlayerNamePref();
@@ -38,7 +42,7 @@ public class MainMenuButtonsTimelineControl : MonoBehaviour
     {
         if (_startScoreExitMode == 1)
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(3);
         }
         else if (_startScoreExitMode == 2)
         {
@@ -72,6 +76,7 @@ public class MainMenuButtonsTimelineControl : MonoBehaviour
         _bgDirector.Pause();
         _bgDirector.time = _startGameStartTime / _fps;
         _bgDirector.Play();
+        OnStartButtonPressed?.Invoke();
     }
     
     public void SetPlayerNameTimeline()
@@ -102,7 +107,8 @@ public class MainMenuButtonsTimelineControl : MonoBehaviour
         }
         _userNameVariable.Value = _username;
         _difficultyLevelVariable.Value = _difficulty;
-        SceneManager.LoadScene(1);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(2));
+        OnGameStartAnimationOver?.Invoke();
     }
     
     private string CheckPlayerNamePref()
@@ -128,5 +134,4 @@ public class MainMenuButtonsTimelineControl : MonoBehaviour
         Application.Quit();
 #endif
     }
-    
 }
