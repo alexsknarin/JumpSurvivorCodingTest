@@ -16,17 +16,23 @@ using UnityEngine.SceneManagement;
 public class Game : MonoBehaviour
 {
     // Player
+    [SerializeField] private Player _player;
     [SerializeField] private IntVariable _playerHealth;
     [SerializeField] private FloatVariable _gameTime;
     [SerializeField] private StringVariable _currentUserName;
     // Enemies
     [SerializeField] private SpawnManager _spawnManager;
-    
+
     // Global Game UI
+    [Header("-------------------------")]
+    [Header("Global UI")]
     [SerializeField] private GameObject _inGameUI;
     [SerializeField] private GameObject _gameOverUI;
     
-    
+    [Header("-------------------------")]
+    [Header("Tutorial")]
+    [SerializeField] private TutorialManager _tutorialManager;
+
     // Game Over Setup
     [Header("-------------------------")]
     [Header("Game Over")]
@@ -52,61 +58,36 @@ public class Game : MonoBehaviour
     // Game Over event
     public static event Action GameOver;
     private bool _isGameOver = false;
-    
-    private void Start()
-    {
-        _mainCamera.enabled = false;
-        _mainCanvas.SetActive(false);
-    }
 
+    public void StartGame()
+    {
+        Initialize();
+    }
+    
     private void Initialize()
     {
+        // UGS
+        // Call Analytics and Score Setups
+        UGSSetup.Instance.Setup();    
+        _submitScoresToLeaderboard.Setup();
+        
+        _player.Initialize();   
         _spawnManager.InitSpawn();
         _gameOverUIdelayWait = new WaitForSeconds(_gameOverUIdelay);
         _deathScreenUI.gameObject.SetActive(false);
-        
-        // UGS
-        // Call Analytics and Score Setups
-        _ugsSetup = UGSSetup.Instance;
-        _ugsSetup.Setup();    
-        _submitScoresToLeaderboard.Setup();
-        
-        _mainCamera.enabled = true;
-        _mainCanvas.SetActive(true);
+        _tutorialManager.Play();
     }
     
     private void OnEnable()
     {
-        PlayerHealth.HealthDecreased += PlayerHealth_HealthDecreased;
-        DeathScreenButtonsUIControl.DeathUIButtonPressed += DeathScreenButtonsUIControl_DeathUIButtonPressed;
-        MainMenuButtonsTimelineControl.OnGameStartAnimationOver += Initialize;
+        PlayerHealth.HealthDecreased += HandleDecreaseHealth;
+        DeathScreenButtonsUIControl.DeathUIButtonPressed += HandleDeathScreenButtonPress;
     }
 
     private void OnDisable()
     {
-        PlayerHealth.HealthDecreased -= PlayerHealth_HealthDecreased;
-        DeathScreenButtonsUIControl.DeathUIButtonPressed -= DeathScreenButtonsUIControl_DeathUIButtonPressed;
-        MainMenuButtonsTimelineControl.OnGameStartAnimationOver -= Initialize;
-    }
-    
-    /// <summary>
-    /// This method is for debugging only. TODO: Remove 
-    /// </summary>
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.P))
-        {
-            //Debug.Break();              
-            PauseGame();
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            UnPauseGame();
-        }
-        if (Input.GetKeyDown(KeyCode.Escape) && _isGameOver)
-        {
-            SceneManager.LoadScene(0);
-        }
+        PlayerHealth.HealthDecreased -= HandleDecreaseHealth;
+        DeathScreenButtonsUIControl.DeathUIButtonPressed -= HandleDeathScreenButtonPress;
     }
     
     public static string GetDifficultyLevelName(int index)
@@ -145,7 +126,7 @@ public class Game : MonoBehaviour
     /// <summary>
     /// Each Time helath decreased this method check if it was the last health and it is time for GameOver event
     /// </summary>
-    private void PlayerHealth_HealthDecreased()
+    private void HandleDecreaseHealth()
     {
         // Game Over
         if (_playerHealth.Value == 0)
@@ -172,7 +153,7 @@ public class Game : MonoBehaviour
     /// Handle death screen button press
     /// </summary>
     /// <param name="sceneIndex">Scene to load</param>
-    private void DeathScreenButtonsUIControl_DeathUIButtonPressed(int sceneIndex)
+    private void HandleDeathScreenButtonPress(int sceneIndex)
     {
         SceneManager.LoadScene(sceneIndex);
     }

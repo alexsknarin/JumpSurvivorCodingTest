@@ -881,6 +881,8 @@ MonoBehaviour:
   _consentScreen: {fileID: 1173195957583326405}
   _logo: {fileID: 379462634}
   _eventSystem: {fileID: 1791076542}
+  _mainUi: {fileID: 1183386334}
+  _mainCamera: {fileID: 1298723311}
 --- !u!1 &1791076542
 GameObject:
   m_ObjectHideFlags: 0

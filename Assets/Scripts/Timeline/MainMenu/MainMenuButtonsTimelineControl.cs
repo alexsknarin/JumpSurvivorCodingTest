@@ -31,6 +31,8 @@ public class MainMenuButtonsTimelineControl : MonoBehaviour
         _username = CheckPlayerNamePref();
         _userNameInputPlaceholderText.text = _username;
         _userNameInput.text = _username;
+        _bgDirector.time = 1f / _fps;
+        _bgDirector.Evaluate();
     }
     
     public void Play()
@@ -107,7 +109,6 @@ public class MainMenuButtonsTimelineControl : MonoBehaviour
         }
         _userNameVariable.Value = _username;
         _difficultyLevelVariable.Value = _difficulty;
-        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(2));
         OnGameStartAnimationOver?.Invoke();
     }
     

@@ -42,6 +42,8 @@ public class PlayerInputHandler : MonoBehaviour
     
     public static event Action<float> StickPositionChanged;
 
+    
+    // TODO: initialize the input map from player manager
     void Awake()
     {
         _playerInputActionMap = new PlayerInputActionMap();
@@ -52,7 +54,7 @@ public class PlayerInputHandler : MonoBehaviour
         InputSystem.onEvent += InputDeviceNameRead;
     }
 
-    void ApplyLegacyGravityHorizontalAxis()
+    private void ApplyLegacyGravityHorizontalAxis()
     {
         _currentDirection = (int)Mathf.Sign(_horizontalAxisInput);
         if (!_isDrifting)

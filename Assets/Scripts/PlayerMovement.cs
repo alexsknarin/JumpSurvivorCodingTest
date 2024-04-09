@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -7,6 +8,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour, IPausable
 {
     private bool _isPaused;
+    private bool _isInitialized = false;
     [SerializeField] private float _xBound;
     private Vector3 _boundedPos;
 
@@ -19,17 +21,18 @@ public class PlayerMovement : MonoBehaviour, IPausable
     public float Speed { get; set; }
     public float JumpPhase { get; set; }
 
-    private void Start()
+    public void Initialize()
     {
         Game.Pausables.Add(this);
         PlayerMoveState.Init(this, _moveStateMachine);
         PlayerJumpState.Init(this, _moveStateMachine);
         _moveStateMachine.SetState(PlayerMoveState);
+        _isInitialized = true;
     }
 
     private void Update()
     {
-        if (!_isPaused)
+        if (!_isPaused && _isInitialized)
         {
             _moveStateMachine.Execute();
         }

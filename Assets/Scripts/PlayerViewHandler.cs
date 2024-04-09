@@ -18,12 +18,12 @@ public class PlayerViewHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerCollisionHandler.GroundCollided += PlayerCollisionHandler_GroundCollided;
+        PlayerCollisionHandler.GroundCollided += HandlerGroundCollision;
     }
 
     private void OnDisable()
     {
-        PlayerCollisionHandler.GroundCollided -= PlayerCollisionHandler_GroundCollided;
+        PlayerCollisionHandler.GroundCollided -= HandlerGroundCollision;
     }
    
     private void Update()
@@ -49,7 +49,7 @@ public class PlayerViewHandler : MonoBehaviour
         }
     }
     
-    private void PlayerCollisionHandler_GroundCollided()
+    private void HandlerGroundCollision()
     {
         _catBodyAnimator.SetBool(OnGround, true);
     }

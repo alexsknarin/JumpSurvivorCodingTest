@@ -9,8 +9,9 @@ public class IntroTutorial : MonoBehaviour
     private Color _invisibleColor = new Color(1f, 1f, 1f, 0f);
     private Color _visibleColor = new Color(1f, 1f, 1f, 1f);
     private bool _isTutorialActive = false;
-    private float _prevTime;
+    private float _localTime = 0;
 
+    
     private void Update()
     {
         if (_isTutorialActive)
@@ -19,22 +20,22 @@ public class IntroTutorial : MonoBehaviour
         }
     }
     
-    public void Perform()
+    public void Play()
     {
+        Debug.Log("IntroTutorial Play");
         _isTutorialActive = true;
-        _prevTime = Time.time;
+        _localTime = 0;
     }
     
     private void PerformAnimation()
     {
-        float animationPhase = (Time.time - _prevTime) / _duration;
-        Color currentColor = Color.Lerp(_invisibleColor, _visibleColor, _animationCurve.Evaluate(animationPhase));
+        float phase = _localTime / _duration;
+        Color currentColor = Color.Lerp(_invisibleColor, _visibleColor, _animationCurve.Evaluate(phase));
         _introText.color = currentColor;
-        if (animationPhase > 1f)
+        if (phase > 1f)
         {
             gameObject.SetActive(false);
         }
+        _localTime += Time.deltaTime;
     }
-
-
 }

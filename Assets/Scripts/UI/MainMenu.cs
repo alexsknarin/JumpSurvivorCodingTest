@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -24,11 +25,16 @@ public class MainMenu : MonoBehaviour
         PlayerPrefs.SetInt("dataConsent", 0);
         UGSSetup.Instance.StopAnalyticsCollection();
     }
+    
+    public void Setup()
+    {
+        _mainMenuBgTimelineControl.Setup();
+        _mainMenuButtonsTimelineControl.Setup();
+    }
 
     public void StartMainMenu()
     {
         _mainMenuBgTimelineControl.Play();
-        _mainMenuButtonsTimelineControl.Setup();
         _mainMenuButtonsTimelineControl.Play();
 
         if(PlayerPrefs.GetInt("dataConsent") == 1)

@@ -36,10 +36,10 @@ public class TutorialManager : MonoBehaviour
         _birdStartTriggerR.BirdTriggered -= BirdStartTrigger_BirdTriggered;
     }
 
-    private void Start()
+    public void Play()
     {
         _introTutorial.gameObject.SetActive(true);
-        _introTutorial.Perform();
+        _introTutorial.Play();
         _bonusTutorialDelayWaitForSeconds = new WaitForSeconds(_bonusTutorialDelay);
     }
     
