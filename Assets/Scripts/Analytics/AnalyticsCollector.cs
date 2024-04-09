@@ -17,6 +17,8 @@ public class AnalyticsCollector : MonoBehaviour
 {
     [SerializeField] private FloatVariable _gameTime;
     [SerializeField] private IntVariable _difficultyLevel;
+    private CustomEvent _playerDamagedEvent = new CustomEvent("playerDamaged");
+    private CustomEvent _playerDeathEvent = new CustomEvent("playerDeath");
     private string _spawnStateName = "";
     private int _spawnStateNum = 0;
 
@@ -42,26 +44,20 @@ public class AnalyticsCollector : MonoBehaviour
 
     private void PlayerCollisionHandler_AnalyticsEnemyCollided(string enemyName)
     {
-        Dictionary<string, object> parameters = new Dictionary<string, object>()
-        {
-            {"difficultyLevel", _difficultyLevel.Value},
-            {"enemyType", enemyName},
-            {"spawnState", _spawnStateName},
-            {"spawnStateNum", _spawnStateNum}
-        };
-        
-        AnalyticsService.Instance.CustomData("playerDamaged", parameters);
+        _playerDamagedEvent.Reset();
+        _playerDamagedEvent.Add("difficultyLevel", _difficultyLevel.Value);
+        _playerDamagedEvent.Add("enemyType", enemyName);
+        _playerDamagedEvent.Add("spawnState", _spawnStateName);
+        _playerDamagedEvent.Add("spawnStateNum", _spawnStateNum);
+        AnalyticsService.Instance.RecordEvent(_playerDamagedEvent);
     }
 
     private void Game_GameOver()
     {
-        Dictionary<string, object> parameters = new Dictionary<string, object>()
-        {
-            {"difficultyLevel", _difficultyLevel.Value},
-            {"spawnState", _spawnStateName},
-            {"spawnStateNum", _spawnStateNum}
-        };
-        
-        AnalyticsService.Instance.CustomData("playerDeath", parameters);
+        _playerDeathEvent.Reset();
+        _playerDeathEvent.Add("difficultyLevel", _difficultyLevel.Value);
+        _playerDeathEvent.Add("spawnState", _spawnStateName);
+        _playerDeathEvent.Add("spawnStateNum", _spawnStateNum);
+        AnalyticsService.Instance.RecordEvent(_playerDeathEvent);
     }
 }
