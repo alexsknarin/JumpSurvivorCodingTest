@@ -77,11 +77,6 @@ public class Game : MonoBehaviour
         _deathScreenUI.gameObject.SetActive(false);
         _tutorialManager.Play();
     }
-
-    public void ResetGame()
-    {
-        
-    }
     
     private void OnEnable()
     {
