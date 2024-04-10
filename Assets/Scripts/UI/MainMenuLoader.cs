@@ -7,7 +7,6 @@ public class MainMenuLoader : MonoBehaviour
     [Header("Scene Preflight References")]
     [SerializeField] private GameObject _mainCamera;
     [SerializeField] private GameObject _mainUi;
-    [SerializeField] private GameObject _eventSystem;
     [Header("---")]
     [SerializeField] private MainMenu _mainMenu;
     [SerializeField] private MainMenuDataManager _mainMenuDataManager;
@@ -40,7 +39,6 @@ public class MainMenuLoader : MonoBehaviour
     {
         if (GameLoader.GameLoaded)
         {
-            _eventSystem.SetActive(true);
             SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
             StartMainMenu();
         }
@@ -50,7 +48,6 @@ public class MainMenuLoader : MonoBehaviour
     {
         _mainCamera.SetActive(true);
         _mainUi.SetActive(true);
-        _eventSystem.SetActive(true);
         _mainMenu.StartMainMenu();
     }
     
@@ -58,7 +55,6 @@ public class MainMenuLoader : MonoBehaviour
     {
         Debug.Log(" ------------------------------------------- StartMainScene");
         _mainMenuDataManager.SaveGameData(difficulty, username);
-        _eventSystem.SetActive(false);
         SceneManager.UnloadSceneAsync(1);
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(2));
         OnNewGameSetUp?.Invoke();

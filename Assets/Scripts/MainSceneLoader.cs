@@ -8,7 +8,6 @@ public class MainSceneLoader : MonoBehaviour
     [Header("Scene Preflight References")]
     [SerializeField] private GameObject _mainCamera;
     [SerializeField] private GameObject _mainUi;
-    [SerializeField] private GameObject _eventSystem;
     [Header("---")]
     [SerializeField] private Game _mainGame;
     
@@ -29,14 +28,12 @@ public class MainSceneLoader : MonoBehaviour
     {
         _mainCamera.SetActive(false);
         _mainUi.SetActive(false);
-        _eventSystem.SetActive(false);
     }
     
     private void StartGame()
     {
         _mainCamera.SetActive(true);
         _mainUi.SetActive(true);
-        _eventSystem.SetActive(true);
         
         _mainGame.StartGame();
     }

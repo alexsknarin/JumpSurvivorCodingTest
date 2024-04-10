@@ -6,7 +6,6 @@ public class GameLoader : MonoBehaviour
 {
     [SerializeField] private GameObject _consentScreen;
     [SerializeField] private Logo _logo;
-    [SerializeField] private GameObject _eventSystem;
     [SerializeField] private GameObject _mainUi;
     [SerializeField] private GameObject _mainCamera;
 
@@ -69,7 +68,6 @@ public class GameLoader : MonoBehaviour
 
     private void StartMainMenu()
     {
-        _eventSystem.SetActive(false);
         _logo.gameObject.SetActive(false);
         GameLoaded = true;
         OnLogoEnd?.Invoke();
