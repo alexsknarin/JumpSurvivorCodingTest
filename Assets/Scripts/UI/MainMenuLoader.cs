@@ -37,7 +37,8 @@ public class MainMenuLoader : MonoBehaviour
     {
         if (GameLoader.GameLoaded)
         {
-            Debug.Log("MainMenuLoader Start");
+            _eventSystem.SetActive(true);
+            SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
             StartMainMenu();
         }
     }
@@ -48,8 +49,6 @@ public class MainMenuLoader : MonoBehaviour
         _mainUi.SetActive(true);
         _eventSystem.SetActive(true);
         _mainMenu.StartMainMenu();
-        
-        // SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
     }
 
     private void LoadMainScene()

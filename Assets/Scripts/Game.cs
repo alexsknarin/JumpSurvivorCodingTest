@@ -77,17 +77,22 @@ public class Game : MonoBehaviour
         _deathScreenUI.gameObject.SetActive(false);
         _tutorialManager.Play();
     }
+
+    public void ResetGame()
+    {
+        
+    }
     
     private void OnEnable()
     {
         PlayerHealth.HealthDecreased += HandleDecreaseHealth;
-        DeathScreenButtonsUIControl.DeathUIButtonPressed += HandleDeathScreenButtonPress;
+        
     }
 
     private void OnDisable()
     {
         PlayerHealth.HealthDecreased -= HandleDecreaseHealth;
-        DeathScreenButtonsUIControl.DeathUIButtonPressed -= HandleDeathScreenButtonPress;
+        
     }
     
     public static string GetDifficultyLevelName(int index)
@@ -147,14 +152,5 @@ public class Game : MonoBehaviour
     {
         //_inGameUI.SetActive(false);
         _deathScreenUI.Play(((int)_gameTime.Value).ToString() + " Seconds!!!", _currentUserName.Value);
-    }
-
-    /// <summary>
-    /// Handle death screen button press
-    /// </summary>
-    /// <param name="sceneIndex">Scene to load</param>
-    private void HandleDeathScreenButtonPress(int sceneIndex)
-    {
-        SceneManager.LoadScene(sceneIndex);
     }
 }
