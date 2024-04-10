@@ -1230,9 +1230,6 @@ MonoBehaviour:
   _startGameStartTime: 51
   _playerNameSetStartTime: 98
   _dificultyLevelSetStartTime: 139
-  _difficultyLevelVariable: {fileID: 11400000, guid: eefded0214c5362409c4b415207d4223,
-    type: 2}
-  _userNameVariable: {fileID: 11400000, guid: de08ab263f70b9b45a546049cd36245d, type: 2}
   _userNameInput: {fileID: 2006355498}
   _userNameInputPlaceholderText: {fileID: 1969036906}
 --- !u!114 &748585098
@@ -4866,6 +4863,7 @@ GameObject:
   - component: {fileID: 2013075029}
   - component: {fileID: 2013075030}
   - component: {fileID: 2013075028}
+  - component: {fileID: 2013075031}
   m_Layer: 0
   m_Name: MainMenuControls
   m_TagString: Untagged
@@ -4920,6 +4918,22 @@ MonoBehaviour:
   _mainUi: {fileID: 758672601}
   _eventSystem: {fileID: 413354094}
   _mainMenu: {fileID: 2013075028}
+  _mainMenuDataManager: {fileID: 2013075031}
+--- !u!114 &2013075031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013075027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d6079eb5795fa498187b9e8f555ce0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _difficultyLevelVariable: {fileID: 11400000, guid: eefded0214c5362409c4b415207d4223,
+    type: 2}
+  _userNameVariable: {fileID: 11400000, guid: de08ab263f70b9b45a546049cd36245d, type: 2}
 --- !u!1 &2039686603
 GameObject:
   m_ObjectHideFlags: 0

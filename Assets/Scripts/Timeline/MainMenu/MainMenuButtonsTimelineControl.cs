@@ -14,8 +14,6 @@ public class MainMenuButtonsTimelineControl : MonoBehaviour
     [SerializeField] private float _startGameStartTime;
     [SerializeField] private float _playerNameSetStartTime;
     [SerializeField] private float _dificultyLevelSetStartTime;
-    [SerializeField] private IntVariable _difficultyLevelVariable;
-    [SerializeField] private StringVariable _userNameVariable;
     [SerializeField] private TMP_InputField _userNameInput;
     [SerializeField] private TMP_Text _userNameInputPlaceholderText;
     private int _difficulty = 0;
@@ -23,8 +21,10 @@ public class MainMenuButtonsTimelineControl : MonoBehaviour
     private string _username;
     private float _fps => (float)((TimelineAsset)_bgDirector.playableAsset).editorSettings.frameRate;
 
-    public static event Action OnGameStartAnimationOver;
+    public static event Action<int, string> OnGameStartAnimationOver;
     public static event Action OnStartButtonPressed;
+    public static event Action OnShowScoresPressed;
+    public static event Action OnExitGamePressed;
     
     public void Setup()
     {
@@ -44,11 +44,11 @@ public class MainMenuButtonsTimelineControl : MonoBehaviour
     {
         if (_startScoreExitMode == 1)
         {
-            SceneManager.LoadScene(3);
+            OnShowScoresPressed?.Invoke();
         }
         else if (_startScoreExitMode == 2)
         {
-            ExitGame();
+            OnExitGamePressed?.Invoke();
         }
     }
     
@@ -107,9 +107,7 @@ public class MainMenuButtonsTimelineControl : MonoBehaviour
         {
             PlayerPrefs.SetString("PlayerName", _username);
         }
-        _userNameVariable.Value = _username;
-        _difficultyLevelVariable.Value = _difficulty;
-        OnGameStartAnimationOver?.Invoke();
+        OnGameStartAnimationOver?.Invoke(_difficulty, _username);
     }
     
     private string CheckPlayerNamePref()
@@ -122,17 +120,5 @@ public class MainMenuButtonsTimelineControl : MonoBehaviour
         {
             return "Player1";
         }
-    }
-    
-    private void ExitGame()
-    {
-        
-        _difficultyLevelVariable.Value = 0;
-        _userNameVariable.Value = "noname";
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
     }
 }

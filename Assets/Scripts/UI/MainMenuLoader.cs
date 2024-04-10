@@ -10,21 +10,24 @@ public class MainMenuLoader : MonoBehaviour
     [SerializeField] private GameObject _eventSystem;
     [Header("---")]
     [SerializeField] private MainMenu _mainMenu;
+    [SerializeField] private MainMenuDataManager _mainMenuDataManager;
     
     public static event Action OnNewGameSetUp;
     
     private void OnEnable()
     {
         GameLoader.OnLogoEnd += StartMainMenu;
-        MainMenuButtonsTimelineControl.OnStartButtonPressed += LoadMainScene;
         MainMenuButtonsTimelineControl.OnGameStartAnimationOver += StartMainScene;
+        MainMenuButtonsTimelineControl.OnShowScoresPressed += ShowScores;
+        MainMenuButtonsTimelineControl.OnExitGamePressed += ExitGame;
     }
     
     private void OnDisable()
     {
         GameLoader.OnLogoEnd -= StartMainMenu;
-        MainMenuButtonsTimelineControl.OnStartButtonPressed -= LoadMainScene;
         MainMenuButtonsTimelineControl.OnGameStartAnimationOver -= StartMainScene;
+        MainMenuButtonsTimelineControl.OnShowScoresPressed -= ShowScores;
+        MainMenuButtonsTimelineControl.OnExitGamePressed -= ExitGame;
     }
     
     private void Awake()
@@ -50,16 +53,30 @@ public class MainMenuLoader : MonoBehaviour
         _eventSystem.SetActive(true);
         _mainMenu.StartMainMenu();
     }
-
-    private void LoadMainScene()
-    {
-    }
     
-    private void StartMainScene()
+    private void StartMainScene(int difficulty, string username)
     {
+        Debug.Log(" ------------------------------------------- StartMainScene");
+        _mainMenuDataManager.SaveGameData(difficulty, username);
         _eventSystem.SetActive(false);
         SceneManager.UnloadSceneAsync(1);
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(2));
         OnNewGameSetUp?.Invoke();
     }
+    
+    private void ShowScores()
+    {
+        SceneManager.LoadScene(3);
+    }
+    
+    private void ExitGame()
+    {
+        _mainMenuDataManager.SaveGameData(0, "noname");
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+    
 }
