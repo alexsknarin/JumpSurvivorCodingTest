@@ -53,7 +53,11 @@ public class MainSceneLoader : MonoBehaviour
     /// <param name="sceneIndex">Scene to load</param>
     private void HandleDeathScreenButtonPress(int sceneIndex)
     {
-        _restartMode.Value = 1;
+        // Loading the same scene
+        if(sceneIndex == 2)
+        {
+            _restartMode.Value = 1;
+        }
         SceneManager.LoadScene(sceneIndex);
     }
 }
