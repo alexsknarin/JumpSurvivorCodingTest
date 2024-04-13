@@ -17,16 +17,16 @@ public class PlayerMoveState : PlayerMovementBaseState
 
     public override void ExecuteState()
     {
-        float horizontalAxis = _playerInputHandler.HorizontalAxis; 
+        float horizontalAxis = 0; //_playerInputHandler.HorizontalAxis; 
         float moveTranslate = horizontalAxis * _horizontalSpeed * Time.deltaTime;
         _transform.Translate(Vector3.right * moveTranslate);
         _owner.ApplyBound(_transform);
         _owner.Speed = moveTranslate/0.15f;
         _owner.JumpPhase = 0f;
         
-        if (_playerInputHandler.JumpAction)
-        {
-            _stateMachine.SetState(_owner.PlayerJumpState);
-        }
+        // if (_playerInputHandler.JumpAction)
+        // {
+        //     _stateMachine.SetState(_owner.PlayerJumpState);
+        // }
     }
 }

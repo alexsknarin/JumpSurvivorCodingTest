@@ -1,13 +1,11 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.LowLevel;
 
 /// <summary>
 /// Watch for all Input related to the Player Character movement behaviour.
 /// </summary>
 public class PlayerInputHandler : MonoBehaviour
 {
+    /*
     private PlayerInputActionMap _playerInputActionMap;
     [SerializeField] private bool _applyLegacyGravity = true;
     [Tooltip("Same behaviour as in legacy Unity Horizontal axis")] 
@@ -120,4 +118,5 @@ public class PlayerInputHandler : MonoBehaviour
         InputSystem.onEvent -= InputDeviceNameRead;
         _playerInputActionMap.Disable();
     }
+    */
 }

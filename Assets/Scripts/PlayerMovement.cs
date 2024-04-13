@@ -4,7 +4,6 @@ using UnityEngine;
 /// <summary>
 /// Managing movement State machine for a Player character.
 /// </summary>
-[RequireComponent(typeof(PlayerInputHandler))]
 public class PlayerMovement : MonoBehaviour, IPausable
 {
     private bool _isPaused;

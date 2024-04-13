@@ -19,7 +19,7 @@ public class PlayerJumpState : PlayerMovementBaseState
     public override void EnterState()
     {
         _prevTime = _gameTime.Value;
-        _jumpDirection = _playerInputHandler.HorizontalAxis;
+        _jumpDirection = 0;//_playerInputHandler.HorizontalAxis;
     }
 
     public override void ExecuteState()
@@ -32,7 +32,7 @@ public class PlayerJumpState : PlayerMovementBaseState
             jumpPos.x += _jumpDirection * _jumpHorizontalSpeed * Time.deltaTime; 
             _transform.position = jumpPos;
             // Air Movement
-            float horizontalAxis = _playerInputHandler.HorizontalAxis; 
+            float horizontalAxis = 0;//_playerInputHandler.HorizontalAxis; 
             float moveTranslate = horizontalAxis * _horizontalSpeed * _airControl * Time.deltaTime;
             _transform.Translate(Vector3.right * moveTranslate);
 
