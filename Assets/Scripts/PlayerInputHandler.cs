@@ -51,7 +51,7 @@ public class PlayerInputHandler : MonoBehaviour
         _playerInputActionMap.PlayerMovement.Jump.canceled += context => { _jumpButtonPressed = false; };
         _playerInputActionMap.PlayerMovement.Drift.started += context => { _isDrifting = true; };
         _playerInputActionMap.PlayerMovement.Drift.canceled += context => { _isDrifting = false; };
-        InputSystem.onEvent += InputDeviceNameRead;
+        
     }
 
     private void ApplyLegacyGravityHorizontalAxis()
@@ -111,11 +111,13 @@ public class PlayerInputHandler : MonoBehaviour
     
     private void OnEnable()
     {
+        InputSystem.onEvent += InputDeviceNameRead;
         _playerInputActionMap.Enable();
     }
 
     private void OnDisable()
     {
+        InputSystem.onEvent -= InputDeviceNameRead;
         _playerInputActionMap.Disable();
     }
 }
