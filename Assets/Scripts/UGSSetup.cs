@@ -34,7 +34,6 @@ public class UGSSetup : MonoBehaviour
     {
         if (!_isConnecceted)
         {
-            Debug.Log("Setting up UGS");
             var options = new InitializationOptions();
             options.SetEnvironmentName("production");
             await UnityServices.InitializeAsync(options);

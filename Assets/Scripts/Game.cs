@@ -57,7 +57,6 @@ public class Game : MonoBehaviour
     
     // Game Over event
     public static event Action GameOver;
-    private bool _isGameOver = false;
 
     public void StartGame()
     {
@@ -132,7 +131,6 @@ public class Game : MonoBehaviour
         if (_playerHealth.Value == 0)
         {
             PauseGame();
-            _isGameOver = true;
             StartCoroutine(GameOverScreenDelay());
             GameOver?.Invoke();
         }

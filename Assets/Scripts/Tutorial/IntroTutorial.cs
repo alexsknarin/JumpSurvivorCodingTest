@@ -22,7 +22,6 @@ public class IntroTutorial : MonoBehaviour
     
     public void Play()
     {
-        Debug.Log("IntroTutorial Play");
         _isTutorialActive = true;
         _localTime = 0;
     }

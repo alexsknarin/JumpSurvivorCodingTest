@@ -37,9 +37,6 @@ public class PlayerHealthUIView : MonoBehaviour
    
     public void PlayerHealth_PlayerHealthSetUp()
     {
-        
-        Debug.Log("PlayerHealth_PlayerHealthSetUp");
-        
         _newPosition = transform.position;
         
         for (int i = 0; i < _maxHealth.Value; i++)

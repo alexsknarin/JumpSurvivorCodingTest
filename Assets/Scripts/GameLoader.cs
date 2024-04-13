@@ -63,7 +63,6 @@ public class GameLoader : MonoBehaviour
         UGSSetup.Instance.Setup();
         SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
         SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
-        Debug.Log("StartMenuLoad");
     }
 
     private void StartMainMenu()

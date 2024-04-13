@@ -48,12 +48,12 @@ public class MainMenuLoader : MonoBehaviour
     {
         _mainCamera.SetActive(true);
         _mainUi.SetActive(true);
+        
         _mainMenu.StartMainMenu();
     }
     
     private void StartMainScene(int difficulty, string username)
     {
-        Debug.Log(" ------------------------------------------- StartMainScene");
         _mainMenuDataManager.SaveGameData(difficulty, username);
         SceneManager.UnloadSceneAsync(1);
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(2));

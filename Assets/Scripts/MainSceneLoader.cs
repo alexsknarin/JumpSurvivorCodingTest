@@ -34,7 +34,7 @@ public class MainSceneLoader : MonoBehaviour
     {
         _mainCamera.SetActive(true);
         _mainUi.SetActive(true);
-        
+
         _mainGame.StartGame();
     }
     
