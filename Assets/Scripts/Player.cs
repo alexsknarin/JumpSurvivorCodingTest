@@ -7,7 +7,6 @@ public class Player : MonoBehaviour
 
     public void Initialize()
     {
-        Debug.Log("Player Initialize");
         _playerMovement.Initialize();
         _playerHealth.Initialize();
     }

@@ -1,57 +1,91 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Watch for all Input related to the Player Character movement behaviour.
 /// </summary>
 public class PlayerInputHandler : MonoBehaviour
 {
-    /*
-    private PlayerInputActionMap _playerInputActionMap;
-    [SerializeField] private bool _applyLegacyGravity = true;
-    [Tooltip("Same behaviour as in legacy Unity Horizontal axis")] 
-    [SerializeField] private float _horizontalAxisGravity;
-    private bool _isDrifting = false;
+    [SerializeField] private InputActionAsset _playerInputActionMap;
+    [SerializeField] private string _actionMapName = "PlayerMovement";
+    [SerializeField] private string _actionMoveName = "Move";
+    [SerializeField] private string _actionDriftName = "Drift";
+    [SerializeField] private string _actionJumpName = "Jump";
+    private InputAction _moveAction;
+    private InputAction _driftAction;
+    private InputAction _jumpAction;
+    
+    // Move
+    private readonly float _horizontalAxisGravity = 3f;
     private float _horizontalAxisInput;
+    private bool _isDrifting = false;
     private int _currentDirection;
     private int _prevHorizontalDirection = 1;
     private float _horizontalInertia;
     private float _horizontalSensitiveInput;
-    private bool _jumpButtonPressed = false;
-    private InputDevice _currentInputDevice = new Keyboard();
-    
-    // events for extreme stick positions
     public float HorizontalAxis 
     {
         get
         {
-            _horizontalAxisInput = _playerInputActionMap.PlayerMovement.Move.ReadValue<Vector2>().x;
-            // if (_applyLegacyGravity && (_currentInputDevice.ToString() == "Keyboard:/Keyboard"))
-            // {
-            //     ApplyLegacyGravityHorizontalAxis();
-            // }
+            _horizontalAxisInput = _moveAction.ReadValue<Vector2>().x;
             ApplyLegacyGravityHorizontalAxis();
-            // Provide current stick state as an event with data
-            StickPositionChanged?.Invoke(_horizontalAxisInput);
-         
             return _horizontalAxisInput;
         }
     }
+    
+    // Jump
+    private bool _jumpButtonPressed = false;
     public bool JumpAction => _jumpButtonPressed;
     
-    public static event Action<float> StickPositionChanged;
 
-    
-    // TODO: initialize the input map from player manager
-    void Awake()
+    private void Awake()
     {
-        _playerInputActionMap = new PlayerInputActionMap();
-        _playerInputActionMap.PlayerMovement.Jump.started += context => { _jumpButtonPressed = true; };
-        _playerInputActionMap.PlayerMovement.Jump.canceled += context => { _jumpButtonPressed = false; };
-        _playerInputActionMap.PlayerMovement.Drift.started += context => { _isDrifting = true; };
-        _playerInputActionMap.PlayerMovement.Drift.canceled += context => { _isDrifting = false; };
+        _moveAction = _playerInputActionMap.FindActionMap(_actionMapName).FindAction(_actionMoveName);
+        _driftAction = _playerInputActionMap.FindActionMap(_actionMapName).FindAction(_actionDriftName);
+        _jumpAction = _playerInputActionMap.FindActionMap(_actionMapName).FindAction(_actionJumpName);
         
+        _driftAction.performed += DriftPerformed;
+        _driftAction.canceled += DriftCanceled;
+        
+        _jumpAction.performed += JumpPerformed;
+        _jumpAction.canceled += JumpCanceled;
     }
 
+    private void OnEnable()
+    {
+        _moveAction.Enable();
+        _driftAction.Enable();
+        _jumpAction.Enable();
+    }
+    
+    private void OnDisable()
+    {
+        _moveAction.Disable();
+        _driftAction.Disable();
+        _jumpAction.Disable();
+    }
+    
+    private void DriftPerformed(InputAction.CallbackContext context)
+    {
+        _isDrifting = true;
+    }
+    
+    private void DriftCanceled(InputAction.CallbackContext context)
+    {
+        _isDrifting = false;
+    }
+    
+    private void JumpPerformed(InputAction.CallbackContext context)
+    {
+        _jumpButtonPressed = true;
+    }
+    
+    private void JumpCanceled(InputAction.CallbackContext context)
+    {
+        _jumpButtonPressed = false;
+    }
+    
     private void ApplyLegacyGravityHorizontalAxis()
     {
         _currentDirection = (int)Mathf.Sign(_horizontalAxisInput);
@@ -101,22 +135,4 @@ public class PlayerInputHandler : MonoBehaviour
             _horizontalSensitiveInput = 0;
         }
     }
-    
-    void InputDeviceNameRead(InputEventPtr eventPtr, InputDevice device)
-    {
-        _currentInputDevice = device;
-    }
-    
-    private void OnEnable()
-    {
-        InputSystem.onEvent += InputDeviceNameRead;
-        _playerInputActionMap.Enable();
-    }
-
-    private void OnDisable()
-    {
-        InputSystem.onEvent -= InputDeviceNameRead;
-        _playerInputActionMap.Disable();
-    }
-    */
 }
