@@ -47,6 +47,8 @@ public class SpawnManager : MonoBehaviour, IPausable
     [SerializeField] private IntVariable _dificultyLevel;
     [SerializeField] private List<SpawnStateCollection> _spawnCollectionDifficulties;
     
+    private bool _isSpawnEnabled = false;
+    
     private SpawnState _currentSpawnState;
     private int _currentSpawnStateIndex = 0;
     private int _prevSpawnStateIndex;
@@ -106,6 +108,11 @@ public class SpawnManager : MonoBehaviour, IPausable
     private void Update()
     {
         if (_isPaused)
+        {
+            return;
+        }
+
+        if (!_isSpawnEnabled)
         {
             return;
         }
@@ -236,6 +243,7 @@ public class SpawnManager : MonoBehaviour, IPausable
         _healBirdInstance = GameObject.Instantiate(_healBird, _healBird.transform.position, _healBird.transform.rotation);
         _healBirdInstance.SetActive(false);
         _medkit = _healBirdInstance.GetComponent<Medkit>();
+        _isSpawnEnabled = true;
         ChangeSpawnState();
     }
     
@@ -342,7 +350,6 @@ public class SpawnManager : MonoBehaviour, IPausable
         _isHealNeeded = true;
         _timeToNextHeal = Random.Range(_minHealTime, _maxHealTime);
         _prevHealTime = Time.time;
-        Debug.Log("HealBird will fly in: " + _timeToNextHeal.ToString());
     }
 
     private void CheckForHealBird()

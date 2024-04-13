@@ -8,7 +8,7 @@ public class PlayerHealAnimation : MonoBehaviour
     [SerializeField] private VisualEffect _healAnimationVFX;
     private WaitForSeconds _waitForHeal;
 
-    private void Start()
+    private void Awake()
     {
         _waitForHeal = new WaitForSeconds(1f);
     }

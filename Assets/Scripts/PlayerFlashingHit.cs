@@ -15,7 +15,7 @@ public class PlayerFlashingHit : MonoBehaviour
     private bool _isFlashing;
     private float _prevTime;
     
-    private void Start()
+    private void Awake()
     {
         _material = _catSpriteRenderer.sharedMaterial;
         _isFlashing = false;
@@ -23,14 +23,14 @@ public class PlayerFlashingHit : MonoBehaviour
     
     private void OnEnable()
     {
-        PlayerCollisionHandler.EnemyCollided += PlayerCollisionHandler_EnemyCollided;
-        PlayerHealth.PlayerInvincibilityFinished += PlayerHealth_PlayerInvincibilityFinished;
+        PlayerCollisionHandler.EnemyCollided += StartFlashing;
+        PlayerHealth.PlayerInvincibilityFinished += StopFlashing;
     }
 
     private void OnDisable()
     {
-        PlayerCollisionHandler.EnemyCollided -= PlayerCollisionHandler_EnemyCollided;
-        PlayerHealth.PlayerInvincibilityFinished -= PlayerHealth_PlayerInvincibilityFinished;
+        PlayerCollisionHandler.EnemyCollided -= StartFlashing;
+        PlayerHealth.PlayerInvincibilityFinished -= StopFlashing;
         _material.SetColor("_Color", Color.white);
         _material.SetFloat("_HitMix", 0);
     }
@@ -53,7 +53,7 @@ public class PlayerFlashingHit : MonoBehaviour
     /// <summary>
     /// Start flashing
     /// </summary>
-    private void PlayerCollisionHandler_EnemyCollided()
+    private void StartFlashing()
     {
         _isFlashing = true;
     }
@@ -61,7 +61,7 @@ public class PlayerFlashingHit : MonoBehaviour
     /// <summary>
     /// Stop flashing
     /// </summary>
-    private void PlayerHealth_PlayerInvincibilityFinished()
+    private void StopFlashing()
     {
         _isFlashing = false;
         _material.SetColor("_Color", Color.white);

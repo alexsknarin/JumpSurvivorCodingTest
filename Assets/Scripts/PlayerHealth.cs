@@ -23,8 +23,8 @@ public class PlayerHealth : MonoBehaviour
     public static event Action<int, Vector3> HealthIncreased;
     public static event Action NearDeathStarted;
     public static event Action NearDeathEnded;
-
-    private void Start()
+    
+    public void Initialize()
     {
         _maxHealthCurrent.Value = _maxHealth[_dificultyLevel.Value].Value;
         _playerHealth.Value = _maxHealthCurrent.Value;

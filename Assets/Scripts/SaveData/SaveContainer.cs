@@ -19,7 +19,6 @@ public class SaveContainer
     /// <param name="entry">SaveData object</param>
     public void AddEntry(SaveData entry)
     {
-        Debug.Log(entry.Name + ' ' + entry.Time.ToString());
         Entries.Add(entry);
     }
 

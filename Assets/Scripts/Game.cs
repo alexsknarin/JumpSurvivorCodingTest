@@ -7,7 +7,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,17 +16,23 @@ using UnityEngine.SceneManagement;
 public class Game : MonoBehaviour
 {
     // Player
+    [SerializeField] private Player _player;
     [SerializeField] private IntVariable _playerHealth;
     [SerializeField] private FloatVariable _gameTime;
     [SerializeField] private StringVariable _currentUserName;
     // Enemies
     [SerializeField] private SpawnManager _spawnManager;
-    
+
     // Global Game UI
+    [Header("-------------------------")]
+    [Header("Global UI")]
     [SerializeField] private GameObject _inGameUI;
     [SerializeField] private GameObject _gameOverUI;
     
-    
+    [Header("-------------------------")]
+    [Header("Tutorial")]
+    [SerializeField] private TutorialManager _tutorialManager;
+
     // Game Over Setup
     [Header("-------------------------")]
     [Header("Game Over")]
@@ -40,59 +45,48 @@ public class Game : MonoBehaviour
     [Header("Unity Game Services")]
     [SerializeField] private UGSSetup _ugsSetup;
     [SerializeField] private SubmitScoresToLeaderboard _submitScoresToLeaderboard;
+    
+    // Scene Preflight
+    [Header("-------------------------")]
+    [Header("Scene Preflight")]
+    [SerializeField] private Camera _mainCamera;
+    [SerializeField] private GameObject _mainCanvas;
  
     // Pause Handling
     public static List<IPausable> Pausables = new List<IPausable>();
     
     // Game Over event
     public static event Action GameOver;
-    
 
-    private bool _isGameOver = false;
-    
-    private void Start()
+    public void StartGame()
     {
+        Initialize();
+    }
+    
+    private void Initialize()
+    {
+        // UGS
+        // Call Analytics and Score Setups
+        UGSSetup.Instance.Setup();    
+        _submitScoresToLeaderboard.Setup();
+        
+        _player.Initialize();   
         _spawnManager.InitSpawn();
         _gameOverUIdelayWait = new WaitForSeconds(_gameOverUIdelay);
         _deathScreenUI.gameObject.SetActive(false);
-        
-        // UGS
-        // Call Analytics and Score Setups
-        _ugsSetup = UGSSetup.Instance;
-        _ugsSetup.Setup();    
-        _submitScoresToLeaderboard.Setup();
+        _tutorialManager.Play();
     }
-
+    
     private void OnEnable()
     {
-        PlayerHealth.HealthDecreased += PlayerHealth_HealthDecreased;
-        DeathScreenButtonsUIControl.DeathUIButtonPressed += DeathScreenButtonsUIControl_DeathUIButtonPressed;
+        PlayerHealth.HealthDecreased += HandleDecreaseHealth;
+        
     }
 
     private void OnDisable()
     {
-        PlayerHealth.HealthDecreased -= PlayerHealth_HealthDecreased;
-        DeathScreenButtonsUIControl.DeathUIButtonPressed -= DeathScreenButtonsUIControl_DeathUIButtonPressed;
-    }
-    
-    /// <summary>
-    /// This method is for debugging only. TODO: Remove 
-    /// </summary>
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.P))
-        {
-            //Debug.Break();              
-            PauseGame();
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            UnPauseGame();
-        }
-        if (Input.GetKeyDown(KeyCode.Escape) && _isGameOver)
-        {
-            SceneManager.LoadScene(0);
-        }
+        PlayerHealth.HealthDecreased -= HandleDecreaseHealth;
+        
     }
     
     public static string GetDifficultyLevelName(int index)
@@ -131,13 +125,12 @@ public class Game : MonoBehaviour
     /// <summary>
     /// Each Time helath decreased this method check if it was the last health and it is time for GameOver event
     /// </summary>
-    private void PlayerHealth_HealthDecreased()
+    private void HandleDecreaseHealth()
     {
         // Game Over
         if (_playerHealth.Value == 0)
         {
             PauseGame();
-            _isGameOver = true;
             StartCoroutine(GameOverScreenDelay());
             GameOver?.Invoke();
         }
@@ -152,14 +145,5 @@ public class Game : MonoBehaviour
     {
         //_inGameUI.SetActive(false);
         _deathScreenUI.Play(((int)_gameTime.Value).ToString() + " Seconds!!!", _currentUserName.Value);
-    }
-
-    /// <summary>
-    /// Handle death screen button press
-    /// </summary>
-    /// <param name="sceneIndex">Scene to load</param>
-    private void DeathScreenButtonsUIControl_DeathUIButtonPressed(int sceneIndex)
-    {
-        SceneManager.LoadScene(sceneIndex);
     }
 }

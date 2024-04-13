@@ -39,7 +39,6 @@ public class PlayerHealthUIView : MonoBehaviour
     {
         _newPosition = transform.position;
         
-        
         for (int i = 0; i < _maxHealth.Value; i++)
         {
             HealthHeartAnimation newHealthHeartPrefab = Instantiate(_healthIconPrefab, _newPosition, _healthIconPrefab.transform.rotation, _inGameUIRect);
