@@ -27,6 +27,7 @@ public class PlayerMoveState : PlayerMovementBaseState
         if (_playerInputHandler.JumpAction)
         {
             _stateMachine.SetState(_owner.PlayerJumpState);
+            _owner.Jump();
         }
     }
 }
