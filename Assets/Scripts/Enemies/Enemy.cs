@@ -10,6 +10,7 @@
  * 
  */
 using UnityEngine;
+using UnityEngine.Pool;
 
 /// <summary>
 /// Base class responsible for general data structure and deactivation handling for all enemy classes.
@@ -21,7 +22,14 @@ public abstract class Enemy : MonoBehaviour, IPausable
     protected Vector3 _spawnPos = Vector3.zero;
     protected float _direction;
     protected bool _isPaused = false;
-    public abstract string EnemyName { get; }
+    public abstract EnemyTypes EnemyType { get; }
+    
+    // Object Pool Support
+    protected IObjectPool<Enemy> _objectPool;
+    public IObjectPool<Enemy> ObjectPool
+    {
+        set => _objectPool = value;
+    }
 
     private void Start()
     {
@@ -54,11 +62,13 @@ public abstract class Enemy : MonoBehaviour, IPausable
     {
         if (other.gameObject.CompareTag("rightBound") && _direction > 0)
         {
-            this.gameObject.SetActive(false);
+            // this.gameObject.SetActive(false);
+            _objectPool.Release(this);
         }
         else if (other.gameObject.CompareTag("leftBound") && _direction < 0)
         {
-            this.gameObject.SetActive(false);
+            // this.gameObject.SetActive(false);
+            _objectPool.Release(this);
         }
     }
 }

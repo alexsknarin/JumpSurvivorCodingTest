@@ -8,7 +8,7 @@ public class EnemyDog : Enemy
     [SerializeField] private GameObject _dogView;
     private Vector3 _dogScale = Vector3.one;
 
-    public override string EnemyName => "Dog";
+    public override EnemyTypes EnemyType => EnemyTypes.Dog;
 
     public override void SetupSpawn(float dir)
     {

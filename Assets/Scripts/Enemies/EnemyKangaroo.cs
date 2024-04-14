@@ -8,7 +8,7 @@ public class EnemyKangaroo : Enemy
     private StateMachine _moveStateMachine = new StateMachine();
     [SerializeField] private KangarooMovementBaseState _kangarooWaitState;
     [SerializeField] private KangarooMovementBaseState _kangarooJumpState;
-    public override string EnemyName => "Kangaroo";
+    public override EnemyTypes EnemyType => EnemyTypes.Kangaroo;
     
     public float Speed { get; set; }
     public float JumpPhase { get; set; }
