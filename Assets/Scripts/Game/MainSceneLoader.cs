@@ -59,4 +59,9 @@ public class MainSceneLoader : MonoBehaviour
         }
         SceneManager.LoadScene(sceneIndex);
     }
+    
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(1);
+    }
 }
