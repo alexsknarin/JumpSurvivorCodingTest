@@ -642,7 +642,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &109764221
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3255,7 +3255,6 @@ MonoBehaviour:
   _tutorialManager: {fileID: 242015242}
   _gameOverUIdelay: 1
   _deathScreenUI: {fileID: 1291350861}
-  _ugsSetup: {fileID: 0}
   _submitScoresToLeaderboard: {fileID: 648352131}
   _mainCamera: {fileID: 330585545}
   _mainCanvas: {fileID: 1207465496}

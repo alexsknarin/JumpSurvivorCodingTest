@@ -43,7 +43,6 @@ public class Game : MonoBehaviour
     // UGS
     [Header("-------------------------")]
     [Header("Unity Game Services")]
-    [SerializeField] private UGSSetup _ugsSetup;
     [SerializeField] private SubmitScoresToLeaderboard _submitScoresToLeaderboard;
     
     // Scene Preflight
@@ -70,6 +69,7 @@ public class Game : MonoBehaviour
         UGSSetup.Instance.Setup();    
         _submitScoresToLeaderboard.Setup();
         
+        _inGameUI.SetActive(true);
         _player.Initialize();   
         _spawnManager.InitSpawn();
         _gameOverUIdelayWait = new WaitForSeconds(_gameOverUIdelay);
@@ -133,6 +133,7 @@ public class Game : MonoBehaviour
             PauseGame();
             StartCoroutine(GameOverScreenDelay());
             GameOver?.Invoke();
+            _inGameUI.SetActive(false);
         }
     }
 
