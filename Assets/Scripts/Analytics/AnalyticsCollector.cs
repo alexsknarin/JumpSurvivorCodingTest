@@ -42,11 +42,11 @@ public class AnalyticsCollector : MonoBehaviour
         _spawnStateNum++;
     }
 
-    private void PlayerCollisionHandler_AnalyticsEnemyCollided(string enemyName)
+    private void PlayerCollisionHandler_AnalyticsEnemyCollided(EnemyTypes enemyType)
     {
         _playerDamagedEvent.Reset();
         _playerDamagedEvent.Add("difficultyLevel", _difficultyLevel.Value);
-        _playerDamagedEvent.Add("enemyType", enemyName);
+        _playerDamagedEvent.Add("enemyType", enemyType.ToString());
         _playerDamagedEvent.Add("spawnState", _spawnStateName);
         _playerDamagedEvent.Add("spawnStateNum", _spawnStateNum);
         AnalyticsService.Instance.RecordEvent(_playerDamagedEvent);

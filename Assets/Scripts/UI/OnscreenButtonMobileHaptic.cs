@@ -40,7 +40,10 @@ public class OnscreenButtonMobileHaptic : MonoBehaviour
         if (_hapticAllowed)
         {
             _hapticAllowed = false;
-            StartCoroutine(WaitForHapticUnblock());            
+            if(gameObject.activeInHierarchy)
+            {
+                StartCoroutine(WaitForHapticUnblock());
+            }
         }
     }
     

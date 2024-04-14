@@ -13,14 +13,14 @@ public class PlayerCollisionHandler : MonoBehaviour
     public static event Action<Vector3> MedkitCollided;
     
     // Collision Analytics data
-    public static event Action<string> AnalyticsEnemyCollided;
+    public static event Action<EnemyTypes> AnalyticsEnemyCollided;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
             EnemyCollided?.Invoke();
-            AnalyticsEnemyCollided?.Invoke(other.GetComponent<Enemy>().EnemyName);
+            AnalyticsEnemyCollided?.Invoke(other.GetComponent<Enemy>().EnemyType);
         }
         if (other.gameObject.CompareTag("ground"))
         {

@@ -34,10 +34,9 @@ public class MainSceneLoader : MonoBehaviour
     {
         _mainCamera.SetActive(true);
         _mainUi.SetActive(true);
-
         _mainGame.StartGame();
     }
-    
+
     private void Start()
     {
         if (_isTestMode || _restartMode.Value == 1)
@@ -59,5 +58,10 @@ public class MainSceneLoader : MonoBehaviour
             _restartMode.Value = 1;
         }
         SceneManager.LoadScene(sceneIndex);
+    }
+    
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(1);
     }
 }

@@ -21,12 +21,14 @@ public class SubmitScoresToLeaderboard : MonoBehaviour
 
     private void OnEnable()
     {
-        Game.GameOver += Game_GameOver;
+        // Game.GameOver += HandleGameOver;
+        DeathScreenButtonsUIControl.OnDeathScreenButtonsAppeared += HandleGameOver;
     }
 
     private void OnDisable()
     {
-        Game.GameOver -= Game_GameOver;
+        // Game.GameOver -= HandleGameOver;
+        DeathScreenButtonsUIControl.OnDeathScreenButtonsAppeared -= HandleGameOver;
     }
     
     public void Setup()
@@ -45,7 +47,7 @@ public class SubmitScoresToLeaderboard : MonoBehaviour
         }
     }
 
-    public async void Game_GameOver()
+    public async void HandleGameOver()
     {
         var metadata = new Dictionary<string, string>()
         {

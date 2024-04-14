@@ -27,18 +27,20 @@ public class SaveScoresToCloud : MonoBehaviour
 
     private void OnEnable()
     {
-        Game.GameOver += Game_GameOver;
+        // Game.GameOver += HandleGameOver;
+        DeathScreenButtonsUIControl.OnDeathScreenButtonsAppeared += HandleGameOver;
     }
 
     private void OnDisable()
     {
-        Game.GameOver -= Game_GameOver;
+        // Game.GameOver -= HandleGameOver;
+        DeathScreenButtonsUIControl.OnDeathScreenButtonsAppeared -= HandleGameOver;
     }
     
     /// <summary>
     /// Save scores to the cloud on a GameOver event
     /// </summary>
-    private async void Game_GameOver()
+    private async void HandleGameOver()
     {
         var saveData = new Dictionary<string, object>
         {

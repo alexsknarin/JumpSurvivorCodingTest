@@ -15,9 +15,9 @@ public class CameraFitResolution : MonoBehaviour
     {
         _referenceRatio = _referenceResolution.x / _referenceResolution.y;
         _currentRatio = (float)Screen.width / Screen.height;
-        _camera.orthographicSize = (_referenceCameraSize * _referenceRatio) / _currentRatio;
+        _camera.orthographicSize = ((_referenceCameraSize * _referenceRatio) / _currentRatio);
     }
-    private void Start()
+    private void Awake()
     {
         FitScreenToWidth();
     }
