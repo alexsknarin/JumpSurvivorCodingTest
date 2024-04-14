@@ -13,8 +13,10 @@ public class BonusViewHandler : MonoBehaviour
     [SerializeField] private RectTransform _bonusTextTransform;
     [SerializeField] private int _maxBonusPointOnScreen;
     [SerializeField] private IntVariable _bonusPoints;
-    private ObjectPool _bonusAnimatedPool;
-    private ObjectPool _bonusStarFxPool;
+    
+    private GenericObjectPool _bonusAnimatedPool;
+    private GenericObjectPool _bonusStarFxPool;
+    
     private int _currentBonus;
 
     private void Start()
@@ -35,16 +37,16 @@ public class BonusViewHandler : MonoBehaviour
     
     public void InitSpawn()
     {
-        _bonusAnimatedPool = new ObjectPool(_maxBonusPointOnScreen, _bonusAnimated);
-        _bonusStarFxPool = new ObjectPool(_maxBonusPointOnScreen, _bonusStarsAnimated);
+        _bonusAnimatedPool = new GenericObjectPool(_maxBonusPointOnScreen, _bonusAnimated);
+        _bonusStarFxPool = new GenericObjectPool(_maxBonusPointOnScreen, _bonusStarsAnimated);
         
     }
 
     private void BonusPointsManager_BonusUpdated(int currentBonus, Vector3 playerPosition)
     {
         Vector2 canvasPosition = RectTransformUtility.WorldToScreenPoint(Camera.main, playerPosition);
-        GameObject currentBonusPointsView = _bonusAnimatedPool.GetPooledObject();
-        GameObject currentBonusStarsFX = _bonusStarFxPool.GetPooledObject();
+        GameObject currentBonusPointsView = _bonusAnimatedPool.Get();
+        GameObject currentBonusStarsFX = _bonusStarFxPool.Get();
         if (currentBonusPointsView == null)
         {
             return;
@@ -63,7 +65,7 @@ public class BonusViewHandler : MonoBehaviour
     {
         if (other.CompareTag("BonusPointsAnimation"))
         {
-            other.gameObject.SetActive(false);
+            other.gameObject.GetComponent<GenericObjectPoolClient>().Release();
             _bonusTextAnimation.PlayAnimation();
             _bonusText.text = $"+{_bonusPoints.Value}";
         }

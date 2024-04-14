@@ -1,58 +1,51 @@
+using System;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject _consentScreen;
     [SerializeField] private MainMenuBGTimelineControl _mainMenuBgTimelineControl;
     [SerializeField] private MainMenuButtonsTimelineControl _mainMenuButtonsTimelineControl;
     [SerializeField] private GameObject _enableDataCollectionButton;
     [SerializeField] private GameObject _disableDataCollectionButton;
 
-    private void Awake()
-    {
-        if (PlayerPrefs.GetInt("dataConsent") == 1)
-        {
-            AgreeToDataCollection();
-        }
-        else
-        {
-            _consentScreen.SetActive(true);            
-        }
-    }
-    
-    public void AgreeToDataCollection()
+    public void EnableDataCollectionSetting()
     {
         _enableDataCollectionButton.SetActive(false);
         _disableDataCollectionButton.SetActive(true);
-        StartMainMenu();
         PlayerPrefs.SetInt("dataConsent", 1);
-    }
-    
-    public void RefuseDataCollection()
-    {
-        _enableDataCollectionButton.SetActive(true);
-        _disableDataCollectionButton.SetActive(false);
-        StartMainMenu();
-        PlayerPrefs.SetInt("dataConsent", 0);
-    }
-
-    public void EnableDataCollectionSetting()
-    {
-        PlayerPrefs.SetInt("dataConsent", 1);
+        UGSSetup.Instance.StartAnalyticsCollection();
     }
     
     public void DisableDataCollectionSetting()
     {
+        _enableDataCollectionButton.SetActive(true);
+        _disableDataCollectionButton.SetActive(false);
         PlayerPrefs.SetInt("dataConsent", 0);
+        UGSSetup.Instance.StopAnalyticsCollection();
     }
-
-    private void StartMainMenu()
+    
+    public void Setup()
     {
-        _consentScreen.SetActive(false);
-        _mainMenuBgTimelineControl.Play();
+        _mainMenuBgTimelineControl.Setup();
         _mainMenuButtonsTimelineControl.Setup();
-        _mainMenuButtonsTimelineControl.Play();
     }
 
+    public void StartMainMenu()
+    {
+        _mainMenuBgTimelineControl.Play();
+        _mainMenuButtonsTimelineControl.Play();
 
+        if(PlayerPrefs.GetInt("dataConsent") == 1)
+        {
+            _enableDataCollectionButton.SetActive(false);
+            _disableDataCollectionButton.SetActive(true);
+        }
+        else
+        {
+            _enableDataCollectionButton.SetActive(true);
+            _disableDataCollectionButton.SetActive(false);
+        }
+    }
 }

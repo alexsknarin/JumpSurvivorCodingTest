@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 687829834825828969, guid: 854b19661b6a09945b9e5eb3fdbe8f50,
         type: 3}
       propertyPath: m_Name
-      value: StarExplosionForBonus
+      value: StarExplosionBonus
       objectReference: {fileID: 0}
     - target: {fileID: 4987209422009142406, guid: 854b19661b6a09945b9e5eb3fdbe8f50,
         type: 3}
@@ -141,5 +141,27 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 687829834825828969, guid: 854b19661b6a09945b9e5eb3fdbe8f50,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1857456320137773827}
   m_SourcePrefab: {fileID: 100100000, guid: 854b19661b6a09945b9e5eb3fdbe8f50, type: 3}
+--- !u!1 &4755978860077176263 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 687829834825828969, guid: 854b19661b6a09945b9e5eb3fdbe8f50,
+    type: 3}
+  m_PrefabInstance: {fileID: 5443453388293365678}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-1857456320137773827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4755978860077176263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c493650153711d4894ee95d3da45de4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

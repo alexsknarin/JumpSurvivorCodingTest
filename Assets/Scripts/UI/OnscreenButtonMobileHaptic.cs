@@ -1,4 +1,7 @@
+#if UNITY_ANDROID
 using CandyCoded.HapticFeedback;
+#endif
+
 using System.Collections;
 using UnityEngine;
 
@@ -26,7 +29,9 @@ public class OnscreenButtonMobileHaptic : MonoBehaviour
     {
         if (_hapticAllowed)
         {
+#if UNITY_ANDROID
             HapticFeedback.HeavyFeedback();
+#endif
         }
     }
     
@@ -35,7 +40,10 @@ public class OnscreenButtonMobileHaptic : MonoBehaviour
         if (_hapticAllowed)
         {
             _hapticAllowed = false;
-            StartCoroutine(WaitForHapticUnblock());            
+            if(gameObject.activeInHierarchy)
+            {
+                StartCoroutine(WaitForHapticUnblock());
+            }
         }
     }
     

@@ -18,6 +18,12 @@ public class MainMenuBGTimelineControl : MonoBehaviour
         _bgDirector.time = _loopFrameStart / _fps;
     }
 
+    public void Setup()
+    {
+        _bgDirector.time = 1f / _fps;
+        _bgDirector.Evaluate();
+    }
+
     public void Play()
     {
         _bgDirector.Play();

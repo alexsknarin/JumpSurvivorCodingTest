@@ -9,6 +9,7 @@ class StarAnimData
     public int RotateDirection { get; set; }
 }
 
+[RequireComponent(typeof(GenericObjectPoolClient))]
 public class StarExplosion : MonoBehaviour, IPausable
 {
     [SerializeField] private RectTransform _canvas;
@@ -72,7 +73,7 @@ public class StarExplosion : MonoBehaviour, IPausable
         if (_animPhase > 1)
         {
             _isAnimated = false;
-            gameObject.SetActive(false);
+            gameObject.GetComponent<GenericObjectPoolClient>().Release();
             return;
         }
 

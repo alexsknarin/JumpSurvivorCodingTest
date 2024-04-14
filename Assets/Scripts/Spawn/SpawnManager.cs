@@ -28,12 +28,8 @@ using Random = UnityEngine.Random;
 public class SpawnManager : MonoBehaviour, IPausable
 {
     [Header("Enemies:")]
-    [SerializeField] private GameObject _enemyDog;
-    [SerializeField] private int _maximumDogs;
-    [SerializeField] private GameObject _enemyKangaroo;
-    [SerializeField] private int _maximumKangaroos;
-    [SerializeField] private GameObject _enemyBird;
-    [SerializeField] private int _maximumBirds;
+    [SerializeField] private EnemyPool _enemyPool;
+
     [Header("Healer:")]
     [SerializeField] private GameObject _healBird;
 
@@ -47,14 +43,12 @@ public class SpawnManager : MonoBehaviour, IPausable
     [SerializeField] private IntVariable _dificultyLevel;
     [SerializeField] private List<SpawnStateCollection> _spawnCollectionDifficulties;
     
+    private bool _isSpawnEnabled = false;
+    
     private SpawnState _currentSpawnState;
     private int _currentSpawnStateIndex = 0;
     private int _prevSpawnStateIndex;
     private bool _isLearningPhase = true;
-
-    private ObjectPool _enemyDogPool;
-    private ObjectPool _enemyKangarooPool;
-    private ObjectPool _enemyBirdPool;
 
     private float _globalSpawnPrevTime;
     private float _dogSpawnPrevTime;
@@ -109,6 +103,11 @@ public class SpawnManager : MonoBehaviour, IPausable
         {
             return;
         }
+
+        if (!_isSpawnEnabled)
+        {
+            return;
+        }
         
         // State Delay
         if (_delayMode)
@@ -143,7 +142,7 @@ public class SpawnManager : MonoBehaviour, IPausable
                else
                {
                    SpawnEnemy(
-                       _enemyDogPool, 
+                       EnemyTypes.Dog, 
                        ref _dogSpawnPrevTime, 
                        _currentSpawnState.DogSpawnRate, 
                        _dogGlobalStateDir, 
@@ -165,7 +164,7 @@ public class SpawnManager : MonoBehaviour, IPausable
                else
                {
                    SpawnEnemy(
-                       _enemyKangarooPool, 
+                       EnemyTypes.Kangaroo, 
                        ref _kangarooSpawnPrevTime, 
                        _currentSpawnState.KangarooSpawnRate, 
                        _kangarooGlobalStateDir, 
@@ -186,7 +185,8 @@ public class SpawnManager : MonoBehaviour, IPausable
                }
                else
                {
-                   SpawnEnemy(_enemyBirdPool, 
+                   SpawnEnemy(
+                       EnemyTypes.Bird, 
                        ref _birdSpawnPrevTime, 
                        _currentSpawnState.BirdSpawnRate, 
                        _birdGlobalStateDir,
@@ -224,11 +224,10 @@ public class SpawnManager : MonoBehaviour, IPausable
     
     public void InitSpawn()
     {
-        Game.Pausables.Add(this);
-        _enemyDogPool = new ObjectPool(_maximumDogs, _enemyDog);
-        _enemyKangarooPool = new ObjectPool(_maximumKangaroos, _enemyKangaroo);
-        _enemyBirdPool = new ObjectPool(_maximumBirds, _enemyBird);
         
+        _enemyPool.Initialize();
+        Game.Pausables.Add(this);
+
         // Select Difficulty Level
         _spawnCollection = _spawnCollectionDifficulties[_dificultyLevel.Value];
         
@@ -236,6 +235,7 @@ public class SpawnManager : MonoBehaviour, IPausable
         _healBirdInstance = GameObject.Instantiate(_healBird, _healBird.transform.position, _healBird.transform.rotation);
         _healBirdInstance.SetActive(false);
         _medkit = _healBirdInstance.GetComponent<Medkit>();
+        _isSpawnEnabled = true;
         ChangeSpawnState();
     }
     
@@ -252,19 +252,20 @@ public class SpawnManager : MonoBehaviour, IPausable
     /// <summary>
     /// Spawn Enemy from the Object Pool
     /// </summary>
-    /// <param name="enemyPool">Object pool with current enemies.</param>
+    /// <param name="enemyType">Current EnemyType.</param>
     /// <param name="enemySpawnPrevTime">Reference to the pevious Spawn Time fo the current enemy.</param>
     /// <param name="spawnRate">HOw much time you need to wait before spawning a next enemy of current type for the current spawnState.</param>
     /// <param name="enemyGlobalDir">Single movement direction for the whole duration of current spawnState.</param>
     /// <param name="useEnemyGlobal">Use single direction for the spawnState instead a random one for each spawn.</param>
     /// <param name="useStateGlobal">Use single state direction that will be shared with other enemies.</param>
     /// <param name="isFirstSpawnInState">Required to make the first enemy in state to be spawned without delay.</param>
-    private void SpawnEnemy(ObjectPool enemyPool, ref float enemySpawnPrevTime, float spawnRate, 
+    private void SpawnEnemy(EnemyTypes enemyType, ref float enemySpawnPrevTime, float spawnRate, 
         float enemyGlobalDir, bool useEnemyGlobal, bool useStateGlobal, ref bool isFirstSpawnInState)
     {
         if ((Time.time - enemySpawnPrevTime > spawnRate) || isFirstSpawnInState)
         {
-            GameObject currentEnemy = enemyPool.GetPooledObject();
+            Enemy currentEnemy = _enemyPool.Get(enemyType);
+            Game.Pausables.Add(currentEnemy);
             if (currentEnemy != null)
             {
                 // Define a direction
@@ -277,7 +278,7 @@ public class SpawnManager : MonoBehaviour, IPausable
                 {
                     _currentEnemyDir = _globalStateDir;
                 }
-                currentEnemy.GetComponent<Enemy>().SetupSpawn(_currentEnemyDir);
+                currentEnemy.SetupSpawn(_currentEnemyDir);
             }
             enemySpawnPrevTime = Time.time;
             isFirstSpawnInState = false;
@@ -342,7 +343,6 @@ public class SpawnManager : MonoBehaviour, IPausable
         _isHealNeeded = true;
         _timeToNextHeal = Random.Range(_minHealTime, _maxHealTime);
         _prevHealTime = Time.time;
-        Debug.Log("HealBird will fly in: " + _timeToNextHeal.ToString());
     }
 
     private void CheckForHealBird()
