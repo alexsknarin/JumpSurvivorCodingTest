@@ -28,6 +28,7 @@ public class KangarooWaitState : KangarooMovementBaseState
         if (deltaTime > _waitTime)
         {
             _stateMachine.SetState(_owner.KangarooJumpStateInstance);
+            _owner.HandleJumpStart();
         }
     }
 }

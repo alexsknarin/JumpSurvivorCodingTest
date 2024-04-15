@@ -8,6 +8,7 @@ public class EnemyKangaroo : Enemy
     private StateMachine _moveStateMachine = new StateMachine();
     [SerializeField] private KangarooMovementBaseState _kangarooWaitState;
     [SerializeField] private KangarooMovementBaseState _kangarooJumpState;
+    [SerializeField] private EnemyKangarooViewHandler _kangarooViewHandler;
     public override EnemyTypes EnemyType => EnemyTypes.Kangaroo;
     
     public float Speed { get; set; }
@@ -36,8 +37,10 @@ public class EnemyKangaroo : Enemy
         KangarooWaitStateInstance.SetDirection(_direction);
         KangarooJumpStateInstance.SetDirection(_direction);
         _moveStateMachine.SetState(KangarooJumpStateInstance);
-
+    
         gameObject.SetActive(true);
+        _kangarooViewHandler.Initialize((int)_direction);
+        _kangarooViewHandler.HandleJumpStart();
     }
 
     protected override void Move()
@@ -46,5 +49,15 @@ public class EnemyKangaroo : Enemy
         {
             _moveStateMachine.Execute();
         }
+    }
+    
+    public void HandleJumpStart()
+    {
+        _kangarooViewHandler.HandleJumpStart();
+    }
+    
+    public void HandleJumpEnd()
+    {
+        _kangarooViewHandler.HandleJumpEnd();
     }
 }

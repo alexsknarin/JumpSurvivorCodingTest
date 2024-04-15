@@ -3667,7 +3667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91196f7df5752b945b22e35ae83d7485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isTestMode: 1
+  _isTestMode: 0
   _restartMode: {fileID: 11400000, guid: f77414da7a571d34985a342aff38c1f1, type: 2}
   _mainCamera: {fileID: 330585543}
   _mainUi: {fileID: 1207465496}
@@ -9580,7 +9580,7 @@ Transform:
   m_GameObject: {fileID: 2104008501}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.86, z: -0.29}
+  m_LocalPosition: {x: 0, y: -2.84, z: -0.29}
   m_LocalScale: {x: 0.8477068, y: 0.8477068, z: 0.8477068}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9626,7 +9626,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 8ecb23d2eb07f37489ed693f682dc2df, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
