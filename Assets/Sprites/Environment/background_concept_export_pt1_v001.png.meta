@@ -615,7 +615,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background_concept_export_pt1_v001_0
+      name: fg
       rect:
         serializedVersion: 2
         x: 0
@@ -713,7 +713,6 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      background_concept_export_pt1_v001_0: 610006639
       bg_bush_left: 252888374
       bg_bush_right: 2121243944
       bg_crash_barrier: -297175133
@@ -722,6 +721,7 @@ TextureImporter:
       bg_signpost_trafficlight: 472787274
       bg_traffic_green: -274518982
       bg_traffic_red: 21781108
+      fg: 610006639
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
