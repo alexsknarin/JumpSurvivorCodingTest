@@ -12,6 +12,8 @@ TagManager:
   - BirdBonus
   - BonusPointsAnimation
   - Medkit
+  - leftTrafficTrigger
+  - rightTrafficTrigger
   layers:
   - Default
   - TransparentFX
