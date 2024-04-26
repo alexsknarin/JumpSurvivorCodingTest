@@ -34,7 +34,10 @@ public class SpawnManager : MonoBehaviour, IPausable
     [SerializeField] private GameObject _healBird;
 
     [SerializeField] private float _minHealTime;
-    [SerializeField] private float _maxHealTime; 
+    [SerializeField] private float _maxHealTime;
+
+    [Header("Car:")] 
+    [SerializeField] private EnemyCar _carEnemy;
 
     [Header("Spawn States")] 
     private SpawnStateCollection _spawnCollection;
@@ -46,7 +49,7 @@ public class SpawnManager : MonoBehaviour, IPausable
     private bool _isSpawnEnabled = false;
     
     private SpawnState _currentSpawnState;
-    private int _currentSpawnStateIndex = 0;
+    [SerializeField] private int _currentSpawnStateIndex = 0;
     private int _prevSpawnStateIndex;
     private bool _isLearningPhase = true;
 
@@ -80,6 +83,11 @@ public class SpawnManager : MonoBehaviour, IPausable
     private float _timeToNextHeal;
     private float _prevHealTime;
     
+    // Car 
+    private bool _isCarSpawned = false;
+    private float _carLocalTime;
+    private float _carSpawnRate = 15f;
+    
     // State Debug UI
     public static event Action<string> SpawnStateChanged;
 
@@ -108,6 +116,23 @@ public class SpawnManager : MonoBehaviour, IPausable
         {
             return;
         }
+        
+        // Car Spawn
+
+        if (_currentSpawnStateIndex > 8)
+        {
+            if (_carLocalTime > _carSpawnRate)
+            {
+                SpawnCar();
+                _carLocalTime = 0f;
+                _carSpawnRate = Random.Range(10f, 18f);
+            }
+            else
+            {
+                _carLocalTime += Time.deltaTime;
+            }
+        }
+        
         
         // State Delay
         if (_delayMode)
@@ -237,6 +262,8 @@ public class SpawnManager : MonoBehaviour, IPausable
         _medkit = _healBirdInstance.GetComponent<Medkit>();
         _isSpawnEnabled = true;
         ChangeSpawnState();
+
+        _carLocalTime = 0;
     }
     
     public void SetPaused()
@@ -283,6 +310,11 @@ public class SpawnManager : MonoBehaviour, IPausable
             enemySpawnPrevTime = Time.time;
             isFirstSpawnInState = false;
         }
+    }
+    
+    private void SpawnCar()
+    {
+        _carEnemy.SetupSpawn(GetRandomDirection());
     }
     
     private int GetRandomDirection()

@@ -22,12 +22,14 @@ public class EnemyCar : Enemy
     {
         gameObject.SetActive(true);
         _direction = dir;
-        _spawnPos.x = 30f * dir;
+        _spawnPos.x = 30f * -dir;
+        transform.position = _spawnPos;
         _carMaterial.color = _colors[UnityEngine.Random.Range(0, _colors.Length)];
         Vector3 scale = Vector3.one * _size;
         scale.x *= -dir;
         transform.localScale = scale;
         _trafficLight.SetMode(TrafficLightsModes.Green);
+        _isPaused = false;
     }
 
     protected override void Move()

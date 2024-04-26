@@ -5700,6 +5700,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7814343757218615327}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1115952802 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4738635535542470459, guid: 38be42dab2abb8f4986b4a0f502a9d06,
+    type: 3}
+  m_PrefabInstance: {fileID: 7814343757218615327}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115952798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b66cfddf30e6ada41be5238b3b6c2d21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &1115952803
 Rigidbody2D:
   serializedVersion: 4
@@ -6590,7 +6602,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1321681997
 Transform:
   m_ObjectHideFlags: 0
@@ -6623,11 +6635,13 @@ MonoBehaviour:
     type: 3}
   _minHealTime: 12
   _maxHealTime: 30
+  _carEnemy: {fileID: 1115952802}
   _dificultyLevel: {fileID: 11400000, guid: eefded0214c5362409c4b415207d4223, type: 2}
   _spawnCollectionDifficulties:
   - {fileID: 11400000, guid: bab9983dabc300341baab577388571c8, type: 2}
   - {fileID: 11400000, guid: 5cd6565ad5f62fd4ba363d6afd1755e7, type: 2}
   - {fileID: 11400000, guid: 44a054db303ae3c4b8cbc16c4229d0c7, type: 2}
+  _currentSpawnStateIndex: 0
 --- !u!114 &1321681999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11928,6 +11942,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4738635535542470459, guid: 38be42dab2abb8f4986b4a0f502a9d06,
         type: 3}
+      propertyPath: _testingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738635535542470459, guid: 38be42dab2abb8f4986b4a0f502a9d06,
+        type: 3}
       propertyPath: _trafficLight
       value: 
       objectReference: {fileID: 1245839606}
@@ -11935,6 +11954,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Car
+      objectReference: {fileID: 0}
+    - target: {fileID: 7075235782624891093, guid: 38be42dab2abb8f4986b4a0f502a9d06,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
