@@ -28,11 +28,12 @@ using Random = UnityEngine.Random;
 public class SpawnManager : MonoBehaviour, IPausable
 {
     // TODO: separate pooled enemies and non pooled ones
-    [Header("Enemies:")]
+    [Header("Pooled Enemies:")]
     [SerializeField] private EnemyPool _enemyPool;
 
-    [Header("Healer:")]
-    [SerializeField] private GameObject _healBird;
+    [Header("Single Enemies:")]
+    [Header("Healer Bird:")]
+    [SerializeField] private Enemy _healBird;
 
     [SerializeField] private float _minHealTime;
     [SerializeField] private float _maxHealTime;
@@ -117,7 +118,7 @@ public class SpawnManager : MonoBehaviour, IPausable
         _spawnCollection = _spawnCollectionDifficulties[_dificultyLevel.Value];
         
         // Spawn and setup Heal Bird TODO: consider saving it in the scene same as a car
-        _healBirdInstance = GameObject.Instantiate(_healBird, _healBird.transform.position, _healBird.transform.rotation);
+        _healBirdInstance = _healBird.gameObject;
         _healBirdInstance.SetActive(false);
         _medkit = _healBirdInstance.GetComponent<Medkit>();
         _isSpawnEnabled = true;
@@ -395,7 +396,7 @@ public class SpawnManager : MonoBehaviour, IPausable
     
     private void StartHealBird()
     {
-        _healBirdInstance.GetComponent<Enemy>().SetupSpawn(GetRandomDirection());
+        _healBird.SetupSpawn(GetRandomDirection());
         _medkit.Init();
     }
     
