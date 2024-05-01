@@ -694,6 +694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _testingMode: 0
   _speed: 4
+  _enemyType: 1
   _kangarooWaitState: {fileID: 11400000, guid: 1cf7a9cbd760db14e9ce40ba26addaa5, type: 2}
   _kangarooJumpState: {fileID: 11400000, guid: 3ab20ccc8d080464d8cc15b25f63e5cd, type: 2}
   _kangarooViewHandler: {fileID: 2993746445890289337}

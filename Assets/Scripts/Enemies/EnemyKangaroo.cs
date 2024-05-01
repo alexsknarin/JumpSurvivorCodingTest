@@ -5,12 +5,14 @@ using UnityEngine;
 /// </summary>
 public class EnemyKangaroo : Enemy
 {
+    [SerializeField] private EnemyTypes _enemyType;
+    public override EnemyTypes EnemyType => _enemyType;
+    
     private StateMachine _moveStateMachine = new StateMachine();
     [SerializeField] private KangarooMovementBaseState _kangarooWaitState;
     [SerializeField] private KangarooMovementBaseState _kangarooJumpState;
     [SerializeField] private EnemyKangarooViewHandler _kangarooViewHandler;
-    public override EnemyTypes EnemyType => EnemyTypes.Kangaroo;
-    
+
     public float Speed { get; set; }
     public float JumpPhase { get; set; }
 

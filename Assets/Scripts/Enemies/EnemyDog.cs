@@ -5,10 +5,11 @@ using UnityEngine;
 /// </summary>
 public class EnemyDog : Enemy
 {
+    [SerializeField] private EnemyTypes _enemyType;
+    public override EnemyTypes EnemyType => _enemyType;
+    
     [SerializeField] private GameObject _dogView;
     private Vector3 _dogScale = Vector3.one;
-
-    public override EnemyTypes EnemyType => EnemyTypes.Dog;
 
     public override void SetupSpawn(float dir)
     {

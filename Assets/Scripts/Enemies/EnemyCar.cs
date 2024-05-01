@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class EnemyCar : Enemy
 {
-    public override EnemyTypes EnemyType => EnemyTypes.Car;
+    [SerializeField] private EnemyTypes _enemyType;
+    public override EnemyTypes EnemyType => _enemyType;
+    
     [SerializeField] private float _size = 0.85f;
     [SerializeField] private Color[] _colors;
     [SerializeField] private SpriteRenderer _carSprite;

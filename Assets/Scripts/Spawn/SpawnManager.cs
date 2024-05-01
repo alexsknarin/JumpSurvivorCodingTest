@@ -27,6 +27,7 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class SpawnManager : MonoBehaviour, IPausable
 {
+    // TODO: separate pooled enemies and non pooled ones
     [Header("Enemies:")]
     [SerializeField] private EnemyPool _enemyPool;
 
@@ -54,9 +55,11 @@ public class SpawnManager : MonoBehaviour, IPausable
     private bool _isLearningPhase = true;
 
     private float _globalSpawnPrevTime;
-    private float _dogSpawnPrevTime;
-    private float _kangarooSpawnPrevTime;
-    private float _birdSpawnPrevTime;
+  
+    // Enemy timers
+    private float _dogSpawnLocalTime;
+    private float _kangarooSpawnLocalTime;
+    private float _birdSpawnLocalTime;
 
     private bool _isDogDelayed;
     private bool _isKangarooDelayed;
@@ -82,9 +85,9 @@ public class SpawnManager : MonoBehaviour, IPausable
     private bool _isFirstBirdSpawned = false;
     private float _timeToNextHeal;
     private float _prevHealTime;
+    private float _healLocalTime;
     
     // Car 
-    private bool _isCarSpawned = false;
     private float _carLocalTime;
     private float _carSpawnRate = 15f;
     
@@ -93,16 +96,41 @@ public class SpawnManager : MonoBehaviour, IPausable
 
     private void OnEnable()
     {
-        PlayerHealth.NearDeathStarted += PlayerHealth_NearDeathStarted;
-        PlayerHealth.NearDeathEnded += PlayerHealth_NearDeathEnded;
-        TutorialManager.FirstBirdSpawned += TutorialManager_FirstBirdSpawned;
+        PlayerHealth.NearDeathStarted += NearDeathHandle;
+        PlayerHealth.NearDeathEnded += NearDeathEndedHandle;
+        TutorialManager.FirstBirdSpawned += FirstBirdSpawnedHandle;
     }
 
     private void OnDisable()
     {
-        PlayerHealth.NearDeathStarted -= PlayerHealth_NearDeathStarted;
-        PlayerHealth.NearDeathEnded -= PlayerHealth_NearDeathEnded;
-        TutorialManager.FirstBirdSpawned -= TutorialManager_FirstBirdSpawned;
+        PlayerHealth.NearDeathStarted -= NearDeathHandle;
+        PlayerHealth.NearDeathEnded -= NearDeathEndedHandle;
+        TutorialManager.FirstBirdSpawned -= FirstBirdSpawnedHandle;
+    }
+    
+    public void InitSpawn()
+    {       
+        _enemyPool.Initialize();
+        Game.Pausables.Add(this);
+        
+        // Select Difficulty Level
+        _spawnCollection = _spawnCollectionDifficulties[_dificultyLevel.Value];
+        
+        // Spawn and setup Heal Bird TODO: consider saving it in the scene same as a car
+        _healBirdInstance = GameObject.Instantiate(_healBird, _healBird.transform.position, _healBird.transform.rotation);
+        _healBirdInstance.SetActive(false);
+        _medkit = _healBirdInstance.GetComponent<Medkit>();
+        _isSpawnEnabled = true;
+        
+        _dogSpawnLocalTime = 0;
+        _kangarooSpawnLocalTime = 0;
+        _birdSpawnLocalTime = 0;
+        
+        
+        // Spawn And Setup a Car
+        _carLocalTime = 0;
+        
+        ChangeSpawnState();
     }
 
     private void Update()
@@ -140,10 +168,11 @@ public class SpawnManager : MonoBehaviour, IPausable
             if (Time.time - _globalSpawnPrevTime > _currentSpawnState.StateDelay)
             {
                 _delayMode = false;
+                // _globalSpawnLocalTime = 0;
                 _globalSpawnPrevTime = Time.time;
-                _dogSpawnPrevTime = Time.time;
-                _kangarooSpawnPrevTime = Time.time;
-                _birdSpawnPrevTime = Time.time;
+                _dogSpawnLocalTime = 0;
+                _kangarooSpawnLocalTime = 0;
+                _birdSpawnLocalTime = 0;
             }
             else
             {
@@ -161,14 +190,14 @@ public class SpawnManager : MonoBehaviour, IPausable
                    if (Time.time - _currentSpawnState.DogSpawnDelay > _globalSpawnPrevTime)
                    {
                        _isDogDelayed = false;
-                       _dogSpawnPrevTime = Time.time;
+                       _dogSpawnLocalTime = 0;
                    }
                }
                else
                {
-                   SpawnEnemy(
+                   TrySpawnEnemy(
                        EnemyTypes.Dog, 
-                       ref _dogSpawnPrevTime, 
+                       ref _dogSpawnLocalTime, 
                        _currentSpawnState.DogSpawnRate, 
                        _dogGlobalStateDir, 
                        _currentSpawnState.DogsRandomOncePerState, 
@@ -183,14 +212,14 @@ public class SpawnManager : MonoBehaviour, IPausable
                    if (Time.time - _currentSpawnState.KangarooSpawnDelay > _globalSpawnPrevTime)
                    {
                        _isKangarooDelayed = false;
-                       _kangarooSpawnPrevTime = Time.time;
+                       _kangarooSpawnLocalTime = 0;
                    }
                }
                else
                {
-                   SpawnEnemy(
+                   TrySpawnEnemy(
                        EnemyTypes.Kangaroo, 
-                       ref _kangarooSpawnPrevTime, 
+                       ref _kangarooSpawnLocalTime, 
                        _currentSpawnState.KangarooSpawnRate, 
                        _kangarooGlobalStateDir, 
                        _currentSpawnState.KangaroosRandomOncePerState, 
@@ -205,14 +234,14 @@ public class SpawnManager : MonoBehaviour, IPausable
                    if (Time.time - _currentSpawnState.BirdSpawnDelay > _globalSpawnPrevTime)
                    {
                        _isBirdDelayed = false;
-                       _birdSpawnPrevTime = Time.time;
+                       _birdSpawnLocalTime = 0;
                    }
                }
                else
                {
-                   SpawnEnemy(
+                   TrySpawnEnemy(
                        EnemyTypes.Bird, 
-                       ref _birdSpawnPrevTime, 
+                       ref _birdSpawnLocalTime, 
                        _currentSpawnState.BirdSpawnRate, 
                        _birdGlobalStateDir,
                        _currentSpawnState.BirdsRandomOncePerState, 
@@ -220,7 +249,6 @@ public class SpawnManager : MonoBehaviour, IPausable
                        ref _isBirdFirstSpawnInState);
                }
            }
-           
         }
         else
         {
@@ -247,25 +275,6 @@ public class SpawnManager : MonoBehaviour, IPausable
         CheckForHealBird();
     }
     
-    public void InitSpawn()
-    {
-        
-        _enemyPool.Initialize();
-        Game.Pausables.Add(this);
-
-        // Select Difficulty Level
-        _spawnCollection = _spawnCollectionDifficulties[_dificultyLevel.Value];
-        
-        // Spawn and setup Heal Bird
-        _healBirdInstance = GameObject.Instantiate(_healBird, _healBird.transform.position, _healBird.transform.rotation);
-        _healBirdInstance.SetActive(false);
-        _medkit = _healBirdInstance.GetComponent<Medkit>();
-        _isSpawnEnabled = true;
-        ChangeSpawnState();
-
-        _carLocalTime = 0;
-    }
-    
     public void SetPaused()
     {
         _isPaused = true;
@@ -280,16 +289,16 @@ public class SpawnManager : MonoBehaviour, IPausable
     /// Spawn Enemy from the Object Pool
     /// </summary>
     /// <param name="enemyType">Current EnemyType.</param>
-    /// <param name="enemySpawnPrevTime">Reference to the pevious Spawn Time fo the current enemy.</param>
+    /// <param name="enemySpawnLocalTime">Reference to the local Spawn Time for the current enemy.</param>
     /// <param name="spawnRate">HOw much time you need to wait before spawning a next enemy of current type for the current spawnState.</param>
     /// <param name="enemyGlobalDir">Single movement direction for the whole duration of current spawnState.</param>
     /// <param name="useEnemyGlobal">Use single direction for the spawnState instead a random one for each spawn.</param>
     /// <param name="useStateGlobal">Use single state direction that will be shared with other enemies.</param>
     /// <param name="isFirstSpawnInState">Required to make the first enemy in state to be spawned without delay.</param>
-    private void SpawnEnemy(EnemyTypes enemyType, ref float enemySpawnPrevTime, float spawnRate, 
+    private void TrySpawnEnemy(EnemyTypes enemyType, ref float enemySpawnLocalTime, float spawnRate, 
         float enemyGlobalDir, bool useEnemyGlobal, bool useStateGlobal, ref bool isFirstSpawnInState)
     {
-        if ((Time.time - enemySpawnPrevTime > spawnRate) || isFirstSpawnInState)
+        if ((enemySpawnLocalTime > spawnRate) || isFirstSpawnInState)
         {
             Enemy currentEnemy = _enemyPool.Get(enemyType);
             Game.Pausables.Add(currentEnemy);
@@ -307,9 +316,10 @@ public class SpawnManager : MonoBehaviour, IPausable
                 }
                 currentEnemy.SetupSpawn(_currentEnemyDir);
             }
-            enemySpawnPrevTime = Time.time;
+            enemySpawnLocalTime = 0;
             isFirstSpawnInState = false;
         }
+        enemySpawnLocalTime += Time.deltaTime;
     }
     
     private void SpawnCar()
@@ -369,43 +379,44 @@ public class SpawnManager : MonoBehaviour, IPausable
         _isKangarooFirstSpawnInState = true;
         _isBirdFirstSpawnInState = true;
     }
-
-    private void HealSetup()
-    {
-        _isHealNeeded = true;
-        _timeToNextHeal = Random.Range(_minHealTime, _maxHealTime);
-        _prevHealTime = Time.time;
-    }
-
+    
     private void CheckForHealBird()
     {
         if (_isHealNeeded && _isFirstBirdSpawned)
         {
-            if (Time.time - _prevHealTime > _timeToNextHeal)
+            if (_healLocalTime > _timeToNextHeal)
             {
                 StartHealBird();
                 HealSetup();
             }
         }
+        _healLocalTime += Time.deltaTime;
     }
-
+    
     private void StartHealBird()
     {
         _healBirdInstance.GetComponent<Enemy>().SetupSpawn(GetRandomDirection());
         _medkit.Init();
     }
     
-    private void PlayerHealth_NearDeathStarted()
+    private void HealSetup()
+    {
+        _isHealNeeded = true;
+        _timeToNextHeal = Random.Range(_minHealTime, _maxHealTime);
+        _healLocalTime = 0;
+    }
+
+    private void NearDeathHandle()
     {
         HealSetup();
     }
 
-    private void PlayerHealth_NearDeathEnded()
+    private void NearDeathEndedHandle()
     {
         _isHealNeeded = false;
     }
 
-    private void TutorialManager_FirstBirdSpawned()
+    private void FirstBirdSpawnedHandle()
     {
         _isFirstBirdSpawned = true;
         CheckForHealBird();

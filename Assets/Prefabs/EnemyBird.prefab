@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _testingMode: 0
   _speed: 9
+  _enemyType: 2
   _midLevel: 4.9
   _amplitude: 2.2
   _frequency: 5

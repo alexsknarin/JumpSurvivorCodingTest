@@ -5,6 +5,9 @@ using UnityEngine;
 /// </summary>
 public class EnemyBird : Enemy
 {
+    [SerializeField] private EnemyTypes _enemyType;
+    public override EnemyTypes EnemyType => _enemyType;
+    
     [SerializeField] private float _midLevel = 5f;
     [SerializeField] private float _amplitude = 2f;
     [SerializeField] private float _frequency = 0.5f;
@@ -12,7 +15,6 @@ public class EnemyBird : Enemy
     private Vector3 _sinPos;
     [SerializeField] private GameObject _birdView; 
     private Vector3 _birdScale = Vector3.one;
-    public override EnemyTypes EnemyType => EnemyTypes.Bird;
     
     public override void SetupSpawn(float dir)
     {
@@ -25,7 +27,7 @@ public class EnemyBird : Enemy
         _phase = 0.0f;
         _sinPos.x = _spawnPos.x;
         _sinPos.y = _midLevel;
-        this.gameObject.SetActive(true);
+        gameObject.SetActive(true);
         
     }
 

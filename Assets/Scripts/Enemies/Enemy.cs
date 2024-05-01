@@ -62,16 +62,18 @@ public abstract class Enemy : MonoBehaviour, IPausable
     {
         if (other.gameObject.CompareTag("rightBound") && _direction > 0)
         {
-            if (EnemyType != EnemyTypes.Car)
+            _objectPool?.Release(this);
+            if (EnemyType == EnemyTypes.HealBird)
             {
-                _objectPool.Release(this);
+                gameObject.SetActive(false);
             }
         }
         else if (other.gameObject.CompareTag("leftBound") && _direction < 0)
         {
-            if (EnemyType != EnemyTypes.Car)
+            _objectPool?.Release(this);
+            if (EnemyType == EnemyTypes.HealBird)
             {
-                _objectPool.Release(this);
+                gameObject.SetActive(false);
             }
         }
         
