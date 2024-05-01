@@ -56,6 +56,8 @@ public class SpawnManager : MonoBehaviour, IPausable
     private bool _isLearningPhase = true;
 
     private float _globalSpawnPrevTime;
+    
+    private float _globalSpawnLocalTime; /// ///////////////////
   
     // Enemy timers
     private float _dogSpawnLocalTime;
@@ -117,7 +119,7 @@ public class SpawnManager : MonoBehaviour, IPausable
         // Select Difficulty Level
         _spawnCollection = _spawnCollectionDifficulties[_dificultyLevel.Value];
         
-        // Spawn and setup Heal Bird TODO: consider saving it in the scene same as a car
+        // Spawn and setup Heal Bird
         _healBirdInstance = _healBird.gameObject;
         _healBirdInstance.SetActive(false);
         _medkit = _healBirdInstance.GetComponent<Medkit>();
@@ -126,6 +128,9 @@ public class SpawnManager : MonoBehaviour, IPausable
         _dogSpawnLocalTime = 0;
         _kangarooSpawnLocalTime = 0;
         _birdSpawnLocalTime = 0;
+        
+        
+        _globalSpawnLocalTime = 0;
         
         
         // Spawn And Setup a Car
@@ -147,21 +152,10 @@ public class SpawnManager : MonoBehaviour, IPausable
         }
         
         // Car Spawn
-
         if (_currentSpawnStateIndex > 8)
         {
-            if (_carLocalTime > _carSpawnRate)
-            {
-                SpawnCar();
-                _carLocalTime = 0f;
-                _carSpawnRate = Random.Range(10f, 18f);
-            }
-            else
-            {
-                _carLocalTime += Time.deltaTime;
-            }
+            TrySpawnCar();
         }
-        
         
         // State Delay
         if (_delayMode)
@@ -287,7 +281,7 @@ public class SpawnManager : MonoBehaviour, IPausable
     }
     
     /// <summary>
-    /// Spawn Enemy from the Object Pool
+    /// Spawn Enemy from the Object Pool. References used to make it EnemyType Agnostic.
     /// </summary>
     /// <param name="enemyType">Current EnemyType.</param>
     /// <param name="enemySpawnLocalTime">Reference to the local Spawn Time for the current enemy.</param>
@@ -323,9 +317,18 @@ public class SpawnManager : MonoBehaviour, IPausable
         enemySpawnLocalTime += Time.deltaTime;
     }
     
-    private void SpawnCar()
+    private void TrySpawnCar()
     {
-        _carEnemy.SetupSpawn(GetRandomDirection());
+        if (_carLocalTime > _carSpawnRate)
+        {
+            _carEnemy.SetupSpawn(GetRandomDirection());
+            _carLocalTime = 0f;
+            _carSpawnRate = Random.Range(10f, 18f);
+        }
+        else
+        {
+            _carLocalTime += Time.deltaTime;
+        }
     }
     
     private int GetRandomDirection()
@@ -336,6 +339,7 @@ public class SpawnManager : MonoBehaviour, IPausable
     private void ChangeSpawnState()
     {
         _globalSpawnPrevTime = Time.time;
+        
         _globalStateDir = GetRandomDirection();
         _dogGlobalStateDir = GetRandomDirection();
         _kangarooGlobalStateDir = GetRandomDirection();
