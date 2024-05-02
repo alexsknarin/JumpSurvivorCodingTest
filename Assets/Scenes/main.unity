@@ -1115,6 +1115,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 242015241}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &133206673 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7147714981441155526, guid: 8f98c99e5dc7a814d877c06af642ba3a,
+    type: 3}
+  m_PrefabInstance: {fileID: 734673309}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d441a0b37432b848b8df7aa90f2baf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &133473624
 GameObject:
   m_ObjectHideFlags: 0
@@ -4514,6 +4526,84 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &734673309
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6210392998482077754, guid: 8f98c99e5dc7a814d877c06af642ba3a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538458230684336771, guid: 8f98c99e5dc7a814d877c06af642ba3a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538458230684336771, guid: 8f98c99e5dc7a814d877c06af642ba3a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538458230684336771, guid: 8f98c99e5dc7a814d877c06af642ba3a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538458230684336771, guid: 8f98c99e5dc7a814d877c06af642ba3a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538458230684336771, guid: 8f98c99e5dc7a814d877c06af642ba3a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538458230684336771, guid: 8f98c99e5dc7a814d877c06af642ba3a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538458230684336771, guid: 8f98c99e5dc7a814d877c06af642ba3a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538458230684336771, guid: 8f98c99e5dc7a814d877c06af642ba3a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538458230684336771, guid: 8f98c99e5dc7a814d877c06af642ba3a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538458230684336771, guid: 8f98c99e5dc7a814d877c06af642ba3a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8343860797102799413, guid: 8f98c99e5dc7a814d877c06af642ba3a,
+        type: 3}
+      propertyPath: m_Name
+      value: HealBird
+      objectReference: {fileID: 0}
+    - target: {fileID: 8343860797102799413, guid: 8f98c99e5dc7a814d877c06af642ba3a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8f98c99e5dc7a814d877c06af642ba3a, type: 3}
 --- !u!1 &767234705
 GameObject:
   m_ObjectHideFlags: 0
@@ -6598,15 +6688,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyPool: {fileID: 1321681999}
-  _healBird: {fileID: 8343860797102799413, guid: 8f98c99e5dc7a814d877c06af642ba3a,
-    type: 3}
+  _healBird: {fileID: 133206673}
   _minHealTime: 12
   _maxHealTime: 30
   _carEnemy: {fileID: 1115952802}
   _dificultyLevel: {fileID: 11400000, guid: eefded0214c5362409c4b415207d4223, type: 2}
   _spawnCollectionDifficulties:
   - {fileID: 11400000, guid: bab9983dabc300341baab577388571c8, type: 2}
-  - {fileID: 11400000, guid: 5cd6565ad5f62fd4ba363d6afd1755e7, type: 2}
+  - {fileID: 11400000, guid: 1e57ce83e1b28884a9fc3f30b162545c, type: 2}
   - {fileID: 11400000, guid: 44a054db303ae3c4b8cbc16c4229d0c7, type: 2}
   _currentSpawnStateIndex: 0
 --- !u!114 &1321681999
@@ -11989,3 +12078,4 @@ SceneRoots:
   - {fileID: 7829582432914171956}
   - {fileID: 1190346577}
   - {fileID: 7814343757218615327}
+  - {fileID: 734673309}

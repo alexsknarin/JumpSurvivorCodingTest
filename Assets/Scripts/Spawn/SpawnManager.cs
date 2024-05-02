@@ -54,11 +54,9 @@ public class SpawnManager : MonoBehaviour, IPausable
     [SerializeField] private int _currentSpawnStateIndex = 0;
     private int _prevSpawnStateIndex;
     private bool _isLearningPhase = true;
-
-    private float _globalSpawnPrevTime;
     
-    private float _globalSpawnLocalTime; /// ///////////////////
-  
+    private float _globalSpawnLocalTime;
+ 
     // Enemy timers
     private float _dogSpawnLocalTime;
     private float _kangarooSpawnLocalTime;
@@ -78,7 +76,7 @@ public class SpawnManager : MonoBehaviour, IPausable
     private float _birdGlobalStateDir;
     private float _currentEnemyDir;
     
-    private bool _delayMode = false;
+    private bool _isDelayedSpawnState = false;
     private bool _isPaused = false;
     
     // Healing Bird
@@ -118,24 +116,20 @@ public class SpawnManager : MonoBehaviour, IPausable
         
         // Select Difficulty Level
         _spawnCollection = _spawnCollectionDifficulties[_dificultyLevel.Value];
-        
+
         // Spawn and setup Heal Bird
         _healBirdInstance = _healBird.gameObject;
         _healBirdInstance.SetActive(false);
         _medkit = _healBirdInstance.GetComponent<Medkit>();
-        _isSpawnEnabled = true;
         
+        // Reset All Timers
+        _isSpawnEnabled = true;
         _dogSpawnLocalTime = 0;
         _kangarooSpawnLocalTime = 0;
         _birdSpawnLocalTime = 0;
-        
-        
-        _globalSpawnLocalTime = 0;
-        
-        
-        // Spawn And Setup a Car
         _carLocalTime = 0;
-        
+        _globalSpawnLocalTime = 0;
+
         ChangeSpawnState();
     }
 
@@ -158,126 +152,121 @@ public class SpawnManager : MonoBehaviour, IPausable
         }
         
         // State Delay
-        if (_delayMode)
+        if (_isDelayedSpawnState)
         {
-            if (Time.time - _globalSpawnPrevTime > _currentSpawnState.StateDelay)
+            if (_globalSpawnLocalTime > _currentSpawnState.StateDelay)
             {
-                _delayMode = false;
-                // _globalSpawnLocalTime = 0;
-                _globalSpawnPrevTime = Time.time;
+                _globalSpawnLocalTime = 0;
+                _isDelayedSpawnState = false;
                 _dogSpawnLocalTime = 0;
                 _kangarooSpawnLocalTime = 0;
                 _birdSpawnLocalTime = 0;
             }
             else
             {
-                return;
+                _globalSpawnLocalTime += Time.deltaTime;
             }
-        }
-
-        // Spawn Enemies
-        if (Time.time - _globalSpawnPrevTime < _currentSpawnState.StateDuration)
-        {
-           if (_currentSpawnState.DogsEnabled)
-           {
-               if (_isDogDelayed)
-               {
-                   if (Time.time - _currentSpawnState.DogSpawnDelay > _globalSpawnPrevTime)
-                   {
-                       _isDogDelayed = false;
-                       _dogSpawnLocalTime = 0;
-                   }
-               }
-               else
-               {
-                   TrySpawnEnemy(
-                       EnemyTypes.Dog, 
-                       ref _dogSpawnLocalTime, 
-                       _currentSpawnState.DogSpawnRate, 
-                       _dogGlobalStateDir, 
-                       _currentSpawnState.DogsRandomOncePerState, 
-                       _currentSpawnState.DogsUseGlobalStateDirection,
-                       ref _isDogFirstSpawnInState);
-               }
-           }
-           if (_currentSpawnState.KangaroosEnabled)
-           {
-               if (_isKangarooDelayed)
-               {
-                   if (Time.time - _currentSpawnState.KangarooSpawnDelay > _globalSpawnPrevTime)
-                   {
-                       _isKangarooDelayed = false;
-                       _kangarooSpawnLocalTime = 0;
-                   }
-               }
-               else
-               {
-                   TrySpawnEnemy(
-                       EnemyTypes.Kangaroo, 
-                       ref _kangarooSpawnLocalTime, 
-                       _currentSpawnState.KangarooSpawnRate, 
-                       _kangarooGlobalStateDir, 
-                       _currentSpawnState.KangaroosRandomOncePerState, 
-                       _currentSpawnState.KangaroosUseGlobalStateDirection,
-                       ref _isKangarooFirstSpawnInState);
-               }
-           }
-           if (_currentSpawnState.BirdsEnabled)
-           {
-               if (_isBirdDelayed)
-               {
-                   if (Time.time - _currentSpawnState.BirdSpawnDelay > _globalSpawnPrevTime)
-                   {
-                       _isBirdDelayed = false;
-                       _birdSpawnLocalTime = 0;
-                   }
-               }
-               else
-               {
-                   TrySpawnEnemy(
-                       EnemyTypes.Bird, 
-                       ref _birdSpawnLocalTime, 
-                       _currentSpawnState.BirdSpawnRate, 
-                       _birdGlobalStateDir,
-                       _currentSpawnState.BirdsRandomOncePerState, 
-                       _currentSpawnState.BirdsUseGlobalStateDirection,
-                       ref _isBirdFirstSpawnInState);
-               }
-           }
         }
         else
         {
-            // Switch SpawnState
-            if (_currentSpawnStateIndex < _spawnCollection.SpawnStatesLearn.Count-1)
+            if (_globalSpawnLocalTime < _currentSpawnState.StateDuration)
             {
-                _currentSpawnStateIndex++;
-                ChangeSpawnState();
+                // Spawn Dogs
+                if (_currentSpawnState.DogsEnabled)
+                {
+                    if (_isDogDelayed)
+                    {
+                        HandleEnemySpawnDelay(ref _isDogDelayed, ref _dogSpawnLocalTime, _currentSpawnState.DogSpawnDelay);
+                    }
+                    else
+                    {
+                        TrySpawnEnemy(
+                            EnemyTypes.Dog, 
+                            ref _dogSpawnLocalTime, 
+                            _currentSpawnState.DogSpawnRate, 
+                            _dogGlobalStateDir, 
+                            _currentSpawnState.DogsRandomOncePerState, 
+                            _currentSpawnState.DogsUseGlobalStateDirection,
+                            ref _isDogFirstSpawnInState
+                            );
+                    }
+                }
+                // Spawn Kangaroos
+                if (_currentSpawnState.KangaroosEnabled)
+                {
+                    if (_isKangarooDelayed)
+                    {
+                        HandleEnemySpawnDelay(ref _isKangarooDelayed, ref _kangarooSpawnLocalTime, _currentSpawnState.KangarooSpawnDelay);
+                    }
+                    else
+                    {
+                        TrySpawnEnemy(
+                            EnemyTypes.Kangaroo, 
+                            ref _kangarooSpawnLocalTime, 
+                            _currentSpawnState.KangarooSpawnRate, 
+                            _kangarooGlobalStateDir, 
+                            _currentSpawnState.KangaroosRandomOncePerState, 
+                            _currentSpawnState.KangaroosUseGlobalStateDirection,
+                            ref _isKangarooFirstSpawnInState);
+                    }
+                }
+                // Spawn Birds
+                if (_currentSpawnState.BirdsEnabled)
+                {
+                    if (_isBirdDelayed)
+                    {
+                        HandleEnemySpawnDelay(ref _isBirdDelayed, ref _birdSpawnLocalTime, _currentSpawnState.BirdSpawnDelay);
+                    }
+                    else
+                    {
+                        TrySpawnEnemy(
+                            EnemyTypes.Bird, 
+                            ref _birdSpawnLocalTime, 
+                            _currentSpawnState.BirdSpawnRate, 
+                            _birdGlobalStateDir,
+                            _currentSpawnState.BirdsRandomOncePerState, 
+                            _currentSpawnState.BirdsUseGlobalStateDirection,
+                            ref _isBirdFirstSpawnInState);
+                    }
+                }
             }
             else
             {
-                if (_spawnCollection.SpawnStatesMainLoop.Count > 0)
+                // Switch SpawnState
+                if (_currentSpawnStateIndex < _spawnCollection.SpawnStatesLearn.Count-1)
                 {
-                    _isLearningPhase = false;
-                    ChangeSpawnState();                    
+                    _currentSpawnStateIndex++;
+                    ChangeSpawnState();
+                    _globalSpawnLocalTime = 0;
+                    return;
                 }
                 else
                 {
-                    return;
+                    if (_spawnCollection.SpawnStatesMainLoop.Count > 0)
+                    {
+                        _isLearningPhase = false;
+                        ChangeSpawnState();
+                        _globalSpawnLocalTime = 0;
+                        return;
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
             }
+            _globalSpawnLocalTime += Time.deltaTime;
         }
-
-        CheckForHealBird();
-    }
-    
-    public void SetPaused()
-    {
-        _isPaused = true;
     }
 
-    public void SetUnpaused()
+    private void HandleEnemySpawnDelay(ref bool isEnemyDelayed, ref float enemySpawnLocalTime, float enemySpawnDelay)
     {
-        _isPaused = false;
+        if (enemySpawnLocalTime > enemySpawnDelay)
+        {
+            isEnemyDelayed = false;
+            enemySpawnLocalTime = 0;
+        }
+        enemySpawnLocalTime += Time.deltaTime;
     }
     
     /// <summary>
@@ -330,16 +319,9 @@ public class SpawnManager : MonoBehaviour, IPausable
             _carLocalTime += Time.deltaTime;
         }
     }
-    
-    private int GetRandomDirection()
-    {
-        return Random.Range(0, 2) * 2 - 1;
-    }
-    
+   
     private void ChangeSpawnState()
     {
-        _globalSpawnPrevTime = Time.time;
-        
         _globalStateDir = GetRandomDirection();
         _dogGlobalStateDir = GetRandomDirection();
         _kangarooGlobalStateDir = GetRandomDirection();
@@ -349,7 +331,7 @@ public class SpawnManager : MonoBehaviour, IPausable
         {
             _currentSpawnState = _spawnCollection.SpawnStatesLearn[_currentSpawnStateIndex];    
         }
-        else
+        else // Add a third option here
         {
             _prevSpawnStateIndex = _currentSpawnStateIndex; 
             _currentSpawnStateIndex = (int)Random.Range(0, _spawnCollection.SpawnStatesMainLoop.Count);
@@ -363,7 +345,7 @@ public class SpawnManager : MonoBehaviour, IPausable
         // TODO: remove this event from release version of the code.
         SpawnStateChanged?.Invoke(_currentSpawnState.name);
         
-        _delayMode = _currentSpawnState.UseStateDelay;
+        _isDelayedSpawnState = _currentSpawnState.UseStateDelay;
         _isDogDelayed = true;
         if (Mathf.Approximately(_currentSpawnState.DogSpawnDelay, 0f))
         {
@@ -425,5 +407,20 @@ public class SpawnManager : MonoBehaviour, IPausable
     {
         _isFirstBirdSpawned = true;
         CheckForHealBird();
+    }
+    
+    public void SetPaused()
+    {
+        _isPaused = true;
+    }
+
+    public void SetUnpaused()
+    {
+        _isPaused = false;
+    }
+    
+    private int GetRandomDirection()
+    {
+        return Random.Range(0, 2) * 2 - 1;
     }
 }
