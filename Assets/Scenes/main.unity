@@ -6687,6 +6687,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56a9b4bbddfa2ee42997802b9977aeea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _testingMode: 1
+  _startTestIndex: 11
   _enemyPool: {fileID: 1321681999}
   _healBird: {fileID: 133206673}
   _minHealTime: 12
@@ -6695,8 +6697,9 @@ MonoBehaviour:
   _dificultyLevel: {fileID: 11400000, guid: eefded0214c5362409c4b415207d4223, type: 2}
   _spawnCollectionDifficulties:
   - {fileID: 11400000, guid: bab9983dabc300341baab577388571c8, type: 2}
-  - {fileID: 11400000, guid: 1e57ce83e1b28884a9fc3f30b162545c, type: 2}
+  - {fileID: 11400000, guid: 5cd6565ad5f62fd4ba363d6afd1755e7, type: 2}
   - {fileID: 11400000, guid: 44a054db303ae3c4b8cbc16c4229d0c7, type: 2}
+  _currentSpawnLevel: 0
   _currentSpawnStateIndex: 0
 --- !u!114 &1321681999
 MonoBehaviour:
@@ -11907,6 +11910,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5506140146537298939, guid: 5a502b0aec898674988ac807612f475f,
+        type: 3}
+      propertyPath: _testingImmortalMode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

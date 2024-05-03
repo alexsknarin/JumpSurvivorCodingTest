@@ -97,6 +97,9 @@ public class SpawnManager : MonoBehaviour, IPausable
     // Car 
     private float _carLocalTime;
     private float _carSpawnRate = 15f;
+    private bool _isCarSpawnPaused = false;
+    private float _carSpawnPauseDuration = 2.5f;
+    private float _carSpawnPauseLocalTime = 0.0f;
     
     // State Debug UI
     public static event Action<string> SpawnStateChanged;
@@ -134,6 +137,10 @@ public class SpawnManager : MonoBehaviour, IPausable
         ResetSpawnTimers();
         
         _currentSpawnStateIndex = 0;
+        if(_testingMode)
+        {
+            _currentSpawnStateIndex = _startTestIndex;
+        }
         ChangeSpawnLevel();
         ChangeSpawnState();
     }
@@ -149,12 +156,23 @@ public class SpawnManager : MonoBehaviour, IPausable
         {
             return;
         }
-        
-        // Car Spawn
-        if (_currentSpawnStateIndex > 8)
+
+        if (_isCarSpawnPaused)
         {
-            TrySpawnCar();
+            if (_carSpawnPauseLocalTime > _carSpawnPauseDuration)
+            {
+                _isCarSpawnPaused = false;
+                _carSpawnPauseLocalTime = 0;
+            }
+            else
+            {
+                _carSpawnPauseLocalTime += Time.deltaTime;
+                return;
+            }
         }
+        
+        // Car
+        TrySpawnCar();
         
         // State Delay
         if (_isDelayedSpawnState)
@@ -239,7 +257,8 @@ public class SpawnManager : MonoBehaviour, IPausable
                 ChangeSpawnState();
                 _globalSpawnLocalTime = 0;
             }
-            _globalSpawnLocalTime += Time.deltaTime;
+
+            _globalSpawnLocalTime += Time.deltaTime;    
         }
     }
 
@@ -292,11 +311,40 @@ public class SpawnManager : MonoBehaviour, IPausable
     
     private void TrySpawnCar()
     {
+        if (_currentSpawnLevel == SpawnLevels.Beginning)
+        {
+            SpawnCar(_spawnCollection.CarSpawnTimeMinBeginning, _spawnCollection.CarSpawnTimeMaxBeginning);
+        }
+        else if (_currentSpawnLevel == SpawnLevels.Middle)
+        {
+            SpawnCar(_spawnCollection.CarSpawnTimeMinMiddle, _spawnCollection.CarSpawnTimeMaxMiddle);
+        }
+        else if (_currentSpawnLevel == SpawnLevels.Late)
+        {
+            SpawnCar(_spawnCollection.CarSpawnTimeMinLate, _spawnCollection.CarSpawnTimeMaxLate);
+        }
+    }
+
+    private void SpawnCar(float min, float max)
+    {
         if (_carLocalTime > _carSpawnRate)
         {
             _carEnemy.SetupSpawn(GetRandomDirection());
             _carLocalTime = 0f;
-            _carSpawnRate = Random.Range(10f, 18f);
+            _carSpawnRate = Random.Range(min, max);
+
+            if (_currentSpawnLevel == SpawnLevels.Beginning)
+            {
+                _isCarSpawnPaused = true;
+                _carSpawnPauseDuration = 2.9f;
+                _carSpawnPauseLocalTime = 0;    
+            }
+            if (_currentSpawnLevel == SpawnLevels.Middle)
+            {
+                _isCarSpawnPaused = true;
+                _carSpawnPauseDuration = 1.1f;
+                _carSpawnPauseLocalTime = 0;    
+            }
         }
         else
         {
