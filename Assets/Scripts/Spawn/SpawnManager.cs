@@ -27,6 +27,9 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class SpawnManager : MonoBehaviour, IPausable
 {
+    [SerializeField] private bool _testingMode = false;
+    [SerializeField] private int _startTestIndex;
+    
     // TODO: separate pooled enemies and non pooled ones
     [Header("Pooled Enemies:")]
     [SerializeField] private EnemyPool _enemyPool;
@@ -48,16 +51,17 @@ public class SpawnManager : MonoBehaviour, IPausable
     [SerializeField] private IntVariable _dificultyLevel;
     [SerializeField] private List<SpawnStateCollection> _spawnCollectionDifficulties;
     
-    private bool _isSpawnEnabled = false;
-    
-    private SpawnState _currentSpawnState;
+    [SerializeField] private SpawnLevels _currentSpawnLevel;
     [SerializeField] private int _currentSpawnStateIndex = 0;
-    private int _prevSpawnStateIndex;
-    private bool _isLearningPhase = true;
+    private bool _isSpawnEnabled = false;
+    private SpawnState _currentSpawnState;
+    
+    private int _prevSpawnStateRandomIndex;
+    private int _currentSpawnStateRandomIndex = 0;
     
     private float _globalSpawnLocalTime;
  
-    // Enemy timers
+    // Enemy Timers
     private float _dogSpawnLocalTime;
     private float _kangarooSpawnLocalTime;
     private float _birdSpawnLocalTime;
@@ -66,10 +70,12 @@ public class SpawnManager : MonoBehaviour, IPausable
     private bool _isKangarooDelayed;
     private bool _isBirdDelayed;
     
+    // First Spawn in State
     private bool _isDogFirstSpawnInState;
     private bool _isKangarooFirstSpawnInState;
     private bool _isBirdFirstSpawnInState;
     
+    // Directions
     private float _globalStateDir;
     private float _dogGlobalStateDir;
     private float _kangarooGlobalStateDir;
@@ -121,15 +127,14 @@ public class SpawnManager : MonoBehaviour, IPausable
         _healBirdInstance = _healBird.gameObject;
         _healBirdInstance.SetActive(false);
         _medkit = _healBirdInstance.GetComponent<Medkit>();
-        
-        // Reset All Timers
-        _isSpawnEnabled = true;
-        _dogSpawnLocalTime = 0;
-        _kangarooSpawnLocalTime = 0;
-        _birdSpawnLocalTime = 0;
-        _carLocalTime = 0;
-        _globalSpawnLocalTime = 0;
 
+        _isSpawnEnabled = true;
+        // Reset All Timers
+        _carLocalTime = 0;
+        ResetSpawnTimers();
+        
+        _currentSpawnStateIndex = 0;
+        ChangeSpawnLevel();
         ChangeSpawnState();
     }
 
@@ -156,11 +161,8 @@ public class SpawnManager : MonoBehaviour, IPausable
         {
             if (_globalSpawnLocalTime > _currentSpawnState.StateDelay)
             {
-                _globalSpawnLocalTime = 0;
                 _isDelayedSpawnState = false;
-                _dogSpawnLocalTime = 0;
-                _kangarooSpawnLocalTime = 0;
-                _birdSpawnLocalTime = 0;
+                ResetSpawnTimers();
             }
             else
             {
@@ -232,28 +234,10 @@ public class SpawnManager : MonoBehaviour, IPausable
             }
             else
             {
-                // Switch SpawnState
-                if (_currentSpawnStateIndex < _spawnCollection.SpawnStatesLearn.Count-1)
-                {
-                    _currentSpawnStateIndex++;
-                    ChangeSpawnState();
-                    _globalSpawnLocalTime = 0;
-                    return;
-                }
-                else
-                {
-                    if (_spawnCollection.SpawnStatesMainLoop.Count > 0)
-                    {
-                        _isLearningPhase = false;
-                        ChangeSpawnState();
-                        _globalSpawnLocalTime = 0;
-                        return;
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
+                _currentSpawnStateIndex++;
+                ChangeSpawnLevel();
+                ChangeSpawnState();
+                _globalSpawnLocalTime = 0;
             }
             _globalSpawnLocalTime += Time.deltaTime;
         }
@@ -319,31 +303,76 @@ public class SpawnManager : MonoBehaviour, IPausable
             _carLocalTime += Time.deltaTime;
         }
     }
-   
+
+    private void ResetSpawnTimers()
+    {
+        _globalSpawnLocalTime = 0;
+        _dogSpawnLocalTime = 0;
+        _kangarooSpawnLocalTime = 0;
+        _birdSpawnLocalTime = 0;
+    }
+
+    private void ChangeSpawnLevel()
+    {
+        if (_currentSpawnStateIndex <= _spawnCollection.GetLearnStateMaxIndex())
+        {
+            _currentSpawnLevel = SpawnLevels.Learn;
+        }
+
+        if (_currentSpawnStateIndex > _spawnCollection.GetLearnStateMaxIndex()
+            && _currentSpawnStateIndex <= _spawnCollection.GetBeginningStateMaxIndex())
+        {
+            _currentSpawnLevel = SpawnLevels.Beginning;
+        }
+        
+        if (_currentSpawnStateIndex > _spawnCollection.GetBeginningStateMaxIndex()
+            && _currentSpawnStateIndex <= _spawnCollection.GetMiddleStateMaxIndex())
+        {
+            _currentSpawnLevel = SpawnLevels.Middle;
+        }
+        
+        if (_currentSpawnStateIndex > _spawnCollection.GetMiddleStateMaxIndex()
+            && _currentSpawnStateIndex <= _spawnCollection.GetLateStateMaxIndex())
+        {
+            _currentSpawnLevel = SpawnLevels.Late;
+        }
+    }
+    
+    private void GenerateRandomSpawnIndexForLevel(int count)
+    {
+        _prevSpawnStateRandomIndex = _currentSpawnStateRandomIndex;
+        _currentSpawnStateRandomIndex = (int)Random.Range(0, count);
+        if (_currentSpawnStateRandomIndex == _prevSpawnStateRandomIndex)
+        {
+            _currentSpawnStateRandomIndex = (int)Random.Range(0, count);
+        }
+    }
     private void ChangeSpawnState()
     {
+        if (_currentSpawnLevel == SpawnLevels.Learn)
+        {
+            _currentSpawnState = _spawnCollection.SpawnStatesLearn[_currentSpawnStateIndex];
+        }
+        else if (_currentSpawnLevel == SpawnLevels.Beginning)
+        {
+            GenerateRandomSpawnIndexForLevel(_spawnCollection.SpawnStatesBeginning.Count);
+            _currentSpawnState = _spawnCollection.SpawnStatesBeginning[_currentSpawnStateRandomIndex];
+        }
+        else if (_currentSpawnLevel == SpawnLevels.Middle)
+        {
+            GenerateRandomSpawnIndexForLevel(_spawnCollection.SpawnStatesMiddle.Count);
+            _currentSpawnState = _spawnCollection.SpawnStatesMiddle[_currentSpawnStateRandomIndex];
+        }
+        else if (_currentSpawnLevel == SpawnLevels.Late)
+        {
+            GenerateRandomSpawnIndexForLevel(_spawnCollection.SpawnStatesLate.Count);
+            _currentSpawnState = _spawnCollection.SpawnStatesLate[_currentSpawnStateRandomIndex];
+        }
+        
         _globalStateDir = GetRandomDirection();
         _dogGlobalStateDir = GetRandomDirection();
         _kangarooGlobalStateDir = GetRandomDirection();
         _birdGlobalStateDir = GetRandomDirection();
-        
-        if (_isLearningPhase)
-        {
-            _currentSpawnState = _spawnCollection.SpawnStatesLearn[_currentSpawnStateIndex];    
-        }
-        else // Add a third option here
-        {
-            _prevSpawnStateIndex = _currentSpawnStateIndex; 
-            _currentSpawnStateIndex = (int)Random.Range(0, _spawnCollection.SpawnStatesMainLoop.Count);
-            if (_currentSpawnStateIndex == _prevSpawnStateIndex)
-            {
-                _currentSpawnStateIndex = (int)Random.Range(0, _spawnCollection.SpawnStatesMainLoop.Count);
-            }
-            _currentSpawnState = _spawnCollection.SpawnStatesMainLoop[_currentSpawnStateIndex];
-        }
-        
-        // TODO: remove this event from release version of the code.
-        SpawnStateChanged?.Invoke(_currentSpawnState.name);
         
         _isDelayedSpawnState = _currentSpawnState.UseStateDelay;
         _isDogDelayed = true;
@@ -365,6 +394,9 @@ public class SpawnManager : MonoBehaviour, IPausable
         _isDogFirstSpawnInState = true;
         _isKangarooFirstSpawnInState = true;
         _isBirdFirstSpawnInState = true;
+        
+        // TODO: remove this event from release version of the code.
+        SpawnStateChanged?.Invoke(_currentSpawnState.name);
     }
     
     private void CheckForHealBird()
