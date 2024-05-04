@@ -199,6 +199,33 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: headlight_001
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 203
+        width: 42
+        height: 42
+      alignment: 9
+      pivot: {x: 0.482639, y: 0.48653203}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -21, y: -6}
+        - {x: -14, y: 16}
+        - {x: 3, y: 15}
+        - {x: 20, y: 6}
+        - {x: 14, y: -16}
+        - {x: -7, y: -18}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7690b8817e5526a4f8ff8b777b90950f
+      internalID: 494863344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -212,6 +239,7 @@ TextureImporter:
     nameFileIdTable:
       car_bumpers_v001_1: -1340208375
       car_front_bumper: -482197775
+      headlight_001: 494863344
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
