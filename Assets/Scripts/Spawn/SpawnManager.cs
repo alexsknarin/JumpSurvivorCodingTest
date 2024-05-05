@@ -53,8 +53,16 @@ public class SpawnManager : MonoBehaviour, IPausable
     
     [SerializeField] private SpawnLevels _currentSpawnLevel;
     [SerializeField] private int _currentSpawnStateIndex = 0;
-    private bool _isSpawnEnabled = false;
     private SpawnState _currentSpawnState;
+    
+    // Global switches
+    private bool _isSpawnEnabled = false;
+    private bool _isDelayedSpawnState = false;
+    private bool _isSpawnStateFinished = false;
+    private bool _isDelayedPostSpawnState = false;
+    private bool _isPaused = false;
+    
+    
     
     private int _prevSpawnStateRandomIndex;
     private int _currentSpawnStateRandomIndex = 0;
@@ -81,9 +89,6 @@ public class SpawnManager : MonoBehaviour, IPausable
     private float _kangarooGlobalStateDir;
     private float _birdGlobalStateDir;
     private float _currentEnemyDir;
-    
-    private bool _isDelayedSpawnState = false;
-    private bool _isPaused = false;
     
     // Healing Bird
     private GameObject _healBirdInstance;
@@ -187,7 +192,7 @@ public class SpawnManager : MonoBehaviour, IPausable
                 _globalSpawnLocalTime += Time.deltaTime;
             }
         }
-        else
+        else if (!_isSpawnStateFinished)
         {
             if (_globalSpawnLocalTime < _currentSpawnState.StateDuration)
             {
@@ -252,13 +257,32 @@ public class SpawnManager : MonoBehaviour, IPausable
             }
             else
             {
+                _isSpawnStateFinished = true;
+                _globalSpawnLocalTime = 0;
+            }
+            _globalSpawnLocalTime += Time.deltaTime;    
+        }
+
+        if (_isSpawnStateFinished && !_isDelayedPostSpawnState)
+        {
+            _currentSpawnStateIndex++;
+            ChangeSpawnLevel();
+            ChangeSpawnState();
+            _globalSpawnLocalTime = 0;
+        }
+        else if (_isSpawnStateFinished && _isDelayedPostSpawnState)
+        {
+            if (_globalSpawnLocalTime > _currentSpawnState.StatePostDelay)
+            {
                 _currentSpawnStateIndex++;
                 ChangeSpawnLevel();
                 ChangeSpawnState();
                 _globalSpawnLocalTime = 0;
             }
-
-            _globalSpawnLocalTime += Time.deltaTime;    
+            else
+            {
+                _globalSpawnLocalTime += Time.deltaTime;
+            }
         }
     }
 
@@ -423,6 +447,7 @@ public class SpawnManager : MonoBehaviour, IPausable
         _birdGlobalStateDir = GetRandomDirection();
         
         _isDelayedSpawnState = _currentSpawnState.UseStateDelay;
+        _isDelayedPostSpawnState = _currentSpawnState.UseStatePostDelay;
         _isDogDelayed = true;
         if (Mathf.Approximately(_currentSpawnState.DogSpawnDelay, 0f))
         {
@@ -438,10 +463,12 @@ public class SpawnManager : MonoBehaviour, IPausable
         {
             _isBirdDelayed = false;
         }
-        
+
         _isDogFirstSpawnInState = true;
         _isKangarooFirstSpawnInState = true;
         _isBirdFirstSpawnInState = true;
+        
+        _isSpawnStateFinished = false;
         
         // TODO: remove this event from release version of the code.
         SpawnStateChanged?.Invoke(_currentSpawnState.name);
