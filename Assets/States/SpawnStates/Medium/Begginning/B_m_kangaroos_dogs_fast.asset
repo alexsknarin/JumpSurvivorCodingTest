@@ -10,24 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4f543d879a13ee4cb6ace12a20d263c, type: 3}
-  m_Name: _001_m_learn_dogs_3.5_TEST1
+  m_Name: B_m_kangaroos_dogs_fast
   m_EditorClassIdentifier: 
   _stateId: 0
-  _stateDuration: 20
+  _stateDuration: 12
   _useStateDelay: 1
-  _stateDelay: 3
+  _stateDelay: 2
+  _useStatePostDelay: 1
+  _statePostDelay: 1
   _dogsEnabled: 1
   _dogsRandomOncePerState: 0
   _dogsUseGlobalStateDirection: 0
-  _dogSpawnRate: 3
-  _dogSpawnDelay: 4
-  _kangaroosEnabled: 0
+  _dogSpawnRate: 1.9
+  _dogSpawnDelay: 1
+  _kangaroosEnabled: 1
   _kangaroosRandomOncePerState: 0
   _kangaroosUseGlobalStateDirection: 0
-  _kangarooSpawnRate: 0
+  _kangarooSpawnRate: 6
   _kangarooSpawnDelay: 0
-  _birdsEnabled: 0
+  _birdsEnabled: 1
   _birdsRandomOncePerState: 0
   _birdsUseGlobalStateDirection: 0
-  _birdSpawnRate: 0
-  _birdSpawnDelay: 0
+  _birdSpawnRate: 8
+  _birdSpawnDelay: 6.3

@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4f543d879a13ee4cb6ace12a20d263c, type: 3}
-  m_Name: LOOP3_m_dogs_only_one_direction_group
+  m_Name: M_m_short_dogs_burst
   m_EditorClassIdentifier: 
   _stateId: 0
-  _stateDuration: 1.1
+  _stateDuration: 3.4
   _useStateDelay: 1
-  _stateDelay: 0.2
+  _stateDelay: 1
+  _useStatePostDelay: 1
+  _statePostDelay: 1
   _dogsEnabled: 1
   _dogsRandomOncePerState: 1
   _dogsUseGlobalStateDirection: 0
-  _dogSpawnRate: 0.3
+  _dogSpawnRate: 0.95
   _dogSpawnDelay: 0
   _kangaroosEnabled: 0
   _kangaroosRandomOncePerState: 0
