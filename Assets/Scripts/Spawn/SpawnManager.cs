@@ -360,14 +360,20 @@ public class SpawnManager : MonoBehaviour, IPausable
             if (_currentSpawnLevel == SpawnLevels.Beginning)
             {
                 _isCarSpawnPaused = true;
-                _carSpawnPauseDuration = 2.9f;
+                _carSpawnPauseDuration = _spawnCollection.CarSpawnPauseDurationBeginning;
                 _carSpawnPauseLocalTime = 0;    
             }
             if (_currentSpawnLevel == SpawnLevels.Middle)
             {
                 _isCarSpawnPaused = true;
-                _carSpawnPauseDuration = 1.1f;
+                _carSpawnPauseDuration = _spawnCollection.CarSpawnPauseDurationMiddle;
                 _carSpawnPauseLocalTime = 0;    
+            }
+            if (_currentSpawnLevel == SpawnLevels.Late)
+            {
+                _isCarSpawnPaused = true;
+                _carSpawnPauseDuration = _spawnCollection.CarSpawnPauseDurationLate;
+                _carSpawnPauseLocalTime = 0;
             }
         }
         else

@@ -21,18 +21,21 @@ public class SpawnStateCollection : ScriptableObject
     [Header("---------------------------------")]
     public List<SpawnState> SpawnStatesBeginning;
     public int RepititionCountBeginning; 
+    public float CarSpawnPauseDurationBeginning;
     public float CarSpawnTimeMinBeginning;
     public float CarSpawnTimeMaxBeginning;
     
     [Header("---------------------------------")]
     public List<SpawnState> SpawnStatesMiddle;
     public int RepititionCountMiddle;
+    public float CarSpawnPauseDurationMiddle; 
     public float CarSpawnTimeMinMiddle;
     public float CarSpawnTimeMaxMiddle;
     
     [Header("---------------------------------")]
     public List<SpawnState> SpawnStatesLate;
     public int RepititionCountLate;
+    public float CarSpawnPauseDurationLate;
     public float CarSpawnTimeMinLate;
     public float CarSpawnTimeMaxLate;
     
