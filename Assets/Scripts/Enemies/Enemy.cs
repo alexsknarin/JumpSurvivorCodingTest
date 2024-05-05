@@ -62,7 +62,10 @@ public abstract class Enemy : MonoBehaviour, IPausable
     {
         if (other.gameObject.CompareTag("rightBound") && _direction > 0)
         {
-            _objectPool?.Release(this);
+            if (gameObject.activeInHierarchy)
+            {
+                _objectPool?.Release(this);    
+            }
             if (EnemyType == EnemyTypes.HealBird)
             {
                 gameObject.SetActive(false);
@@ -70,7 +73,10 @@ public abstract class Enemy : MonoBehaviour, IPausable
         }
         else if (other.gameObject.CompareTag("leftBound") && _direction < 0)
         {
-            _objectPool?.Release(this);
+            if (gameObject.activeInHierarchy)
+            {
+                _objectPool?.Release(this);
+            }
             if (EnemyType == EnemyTypes.HealBird)
             {
                 gameObject.SetActive(false);
