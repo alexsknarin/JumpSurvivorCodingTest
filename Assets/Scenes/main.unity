@@ -4179,7 +4179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91196f7df5752b945b22e35ae83d7485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isTestMode: 1
+  _isTestMode: 0
   _restartMode: {fileID: 11400000, guid: f77414da7a571d34985a342aff38c1f1, type: 2}
   _mainCamera: {fileID: 330585543}
   _mainUi: {fileID: 1207465496}
@@ -12070,7 +12070,7 @@ PrefabInstance:
     - target: {fileID: 5506140146537298939, guid: 5a502b0aec898674988ac807612f475f,
         type: 3}
       propertyPath: _testingImmortalMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
