@@ -37,7 +37,7 @@ MonoBehaviour:
   RepititionCountBeginning: 15
   CarSpawnPauseDurationBeginning: 3.1
   CarSpawnTimeMinBeginning: 26
-  CarSpawnTimeMaxBeginning: 26.1
+  CarSpawnTimeMaxBeginning: 36
   SpawnStatesMiddle:
   - {fileID: 11400000, guid: 761cc3a48cff5054092d59a5ffed54f8, type: 2}
   - {fileID: 11400000, guid: b2839e39b2f4177479d1e472ab62d098, type: 2}
@@ -48,9 +48,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4ed3467a95039fc48998968664f39928, type: 2}
   - {fileID: 11400000, guid: 67a3a6da17291fb4abc0a81dd9039bc0, type: 2}
   RepititionCountMiddle: 18
-  CarSpawnPauseDurationMiddle: 1.9
-  CarSpawnTimeMinMiddle: 22
-  CarSpawnTimeMaxMiddle: 30
+  CarSpawnPauseDurationMiddle: 2
+  CarSpawnTimeMinMiddle: 24
+  CarSpawnTimeMaxMiddle: 32
   SpawnStatesLate:
   - {fileID: 11400000, guid: 78eb8e485ad39414cbe36eef013730f3, type: 2}
   - {fileID: 11400000, guid: 6ef5222537eafe746ae18fc8a714d563, type: 2}
@@ -63,8 +63,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d3d921a00d2e373479d49563bfc80bdc, type: 2}
   RepititionCountLate: 100
   CarSpawnPauseDurationLate: 2
-  CarSpawnTimeMinLate: 8
-  CarSpawnTimeMaxLate: 13
+  CarSpawnTimeMinLate: 24
+  CarSpawnTimeMaxLate: 30
   SpawnStatesMainLoop:
   - {fileID: 11400000, guid: 25dcb49a147fdff4584e7d0d995c9921, type: 2}
   - {fileID: 11400000, guid: 22129b4c8e2782f4dbe2a666e17f6b44, type: 2}

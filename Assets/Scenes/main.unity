@@ -821,7 +821,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &109764221
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6843,8 +6843,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56a9b4bbddfa2ee42997802b9977aeea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _testingMode: 1
-  _startTestIndex: 50
+  _testingMode: 0
+  _startTestIndex: 12
   _enemyPool: {fileID: 1321681999}
   _healBird: {fileID: 133206673}
   _minHealTime: 12
