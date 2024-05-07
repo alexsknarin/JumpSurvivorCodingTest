@@ -10,18 +10,24 @@ public class MainSceneLoader : MonoBehaviour
     [SerializeField] private GameObject _mainUi;
     [Header("---")]
     [SerializeField] private Game _mainGame;
+    // Ad integration
+    [SerializeField] private AdManager _adManager;
+    private bool _isAdOnStart = false;
+    private bool _isAdOnEnd = false;
     
 
     private void OnEnable()
     {
         MainMenuLoader.OnNewGameSetUp += StartGame;
         DeathScreenButtonsUIControl.DeathUIButtonPressed += HandleDeathScreenButtonPress;
+        _adManager.OnAdFinished += ContinueGameAfterAd;
     }
     
     private void OnDisable()
     {
         MainMenuLoader.OnNewGameSetUp -= StartGame;
         DeathScreenButtonsUIControl.DeathUIButtonPressed -= HandleDeathScreenButtonPress;
+        _adManager.OnAdFinished -= ContinueGameAfterAd;
     }
     
     private void Awake()
@@ -34,7 +40,30 @@ public class MainSceneLoader : MonoBehaviour
     {
         _mainCamera.SetActive(true);
         _mainUi.SetActive(true);
-        _mainGame.StartGame();
+
+        // Check for Ad
+        int currentAddIndex = PlayerPrefs.GetInt("currentAdIndex", 0);
+        Debug.Log("currentAddIndex: " + currentAddIndex.ToString());
+        if (currentAddIndex == 5)
+        {
+            _isAdOnStart = true;
+            _adManager.Play();    
+        }
+        else
+        {
+            _mainGame.StartGame();
+            PlayerPrefs.SetInt("currentAdIndex", currentAddIndex + 1);
+        }
+    }
+    
+    private void ContinueGameAfterAd()
+    {
+        if (_isAdOnStart)
+        {
+            _isAdOnStart = false;
+            _mainGame.StartGame();
+            PlayerPrefs.SetInt("currentAdIndex", 0);
+        }
     }
 
     private void Start()
