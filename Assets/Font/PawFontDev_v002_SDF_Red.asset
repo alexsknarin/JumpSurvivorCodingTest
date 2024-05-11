@@ -32,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FaceTex:
-        m_Texture: {fileID: 2800000, guid: 4cd12ea3bd75a4148aec133cf48a531d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5a4914533803c144b8ff499ba828cfc5, type: 3}
         m_Scale: {x: 0.65, y: 0.65}
         m_Offset: {x: 0.93, y: 0.47}
     - _MainTex:
@@ -120,9 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: PawFontDev_v002_SDF_Red
   m_EditorClassIdentifier: 
-  hashCode: 383806647
+  hashCode: 910166011
   material: {fileID: -1018718938882396665}
-  materialHashCode: -1069051081
+  materialHashCode: 974112379
   m_Version: 1.1.0
   m_SourceFontFileGUID: 135bbd6d6c446d74f9778224268d0029
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 135bbd6d6c446d74f9778224268d0029,
