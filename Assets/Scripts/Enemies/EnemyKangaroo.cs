@@ -28,7 +28,7 @@ public class EnemyKangaroo : Enemy
         KangarooJumpStateInstance.Init(this, _moveStateMachine);
     }
 
-    public override void SetupSpawn(float dir)
+    public override void SetupSpawn(float dir, int lvl)
     {
         _spawnPos.x = 15.05f;
         _spawnPos.x *= -dir;

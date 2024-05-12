@@ -325,7 +325,7 @@ public class SpawnManager : MonoBehaviour, IPausable
                 {
                     _currentEnemyDir = _globalStateDir;
                 }
-                currentEnemy.SetupSpawn(_currentEnemyDir);
+                currentEnemy.SetupSpawn(_currentEnemyDir, 5);
             }
             enemySpawnLocalTime = 0;
             isFirstSpawnInState = false;
@@ -353,7 +353,7 @@ public class SpawnManager : MonoBehaviour, IPausable
     {
         if (_carLocalTime > _carSpawnRate)
         {
-            _carEnemy.SetupSpawn(GetRandomDirection());
+            _carEnemy.SetupSpawn(GetRandomDirection(), 1);
             _carLocalTime = 0f;
             _carSpawnRate = Random.Range(min, max);
 
@@ -495,7 +495,7 @@ public class SpawnManager : MonoBehaviour, IPausable
     
     private void StartHealBird()
     {
-        _healBird.SetupSpawn(GetRandomDirection());
+        _healBird.SetupSpawn(GetRandomDirection(), 1);
         _medkit.Init();
     }
     

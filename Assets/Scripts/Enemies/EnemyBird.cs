@@ -16,7 +16,7 @@ public class EnemyBird : Enemy
     [SerializeField] private GameObject _birdView; 
     private Vector3 _birdScale = Vector3.one;
     
-    public override void SetupSpawn(float dir)
+    public override void SetupSpawn(float dir, int lvl)
     {
 
         _spawnPos.x = 15.05f;

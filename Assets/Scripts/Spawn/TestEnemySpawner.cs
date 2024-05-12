@@ -15,7 +15,7 @@ public class TestEnemySpawner : MonoBehaviour
         var enemy = _enemyPool.Get(enemyType);
         if (enemy != null)
         {
-            enemy.SetupSpawn(1f);
+            enemy.SetupSpawn(1, 1);
         }
     }
 

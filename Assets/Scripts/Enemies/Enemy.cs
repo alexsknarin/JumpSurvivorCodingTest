@@ -35,7 +35,7 @@ public abstract class Enemy : MonoBehaviour, IPausable
     {
         if (_testingMode)
         {
-            SetupSpawn(1);
+            SetupSpawn(1, 1);
         }
     }
     
@@ -54,7 +54,7 @@ public abstract class Enemy : MonoBehaviour, IPausable
         _isPaused = false;
     }
     
-    public abstract void SetupSpawn(float dir);
+    public abstract void SetupSpawn(float dir, int lvl);
 
     protected abstract void Move();
 

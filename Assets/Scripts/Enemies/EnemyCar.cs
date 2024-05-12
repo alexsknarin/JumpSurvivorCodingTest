@@ -20,7 +20,7 @@ public class EnemyCar : Enemy
         _carMaterial = _carSprite.sharedMaterial;
     }
 
-    public override void SetupSpawn(float dir)
+    public override void SetupSpawn(float dir, int lvl)
     {
         gameObject.SetActive(true);
         _direction = dir;

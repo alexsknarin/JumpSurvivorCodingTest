@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LightBeam_Material
+  m_Name: LightBeam_material
   m_Shader: {fileID: -6465566751694194690, guid: cf677000c3d074b4cbe3017611ece013,
     type: 3}
   m_Parent: {fileID: 0}
