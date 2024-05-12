@@ -74,8 +74,8 @@ public class EnemyDogClothes : MonoBehaviour
         // lvl4 clothes
         if (randomClothes > lvl4Max && randomClothes < 101)
         {
-            int randomClothesLvl = UnityEngine.Random.Range(0, _lvl4Clothes.Length);
-            _lvl4Clothes[randomClothesLvl].SetActive(true);
+            int randomClothesLvl = UnityEngine.Random.Range(0, _lvl5Clothes.Length);
+            _lvl5Clothes[randomClothesLvl].SetActive(true);
         }
         
     }
