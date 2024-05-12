@@ -10,25 +10,22 @@ public class EnemyDogClothes : MonoBehaviour
 
     public void Initialize(int lvl)
     {
-        DisableAllClothes();
+        Debug.Log("Initialize Clothes");
+        Debug.Log("Lvl: " + lvl.ToString());
+       
         switch (lvl)
         {
             case 1:
                 break;
             case 2:
-                EnableClothes(_lvl2Clothes);
+                EnableClothes2(35, 80, 95);
                 break;
             case 3:
-                EnableClothes(_lvl3Clothes);
+                EnableClothes2(25, 40, 90);
                 break;
             case 4:
-                EnableClothes(_lvl4Clothes);
+                EnableClothes2(15, 20, 30);
                 break;
-            case 5:
-                EnableClothes(_lvl5Clothes);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
         }
     }
     
@@ -38,7 +35,51 @@ public class EnemyDogClothes : MonoBehaviour
         int randomClothes = UnityEngine.Random.Range(0, clothes.Length);
         clothes[randomClothes].SetActive(true);
     }
-    
+
+    private void EnableClothes2(int noClotthesMax, int lvl3Max, int lvl4Max)
+    {
+        DisableAllClothes();
+        int randomClothes = UnityEngine.Random.Range(0, 101);
+        Debug.Log("Random Clothes: " + randomClothes.ToString());
+        
+        // No Clothes
+        if (randomClothes < noClotthesMax)
+        {
+            return;
+        }
+        
+        // lvl2 and lvl3 clothes 
+        if (randomClothes > noClotthesMax && randomClothes < lvl3Max)
+        {
+            int randomClotheLvl = UnityEngine.Random.Range(0, 2);
+            if (randomClotheLvl == 0)
+            {
+                _lvl2Clothes[0].SetActive(true);
+            }
+            else
+            {
+                _lvl3Clothes[0].SetActive(true);
+            }
+            return;
+        }
+        
+        // lvl4 clothes
+        if (randomClothes > lvl3Max && randomClothes < lvl4Max)
+        {
+            int randomClothesLvl = UnityEngine.Random.Range(0, _lvl4Clothes.Length);
+            _lvl4Clothes[randomClothesLvl].SetActive(true);
+            return;
+        }
+        
+        // lvl4 clothes
+        if (randomClothes > lvl4Max && randomClothes < 101)
+        {
+            int randomClothesLvl = UnityEngine.Random.Range(0, _lvl4Clothes.Length);
+            _lvl4Clothes[randomClothesLvl].SetActive(true);
+        }
+        
+    }
+
     private void DisableAllClothes()
     {
         foreach (var clothes in _lvl2Clothes)

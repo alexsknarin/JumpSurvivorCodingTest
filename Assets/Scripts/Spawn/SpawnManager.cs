@@ -325,7 +325,7 @@ public class SpawnManager : MonoBehaviour, IPausable
                 {
                     _currentEnemyDir = _globalStateDir;
                 }
-                currentEnemy.SetupSpawn(_currentEnemyDir, 5);
+                currentEnemy.SetupSpawn(_currentEnemyDir, ComputeClothLvl());
             }
             enemySpawnLocalTime = 0;
             isFirstSpawnInState = false;
@@ -413,6 +413,23 @@ public class SpawnManager : MonoBehaviour, IPausable
             && _currentSpawnStateIndex <= _spawnCollection.GetLateStateMaxIndex())
         {
             _currentSpawnLevel = SpawnLevels.Late;
+        }
+    }
+
+    private int ComputeClothLvl()
+    {
+        switch (_currentSpawnLevel)
+        {
+            case SpawnLevels.Learn:
+                return 1;
+            case SpawnLevels.Beginning:
+                return 2;
+            case SpawnLevels.Middle:
+                return 3;
+            case SpawnLevels.Late:
+                return 4;
+            default:
+                return 1;
         }
     }
     
