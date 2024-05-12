@@ -7,40 +7,36 @@ public class EnemyDogClothes : MonoBehaviour
     [SerializeField] private GameObject[] _lvl3Clothes;
     [SerializeField] private GameObject[] _lvl4Clothes;
     [SerializeField] private GameObject[] _lvl5Clothes;
+    [SerializeField] private GameObject[] _hats;
 
     public void Initialize(int lvl)
     {
-        Debug.Log("Initialize Clothes");
-        Debug.Log("Lvl: " + lvl.ToString());
-       
         switch (lvl)
         {
             case 1:
                 break;
             case 2:
-                EnableClothes2(35, 80, 95);
+                EnableClothes2(35, 80, 95, 80);
                 break;
             case 3:
-                EnableClothes2(25, 40, 90);
+                EnableClothes2(25, 40, 90, 70);
                 break;
             case 4:
-                EnableClothes2(15, 20, 30);
+                EnableClothes2(15, 20, 30, 60);
                 break;
         }
     }
     
-    private void EnableClothes(GameObject[] clothes)
-    {
-        DisableAllClothes();
-        int randomClothes = UnityEngine.Random.Range(0, clothes.Length);
-        clothes[randomClothes].SetActive(true);
-    }
-
-    private void EnableClothes2(int noClotthesMax, int lvl3Max, int lvl4Max)
+    private void EnableClothes2(int noClotthesMax, int lvl3Max, int lvl4Max, int hatProbability)
     {
         DisableAllClothes();
         int randomClothes = UnityEngine.Random.Range(0, 101);
-        Debug.Log("Random Clothes: " + randomClothes.ToString());
+        
+        if (randomClothes > hatProbability)
+        {
+            int randomHat = UnityEngine.Random.Range(0, _hats.Length);
+            _hats[randomHat].SetActive(true);
+        }
         
         // No Clothes
         if (randomClothes < noClotthesMax)
@@ -97,6 +93,10 @@ public class EnemyDogClothes : MonoBehaviour
         foreach (var clothes in _lvl5Clothes)
         {
             clothes.SetActive(false);
+        }
+        foreach (var hat in _hats)
+        {
+            hat.SetActive(false);
         }
     }
     
