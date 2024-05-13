@@ -5,11 +5,15 @@ using UnityEngine;
 /// </summary>
 public class EnemyKangaroo : Enemy
 {
+    [SerializeField] private EnemyTypes _enemyType;
+    public override EnemyTypes EnemyType => _enemyType;
+    
     private StateMachine _moveStateMachine = new StateMachine();
     [SerializeField] private KangarooMovementBaseState _kangarooWaitState;
     [SerializeField] private KangarooMovementBaseState _kangarooJumpState;
-    public override EnemyTypes EnemyType => EnemyTypes.Kangaroo;
-    
+    [SerializeField] private EnemyKangarooViewHandler _kangarooViewHandler;
+    [SerializeField] private EnemyKangarooClothes _kangarooClothes;
+
     public float Speed { get; set; }
     public float JumpPhase { get; set; }
 
@@ -25,7 +29,7 @@ public class EnemyKangaroo : Enemy
         KangarooJumpStateInstance.Init(this, _moveStateMachine);
     }
 
-    public override void SetupSpawn(float dir)
+    public override void SetupSpawn(float dir, int lvl)
     {
         _spawnPos.x = 15.05f;
         _spawnPos.x *= -dir;
@@ -36,8 +40,11 @@ public class EnemyKangaroo : Enemy
         KangarooWaitStateInstance.SetDirection(_direction);
         KangarooJumpStateInstance.SetDirection(_direction);
         _moveStateMachine.SetState(KangarooJumpStateInstance);
-
+    
         gameObject.SetActive(true);
+        _kangarooViewHandler.Initialize((int)_direction);
+        _kangarooViewHandler.HandleJumpStart();
+        _kangarooClothes.Initialize(lvl);
     }
 
     protected override void Move()
@@ -46,5 +53,15 @@ public class EnemyKangaroo : Enemy
         {
             _moveStateMachine.Execute();
         }
+    }
+    
+    public void HandleJumpStart()
+    {
+        _kangarooViewHandler.HandleJumpStart();
+    }
+    
+    public void HandleJumpEnd()
+    {
+        _kangarooViewHandler.HandleJumpEnd();
     }
 }

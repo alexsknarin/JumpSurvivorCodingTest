@@ -2,5 +2,7 @@ public enum EnemyTypes
 {
     Dog,
     Kangaroo,
-    Bird
+    Bird,
+    Car,
+    HealBird
 }

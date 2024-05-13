@@ -35,7 +35,7 @@ public abstract class Enemy : MonoBehaviour, IPausable
     {
         if (_testingMode)
         {
-            SetupSpawn(1);
+            SetupSpawn(1, 1);
         }
     }
     
@@ -54,7 +54,7 @@ public abstract class Enemy : MonoBehaviour, IPausable
         _isPaused = false;
     }
     
-    public abstract void SetupSpawn(float dir);
+    public abstract void SetupSpawn(float dir, int lvl);
 
     protected abstract void Move();
 
@@ -62,13 +62,40 @@ public abstract class Enemy : MonoBehaviour, IPausable
     {
         if (other.gameObject.CompareTag("rightBound") && _direction > 0)
         {
-            // this.gameObject.SetActive(false);
-            _objectPool.Release(this);
+            if (gameObject.activeInHierarchy)
+            {
+                _objectPool?.Release(this);    
+            }
+            if (EnemyType == EnemyTypes.HealBird)
+            {
+                gameObject.SetActive(false);
+            }
         }
         else if (other.gameObject.CompareTag("leftBound") && _direction < 0)
         {
-            // this.gameObject.SetActive(false);
-            _objectPool.Release(this);
+            if (gameObject.activeInHierarchy)
+            {
+                _objectPool?.Release(this);
+            }
+            if (EnemyType == EnemyTypes.HealBird)
+            {
+                gameObject.SetActive(false);
+            }
+        }
+        
+        if (other.gameObject.CompareTag("rightTrafficTrigger") && _direction > 0)
+        {
+            if (EnemyType == EnemyTypes.Car)
+            {
+                gameObject.SetActive(false);
+            }
+        }
+        else if (other.gameObject.CompareTag("leftTrafficTrigger") && _direction < 0)
+        {
+            if (EnemyType == EnemyTypes.Car)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 }

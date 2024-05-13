@@ -20,9 +20,11 @@ public class SpawnState : ScriptableObject
     public bool UseStateDelay => _useStateDelay;
     [SerializeField] private float _stateDelay;
     public float StateDelay => _stateDelay;
-
+    [SerializeField] private bool _useStatePostDelay;
+    public bool UseStatePostDelay => _useStatePostDelay;
+    [SerializeField] private float _statePostDelay;
+    public float StatePostDelay => _statePostDelay;
     [Header("---------------------------------")]
-    
     [Header("Dogs:")]
     [SerializeField] private bool _dogsEnabled = false;
     public bool DogsEnabled => _dogsEnabled;

@@ -414,6 +414,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealBird
       objectReference: {fileID: 0}
+    - target: {fileID: 684631733816399340, guid: dca8e78ee0ed5ac41b6531fd11928339,
+        type: 3}
+      propertyPath: m_TagString
+      value: HealBird
+      objectReference: {fileID: 0}
     - target: {fileID: 1836022959727255071, guid: dca8e78ee0ed5ac41b6531fd11928339,
         type: 3}
       propertyPath: _speed
@@ -428,6 +433,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _amplitude
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1836022959727255071, guid: dca8e78ee0ed5ac41b6531fd11928339,
+        type: 3}
+      propertyPath: _enemyType
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1836022959727255071, guid: dca8e78ee0ed5ac41b6531fd11928339,
         type: 3}
