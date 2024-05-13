@@ -13181,7 +13181,7 @@ PrefabInstance:
     - target: {fileID: 5506140146537298939, guid: 5a502b0aec898674988ac807612f475f,
         type: 3}
       propertyPath: _testingImmortalMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

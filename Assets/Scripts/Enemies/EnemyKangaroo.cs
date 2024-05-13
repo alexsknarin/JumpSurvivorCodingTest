@@ -12,6 +12,7 @@ public class EnemyKangaroo : Enemy
     [SerializeField] private KangarooMovementBaseState _kangarooWaitState;
     [SerializeField] private KangarooMovementBaseState _kangarooJumpState;
     [SerializeField] private EnemyKangarooViewHandler _kangarooViewHandler;
+    [SerializeField] private EnemyKangarooClothes _kangarooClothes;
 
     public float Speed { get; set; }
     public float JumpPhase { get; set; }
@@ -43,6 +44,7 @@ public class EnemyKangaroo : Enemy
         gameObject.SetActive(true);
         _kangarooViewHandler.Initialize((int)_direction);
         _kangarooViewHandler.HandleJumpStart();
+        _kangarooClothes.Initialize(lvl);
     }
 
     protected override void Move()

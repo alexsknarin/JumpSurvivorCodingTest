@@ -12,6 +12,8 @@ public class EnemyKangarooViewHandler : MonoBehaviour, IGroundCollidable
     [SerializeField] private GameObject _kangarooVeiewBase;
     private Vector3 _xFlip = Vector3.one;
     [SerializeField] private Animator _kangarooAnimator;
+    [SerializeField] private Animator _boots1Animator;
+    [SerializeField] private Animator _shirt1Animator;
     [SerializeField] private EnemyKangaroo _enemyKangaroo;
     [SerializeField] private VisualEffect _landDustVfx;
     [SerializeField] private VisualEffect _smokeVfx;
@@ -55,16 +57,22 @@ public class EnemyKangarooViewHandler : MonoBehaviour, IGroundCollidable
         
         // Anim control
         _kangarooAnimator.SetFloat(JumpPhase, _enemyKangaroo.JumpPhase);
+        _boots1Animator.SetFloat(JumpPhase, _enemyKangaroo.JumpPhase);
+        _shirt1Animator.SetFloat(JumpPhase, _enemyKangaroo.JumpPhase);
 
         if (_enemyKangaroo.JumpPhase > 0.1f)
         {
             _kangarooAnimator.SetBool(OnGround, false);
+            _boots1Animator.SetBool(OnGround, false);
+            _shirt1Animator.SetBool(OnGround, false);
         }
     }
 
     public void HandleCollision()
     {
         _kangarooAnimator.SetBool(OnGround, true);
+        _boots1Animator.SetBool(OnGround, true);
+        _shirt1Animator.SetBool(OnGround, true);
         _landDustVfx.SendEvent("OnLand");
     }
 }
