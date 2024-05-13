@@ -15,6 +15,7 @@ public class EnemyBird : Enemy
     private Vector3 _sinPos;
     [SerializeField] private GameObject _birdView; 
     private Vector3 _birdScale = Vector3.one;
+    [SerializeField] private EnemyBirdClothes _birdClothes;
     
     public override void SetupSpawn(float dir, int lvl)
     {
@@ -28,7 +29,7 @@ public class EnemyBird : Enemy
         _sinPos.x = _spawnPos.x;
         _sinPos.y = _midLevel;
         gameObject.SetActive(true);
-        
+        _birdClothes.Initialize(lvl);
     }
 
     protected override void Move()
