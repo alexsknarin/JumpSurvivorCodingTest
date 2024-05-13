@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public class PlayerHealth : MonoBehaviour
 {
+    [SerializeField] private bool _testingImmortalMode = false;
     [SerializeField] private IntVariable _playerHealth;
     [SerializeField] private IntVariable[] _maxHealth;
     [SerializeField] private IntVariable _maxHealthCurrent;
@@ -61,9 +62,12 @@ public class PlayerHealth : MonoBehaviour
     {
         if (!_isInvincible)
         {
-            _playerHealth.Value -= 1;
-            CheckUpdateNearDeathState();
-            HealthDecreased?.Invoke();
+            if (!_testingImmortalMode)
+            {
+                _playerHealth.Value -= 1;
+                CheckUpdateNearDeathState();
+                HealthDecreased?.Invoke();
+            }
             _isInvincible = true;
             StartCoroutine(WaitForInvincibility());
         }   

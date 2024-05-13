@@ -74,6 +74,7 @@ public class Game : MonoBehaviour
         _spawnManager.InitSpawn();
         _gameOverUIdelayWait = new WaitForSeconds(_gameOverUIdelay);
         _deathScreenUI.gameObject.SetActive(false);
+        _tutorialManager.gameObject.SetActive(true);
         _tutorialManager.Play();
     }
     

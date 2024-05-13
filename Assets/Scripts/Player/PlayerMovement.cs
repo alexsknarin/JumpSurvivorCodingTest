@@ -19,6 +19,13 @@ public class PlayerMovement : MonoBehaviour, IPausable
     // Animator Hooks
     public float Speed { get; set; }
     public float JumpPhase { get; set; }
+    
+    public static event Action OnPlayerJump;
+    
+    public void Jump()
+    {
+        OnPlayerJump?.Invoke();
+    }
 
     public void Initialize()
     {

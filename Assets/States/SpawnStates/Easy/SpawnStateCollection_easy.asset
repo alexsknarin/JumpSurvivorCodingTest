@@ -25,6 +25,47 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0aaf00eb4791a0a468bfc4d4801f8220, type: 2}
   - {fileID: 11400000, guid: c584ca1c80c608b4e9f4c0535cbfe4f9, type: 2}
   - {fileID: 11400000, guid: 134d0c00878e71b4995375631fa0da97, type: 2}
+  SpawnStatesBeginning:
+  - {fileID: 11400000, guid: 4497bf3d5de9d9e40b2eb8417e576882, type: 2}
+  - {fileID: 11400000, guid: 3b24493a021c44a469623de55db03531, type: 2}
+  - {fileID: 11400000, guid: e96be86f0a800dd47a32eb2f6191705e, type: 2}
+  - {fileID: 11400000, guid: c06d4f1a9e8a2f540bbdde74f96151cf, type: 2}
+  - {fileID: 11400000, guid: 1920101161449d54abc6f8cff5e5dae4, type: 2}
+  - {fileID: 11400000, guid: cc70cfac5a6805841a1db1dfab40ee26, type: 2}
+  - {fileID: 11400000, guid: ebcc8006b253ada439e4c4ec49f186df, type: 2}
+  - {fileID: 11400000, guid: cf1e0d29d944f624099b8ac200ac54ef, type: 2}
+  RepititionCountBeginning: 15
+  CarSpawnPauseDurationBeginning: 3
+  CarSpawnTimeMinBeginning: 30
+  CarSpawnTimeMaxBeginning: 35
+  SpawnStatesMiddle:
+  - {fileID: 11400000, guid: 092c2b79eb887f947a47eb48849a10af, type: 2}
+  - {fileID: 11400000, guid: c77361b25215c42479f8331d2f14dd53, type: 2}
+  - {fileID: 11400000, guid: 8b77129df3891f14b87827d3675f9345, type: 2}
+  - {fileID: 11400000, guid: a979e0cb99f0f5b4b87b1a4ed70b0483, type: 2}
+  - {fileID: 11400000, guid: 91918b6cef470cb44afd354524a7f72e, type: 2}
+  - {fileID: 11400000, guid: 2973a01bcd5b2a6488e2119b0e0fe4b2, type: 2}
+  - {fileID: 11400000, guid: 4b3e49660727f6c4386c2d176c3b916a, type: 2}
+  - {fileID: 11400000, guid: 5a1c6ac6bd824fe49b7bdf940bf86170, type: 2}
+  RepititionCountMiddle: 1
+  CarSpawnPauseDurationMiddle: 3
+  CarSpawnTimeMinMiddle: 30
+  CarSpawnTimeMaxMiddle: 35
+  SpawnStatesLate:
+  - {fileID: 11400000, guid: 2d31a4867c1317b49bf298caea561ae9, type: 2}
+  - {fileID: 11400000, guid: 8d72a5fb07dd9ed4b92d0e33349cee98, type: 2}
+  - {fileID: 11400000, guid: 43c68f3656f2fb841a5f8cfbba7b3287, type: 2}
+  - {fileID: 11400000, guid: 024c80a5e948fb740a5a5a4e3299e704, type: 2}
+  - {fileID: 11400000, guid: 53f47a9ee0b5c974c982e29a9b0b5961, type: 2}
+  - {fileID: 11400000, guid: e06ca836e14766e43957d427ce3a1e3e, type: 2}
+  - {fileID: 11400000, guid: 4627fd68d3c80b4498a0e37ff0ba13fb, type: 2}
+  - {fileID: 11400000, guid: 57c23f0e25f427e4187d6742720d0cd2, type: 2}
+  - {fileID: 11400000, guid: 9154b5d25e46db7498b527e728e651c3, type: 2}
+  - {fileID: 11400000, guid: 3cd655437a020d84aa07b24a02ef19a6, type: 2}
+  RepititionCountLate: 1
+  CarSpawnPauseDurationLate: 2.2
+  CarSpawnTimeMinLate: 25
+  CarSpawnTimeMaxLate: 30
   SpawnStatesMainLoop:
   - {fileID: 11400000, guid: 3364bd980e126bd499efd4194cf58e83, type: 2}
   - {fileID: 11400000, guid: 06a255ea7de31d445a3c5ec4aa769716, type: 2}

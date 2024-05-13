@@ -35,6 +35,7 @@ public class KangarooJumpState : KangarooMovementBaseState
         else
         {
             _stateMachine.SetState(_owner.KangarooWaitStateInstance);
+            _owner.HandleJumpEnd();
         } 
     }
 }

@@ -10,6 +10,8 @@ public class SpawnUI : MonoBehaviour
     [SerializeField] private TMP_Text _text;
     [SerializeField] private List<Color> _randomColors;
     private int _colorIndex = 0;
+    private string _currentText;
+    private string _prevText;
 
     private void OnEnable()
     {
@@ -23,7 +25,14 @@ public class SpawnUI : MonoBehaviour
     
     private void SpawnManager_SpawnStateChanged(string newText)
     {
-        _text.text = newText;
+        if (_currentText != "")
+        {
+            _prevText = _currentText;    
+        }
+        _currentText = newText;
+
+        _text.text = _prevText + "\n" + _currentText;
+        
         _text.color = _randomColors[_colorIndex];
         _colorIndex++;
         if (_colorIndex > _randomColors.Count - 1)
