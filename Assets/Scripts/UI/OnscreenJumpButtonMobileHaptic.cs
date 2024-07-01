@@ -29,7 +29,7 @@ public class OnscreenJumpButtonMobileHaptic : MonoBehaviour
     {
         if (_hapticAllowed)
         {
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
             HapticFeedback.HeavyFeedback();
 #endif
         }
